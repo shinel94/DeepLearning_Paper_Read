@@ -1,5 +1,6 @@
 2018.06.26 읽은 논문 정리
-딥러닝 학습 속도를 증진 시키기 위한 방법
+A. 딥러닝 학습 속도를 증진 시키기 위한 방법
+
 1. information highway를 적용해서 학습속도를 증진 시킬 수 있다.
   1.1 LSTM에서 gate를 적용 하는 것에 착안해서 레이어의 입력값을 조절하는 파라미터를 추가적으로 학습한다.
   1.2 activation 입력이 H(x,W_h)*T(x,W_t) + x*(1-T(X,W_t)) 로 바뀌어서 입력된다.
@@ -16,3 +17,13 @@
     2.2.2 그리고 추가적으로 학습을 진행할때 gamma와 beta를 추가적으로 학습하여야 한다.
   2.3 BN을 적용하고 Ensemble기법을 조합해서 State of the Art performace를 얻을 수 있다.
   2.4 https://arxiv.org/abs/1502.03167
+
+B. CNN
+1. CNN에서 pooling layer의 사이즈를 2가아닌 fractional number로 정하면 성능이 조금더 좋아 진다.
+  1.1 CNN에서 pooling layer는 대부분 max-pooling size 2 (MP2)로 많이 쓰인다.
+  1.1.1 MP2는 hidden layer의 size를 very quickly 줄여준다.
+  1.1.2 MP2는 traslation과 clastic distortions 에 비교적 잘 저항한다.
+2. MP2는 모든 곳에서 overlap 되는 곳이 없고 pooling layer의 크기를 3으로 stride를 2로 하게 되면 모든 곳에서 overlap이 되어서 일반적이지 않다.
+3. Fractional Pooling을 사용하면 disjoint와 overlap이 하나의 레이어에서 동시에 존재 할 수 있다.
+4. filter의 사이즈는 1이나 2가 되고 이 숫자는 presudorandom number(유사난수)로 생성된다.
+5. https://arxiv.org/abs/1412.6071
