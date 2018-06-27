@@ -45,4 +45,8 @@ B. Deep Neural Net Learning
     1.4 복잡한 HF 대신에 잘 random initialization하고 NAG 방법과 같은 momentum method를 사용하면 HF에 준하는 결과를 얻을 수 있다.
     1.5 NAG를 사용하면 momentum constant를 크게 정해도 oscillation에 비교적 잘 견디고, 큰 momentum을 사용하면 학습속도 및 성능역시 drastically 증가하는 것을 확인 할 수 있다.
     1.6 http://www.cs.toronto.edu/~fritz/absps/momentum.pdf
-    
+  
+  2. Hidden layer의 directness와 transparency를 높이기 위한 Deeply-Supervised Nets(DSN)
+    2.1 DSN을 사용하면 dropconnect나 maxout을 사용한 것처럼 classification error가 눈에 띄게 줄어들 것이다.
+    2.2 솔직히 논문 잘 이해가 안된다. 왜 supervised nets 이라고 썼는지도 모르겠다
+    2.3 신경망 구조조차 이해가 잘 안된다. 그냥 CNN으로 featrue map을 추출해서 다른 classification을 적용 한다는 것인 것 같다.
