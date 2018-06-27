@@ -48,5 +48,17 @@ B. Deep Neural Net Learning
   
   2. Hidden layer의 directness와 transparency를 높이기 위한 Deeply-Supervised Nets(DSN)
     2.1 DSN을 사용하면 dropconnect나 maxout을 사용한 것처럼 classification error가 눈에 띄게 줄어들 것이다.
-    2.2 솔직히 논문 잘 이해가 안된다. 왜 supervised nets 이라고 썼는지도 모르겠다
+    2.2 솔직히 논문 잘 이해가 안된다.
     2.3 신경망 구조조차 이해가 잘 안된다. 그냥 CNN으로 featrue map을 추출해서 다른 classification을 적용 한다는 것인 것 같다.
+    2.4 https://arxiv.org/abs/1409.5185
+    
+  3. Energy 기반 loss function
+    3.1 많은 machine learning algorithm이 energy를 기반으로한 loss function을 계산해서 minimization을 진행한다.
+    3.2 Latent Variable은 energy에 영향을 주는 extra variable로 but is not observed
+      3.2.1 energy를 minimize하는 것으로 latent variable을 학습 할 수있다.
+      3.2.2 latent variable은 숨겨진 특징을 나타낼 수 있다.
+    3.3 에너지가 얼마나 카테고리를 잘 예측하는지를 나타내는 지표가 된다.
+    3.4 에너지를 계산 할때는 모델을 통과한 Latent Variable로 계산된다.
+    3.5 에너지 함수를 만족하기 위한 loss function의 조건이 나열 되어 있다.
+    3.6 에너지 함수를 계산하기 위한 latent variable은 X와 Y 모두 model(such as 신경망)에 넣어서 얻어 내고 model의 파라미터들을 에너지 텀을 SGD와 같은 방법으로 학습한다.
+    3.7 http://yann.lecun.com/exdb/publis/pdf/lecun-huang-05.pdf
