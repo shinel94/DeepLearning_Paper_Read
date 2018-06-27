@@ -18,6 +18,21 @@ A. Neural Style
     1.8 Gram Matrix가 MMD와 같은 결과를 나타낸다. 그래서 두 데이터간 분산을 일치 시키는 과정을 진행한다.
     1.9 https://arxiv.org/abs/1701.01036
     
+  2. Image의 content와 style을 image recognition을 위해 학습된 CNN을 이용해서 수치적으로 계산할 수 있다.
+    2.1 주된 목적은 image가 가지고 있는 Sementic한 의미를 추출해 내는것
+    2.2 많은 논문들이 non-parametric method로 image의 structure를 변경하지 않고 texture를 calculate한다.
+      2.2.1 하지만 이런 방법들은 오직 low-level image feature들만 뽑아낼 수 있다는 fundamental limitation이 있다.
+    2.3 이미지의 데이터 분포가 어떠한 형상인지는 상관없이 항상 texture를 추출 할 수 있어야 한다.
+    2.4 SOTA의 성능을 가지는 CNN으로 하면 가능하다.
+    2.5 max pooling 은 average pooling으로 변경
+    2.6 층이 깊어 질수록 high-level content의 특징을 추출해낸다.
+    2.7 층이 얕을 수록 재구성할때 실제 그림과 같게 재구성 된다.
+    2.8 Gram Matrix로 feature를 수치적으로 계산 할 수 있다.
+    2.9 Content는 하나의 Layer에서 loss를 계산
+    2.10 Style은 여러 Layer에서 loss를 계산
+    2.11 이 논문의 key는 CNN을 사용하면 content와 style을 따로따로 분리해서 계산할 수 있다는 점이다.
+    2.12 https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
+    
 B. Deep Neural Net Learning
   1. Hessian-Free optimization 을 사용하면 아주 깊은 레이어를 가진 신경망이나 순환신경망을 학습 할 수 있다.
     1.1 아주 깊은 레이어를 가진 DNN의 경우 학습이 이전 논문에서 발표된것 같이 전반적으로 잘 되지 않는다
