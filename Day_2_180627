@@ -18,3 +18,16 @@ A. Neural Style
     1.8 Gram Matrix가 MMD와 같은 결과를 나타낸다. 그래서 두 데이터간 분산을 일치 시키는 과정을 진행한다.
     1.9 https://arxiv.org/abs/1701.01036
     
+B. Deep Neural Net Learning
+  1. Hessian-Free optimization 을 사용하면 아주 깊은 레이어를 가진 신경망이나 순환신경망을 학습 할 수 있다.
+    1.1 아주 깊은 레이어를 가진 DNN의 경우 학습이 이전 논문에서 발표된것 같이 전반적으로 잘 되지 않는다
+    1.2 효과적인 initialization 전략과 momentum accerlation을 활용하면 학습이 잘 된다.
+    1.3 두가지 momentum gradient discent algorithm이 있다.
+      1.3.1 Classical Momentum(CM)
+      1.3.2 Nesterov's Accelerated Gradient(NAG)
+      1.3.3 CM보다 NAG가 조금더 안정적이다.
+      1.3.4 실제로 실험해본 결과 좀더 큰 momentum constant(mu)에 대해서 CM은 oscillation 하는 반면 NAG는 oscillation하지 않는다.
+    1.4 복잡한 HF 대신에 잘 random initialization하고 NAG 방법과 같은 momentum method를 사용하면 HF에 준하는 결과를 얻을 수 있다.
+    1.5 NAG를 사용하면 momentum constant를 크게 정해도 oscillation에 비교적 잘 견디고, 큰 momentum을 사용하면 학습속도 및 성능역시 drastically 증가하는 것을 확인 할 수 있다.
+    1.6 http://www.cs.toronto.edu/~fritz/absps/momentum.pdf
+    
