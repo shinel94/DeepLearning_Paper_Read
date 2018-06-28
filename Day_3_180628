@@ -49,5 +49,6 @@ B. Deep Neural Network
     2.2 pre-training은 under fitting을 막을 수는 없다.
     2.3 curvature를 계산 (2nd order derivative를 계산)해서 gradient의 방향과 크기를 계산할 수 있고 이를 통해서 학습이 좀더 빨리 진행된다.
     2.4 2nd order를 적용하는 방법은 CG, NCG, or truncated-Newton, Gauss-Newton approximation등으로 진행할 수 있다.
-    2.5 http://www.cs.toronto.edu/~jmartens/docs/Deep_HessianFree.pdf
+    2.5 2nd order optimization은 1st order optimization과 달리 사전학습이 없어도, fine tuning이 없어도 학습이 잘된다. 성능역시 보다 좋다는 것을 확인 할 수 있다.
+    2.6 http://www.cs.toronto.edu/~jmartens/docs/Deep_HessianFree.pdf
   
