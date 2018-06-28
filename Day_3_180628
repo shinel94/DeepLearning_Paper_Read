@@ -51,4 +51,17 @@ B. Deep Neural Network
     2.4 2nd order를 적용하는 방법은 CG, NCG, or truncated-Newton, Gauss-Newton approximation등으로 진행할 수 있다.
     2.5 2nd order optimization은 1st order optimization과 달리 사전학습이 없어도, fine tuning이 없어도 학습이 잘된다. 성능역시 보다 좋다는 것을 확인 할 수 있다.
     2.6 http://www.cs.toronto.edu/~jmartens/docs/Deep_HessianFree.pdf
-  
+  3. k - sparse autoencoder
+    3.1 hidden layer에서 k개의 가장 activities가 높은 가중치만 남겨놓고 나머지는 무시한다
+    3.2 성능이 다른 state of the art와 비교해서 아주 우수하고 학습또한 쉽다.
+    3.3 기존의 방법들은 계산비용이 너무나 크다.
+    3.4 selection k 빼고는 전부다 linear 가되게 auto encoder를 구성
+    3.5 selection step이 regularizer로 작동 (drop connect랑 비슷한듯)
+    3.6 weight값들을 0으로 만드는 것이 아닌 hidden layer의 값들 z = W*x + b 에서 z값들이 k 개의 좋은거 빼고 나머지가 0 으로 바뀜
+    3.7 느낌이 max pooling이랑 비슷한듯.
+    3.8 활성화된 곳으로만 역전파가 이루어짐
+    3.9 활성화된 뉴런은 Iteratuve Thresholding with Inversion(ITI)로 계산됨
+    3.10 localized gabor filter랑 비슷하게 작동함
+    3.11 다른 신경망에서 initialize 전략으로 사용 할수 있다.
+    3.12 그래서 다른 autoencoder뿐만 아니라 다른 다양한 신경망에 k-sparse 전략을 사용 할 수 있을 것이다.
+    3.14 https://arxiv.org/abs/1312.5663
