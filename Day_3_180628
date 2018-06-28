@@ -44,3 +44,10 @@ B. Deep Neural Network
     1.12 이때 teacher structure 가 student structrue로 압축 되는 것으로 볼 수있고, 이것이 regularizer로 작용한다.
     1.13 결국에 teacher structure에서 studnet struucture가 학습되고 성능도 좋은 청출어람을 볼 수있다.
     1.14 https://arxiv.org/abs/1412.6550
+  2. pre-training없이 효과적인 학습하기
+    2.1 Hessian Free optimization을 사용하면 사전학습과 pine 튜닝이 진행되는 모델보다 성능이 좋다.
+    2.2 pre-training은 under fitting을 막을 수는 없다.
+    2.3 curvature를 계산 (2nd order derivative를 계산)해서 gradient의 방향과 크기를 계산할 수 있고 이를 통해서 학습이 좀더 빨리 진행된다.
+    2.4 2nd order를 적용하는 방법은 CG, NCG, or truncated-Newton, Gauss-Newton approximation등으로 진행할 수 있다.
+    2.5 http://www.cs.toronto.edu/~jmartens/docs/Deep_HessianFree.pdf
+  
