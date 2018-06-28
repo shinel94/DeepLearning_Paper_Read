@@ -1,0 +1,29 @@
+논문 읽기 3일차 벌써 목요일이다 빠생
+A. Neural Style
+  1. Neural Style Transfer를 이용했을때 color를 preseve하는 방법
+    1.1 기존의 Neural Style algorithm을 사용하면 생성된 이미지의 color가 content를 따르는 것이 아닌 style을 따르게 된다.
+    1.2 color histogram matching 이나 luminance-only transfer를 통해서 color를 보존하는 transfer를 진행할 수있다.
+    1.3 Color Histogram Matching - Style Input을 변환
+      1.3.1 Style의 color분포를 content의 color와 match를 시킴으로써 새로운 Style인풋으로 Neural Style을 학습한다.
+        1.3.1.1 이때 style의 컬러 분포와 content의 컬러 분포를 일치시킬때는 각각의 평균과 분산을 비교한다.
+      1.3.2 style의 컬러를 변환 시킬때는 affine변환을 통해서 변화시킨다.
+        1.3.2.1 S' = A*S+b
+      1.3.3 이미지가 RGB 3차원 데이터를 가지므로 평균은 3차원 벡터 분산은 3X3 행렬이 되고 그리고 affine변환을 위한 A와 b를 계산한다.
+        1.3.3.1 b = mean(content) - A*mean(style)
+        1.3.3.2 A = std(content)*std(style)^-1
+      1.3.4 이미지 변환에서 이미지 channel의 order가 result에 영향을 미친다.
+    1.4 Color Historgram Matching - 생성된 이미지를 추가적으로 변환
+      1.4.1 생성된 이미지에 추가적으로 위의 방식과 같게 color를 Content 인풋과 matching을 시킨다.
+      1.4.2 좀더 좋은 성능을 보인다.
+      1.4.3 동시에(simultaneously) matching을 할 필요가 없어져서 경쟁이 줄어 들었다.
+    1.5 Luminance-only Transfer
+      1.5.1 Style Transfer에 사용하는 Style인풋에는 오직 Luminance channel만 사용한다.
+        1.5.1.1 이는 visual perception에서 luminance만 이용한것이 color보다 성능을 좋은 것에서 기반했다.
+      1.5.2 Style과 Content 둘 모두에서 Luminance data만 가진 data를 extract한뒤 luminance output image를 얻어 낸다.
+      1.5.3 YIQ color space를 사용하면 luminance를 color space로 변경할 수 있다.
+      1.5.4 혹시 이미지가 잘 매칭이 되지 않는다면 output luminance image를 std(Lc)/std(Ls)*(Ls-mean(Ls))+mean(Lc)를 적용해 새로운 output을 생성하면 좀 잘 맞다.
+    1.6 결국에 스타일 transfer전에 style input에 color transfer를 적용하는 방법이나
+    1.7 오직 luminance channel로만 학습을 진행하는 방법 2가지 방법을 이용하면 color preserve가 가능하다.
+    1.8 전자의 방법에는 어떻게 content의 이미지를 style로 전가 시키는데 어려움이 있다.
+    1.9 후자의 방법에는 luminance 데이터를 이용하기 때문에 그림의 데이터 손실이 일부분 발생한다.
+    1.10 https://arxiv.org/abs/1606.05897
