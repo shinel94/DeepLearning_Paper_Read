@@ -1,5 +1,5 @@
 논문 읽기 4일차 벌써 금요일 입니다.
-A. Neural Style
+
   1. Content 이미지의 Sihouettes를 보존하면서 transfer하는 loss fucntion을 통해서 logo generation model은 만들자
     1.1 본래 neural style은 content와 style 각 각의 이미지에서 특징들을 추출해서 둘을 mix해서 결과물을 만들어낸다.
     1.2 color를 preserve 하는 neural style도 제시 되었다.
@@ -12,3 +12,11 @@ A. Neural Style
     1.6 총 loss function이 결국 L_content과 L_style과 L_distance의 적절한 비율의 합으로 결정된다.
     1.7 loss function에 dinstance term이 들어가게 되면, silhouette를 더 잘 유지하면서 transfer가 가능한 neural style을 만들 수 있다.
     1.8 https://arxiv.org/abs/1803.00686
+  
+  2. Large number of precise syntatic and semantic word relationship을 계산 할 수있는 Skip-Gram model
+    2.1 subsampling을 통해서 leaning speed를 증진시킬 수있다.
+    2.2 Skip-Gram을 통해서 가공된 단어를 나타내는 벡터들은 기본적인 논리연산을 적용할 수있다.
+    2.3 자주 등장하는 단어에 낮은 가중치를 곱함으로써 학습속도를 증진 시킬수 있다.
+    2.4 단어를 나타내는 vector들간의 cosine distnace를 계산함으로써 semantic한 meaning을 계산할 수 있다.
+    2.5 Skip - Gram을 통해서 단어들의 sementic한 meaning을 빠르고 정화가게 학습할 수 있고, Negative Sampling을 통해서 빈도수가 적은 단어도 잘 학습할 수 있다.
+    2.6 https://arxiv.org/abs/1310.4546
