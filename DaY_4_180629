@@ -20,3 +20,13 @@
     2.4 단어를 나타내는 vector들간의 cosine distnace를 계산함으로써 semantic한 meaning을 계산할 수 있다.
     2.5 Skip - Gram을 통해서 단어들의 sementic한 meaning을 빠르고 정화가게 학습할 수 있고, Negative Sampling을 통해서 빈도수가 적은 단어도 잘 학습할 수 있다.
     2.6 https://arxiv.org/abs/1310.4546
+  
+  3. RNN을 학습을 잘하자
+    3.1 RNN은 시간에 따라서 지난번 출력값이 이번 레이어로 input이 되어서 output에 영향을 주는 신경망이다.
+    3.2 이때 아주 오래전 layer부터 입력을 받기 때문에 gradient가 vanishing되거나 exploding되는 경우가 빈번하다.
+    3.3 이를 억제하기 위해 exploded gradient에 normalization을 하거나
+      3.3.1 미분값이 exploding할 때, cuvature를 포함한 그보다 고차원 order의 derivative들 역시 exploding한다 가정을 가지고 찾아낸다.
+      3.3.2 threshold를 정하고 그 값보다 클때 graident를 threshold/abs(g)*g 로 변경한다.
+    3.4 vanished gradient에 regularization을 적용한다.
+      3.4.1 jacobian matrix로 regularization을 적용한다.
+    3.5 https://arxiv.org/abs/1211.5063
