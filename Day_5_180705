@@ -1,0 +1,14 @@
+1. Network in Network
+  1.1 전통적인 CNN은 top layer에 fully connected layer와 같은 traditional classifier가 붙어 있다.
+  1.2 이 traditional한 classifier는 parameter를 가진 분류기이고 이를 optimization을 해야하기 때문에 be prone overfitting이 일어난다.
+  1.3 이 classifier대신에 global average pooling을 사용해서 그 값으로 softmax를 취하게 좋다.
+    1.3.1 이 global average pooling이 structural regularizer로 작동한다.
+    1.3.2 parameter를 가지고 있지 않기 때문에 optimization이 쉽고 또 overfitting을 막을 수 있다.
+  1.4 스트럭쳐는 전통적인 mlpconv 구조 3개와 perceptron 3개가 하나의 group으로 된 것들이 cascade 되어 있다.
+  1.5 가장 꼭대기 layer의 출력에 global average pooling이 달려 있다.
+  1.6 validation set을 이용해서 2개의 hyperparameter를 찾는다
+    1.6.1 local receptive field size, weight decay
+  1.7 이를 찾고 training을 다시 진행한다.
+  1.8 global average pooling으로 classification이 진행 되기 때문에 linear 관계로 이를 해석 할 수 있고 시각화도 할 수 있다.
+  1.9 Network in Network와 global average pooiling을 사용하면 State of The Art의 performance를 얻을 수 있다.
+  1.10 https://arxiv.org/abs/1312.4400
