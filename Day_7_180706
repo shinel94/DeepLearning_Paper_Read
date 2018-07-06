@@ -13,4 +13,13 @@
   1.9 FC를 적용하는 것보다 크기에 상관없는 Fisher vector pooling을 적용 하는것이 texture에서는 더 좋은 성능을 낸다.
   1.10 https://www.robots.ox.ac.uk/~vgg/publications/2015/Cimpoi15/cimpoi15.pdf
   
-  
+2. image classification by using large scale neural network structure
+  2.1 ReLU를 적용하고 출력되는 결과를 normalization해서 크기가 발산하는 것을 막는다.
+    2.1.1 이때 분모에 들어가는 값에 추가적인 regularizaer term이 들어가서 분모에 더해진다.
+  2.2 layer가 깊어지고 넓어질 수록 성능이 좋아 지지만 과적합이 일어나기 쉬워진다.
+  2.3 5개의 CNN과 3개의 FC로 구성되어 있고 출력노드는 classification 되는 class 수에따라 softmax를 적용한다.
+    2.3.1 계산의 편의를 위해서 앞의 CNN에서 특정층은 channel간 (kernel간, 필터간) 데이터 교환이 없고 한층에서만 channel간 상호작용이 있다.
+  2.4 maxpooling이 될떄 pooling region이 overlap이 되면 조금은 과적합을 막는 것을 보여준다.
+  2.5 overfitting을 막기 위해서 데이터를 label을 preserving하면서 trasformation을 진행한다.
+  2.6 dropout으로 model 이 feature에 robust하게 만든다.
+  2.7 https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf
