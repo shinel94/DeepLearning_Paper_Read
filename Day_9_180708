@@ -16,3 +16,16 @@
   2.5 결국 region을 추출해서 classifiaction과 validation그리고 segmentation을 동시에 진행할 수 있다.
   2.6 이미지의 특징을 나타내는 region을 계산하는게 중요하다.
   2.7 https://ieeexplore.ieee.org/document/5206727
+
+3. 어렵다 어려워 Fast R-CNN
+  3.1 R-CNN은 기본적으로 이미지에서 bounding box라는 region을 이용해서 recognition을 진행하면 좋다는 가정에서 출발했다.
+    3.1.1 R-CNN모델은 CNN모델과 CNN모델의 출력값을 통해 classfy를 진행할 SVM모델과 그리고 bounding box를 진행할 model 3가지를 따로따로 학습한다.
+    3.1.2 이때 3가지 모델을 한번에 학습하는 것이 아니라 따로따로 학습하기 때문에 학습속도가 느리다.
+  3.2 Fast R-CNN은 R-CNN의 하나의 모델을 통해서 하나의 loss 함수를 계산하여서 한번에 모든 기능을 하는 모델을 single stage로 학습한다.
+  3.3 R-CNN에서 적용했던 머리부분에 있는 SVM대신 fully connected layer가 달려 있어서 학습이 한번에 진행될 수 있다.
+  3.4 한번에 진행되면서 성능적으로는 감소하지만 학습을 한번에 진행할 수 있다는 더 큰 장점을 얻을 수 있다.
+  3.5 bounding box를 찾는 과정에서는 RoI pooling layer에서 출력되는 결과값으로 bounding box르 진행한다.
+  3.6 이떄 입력값에 bounding box가 될 후보군을 입력해 주어야 한다.
+    3.6.1 이 입력 데이터의 형식은 bounding box의 top left의 x,y좌표와 가로,세로의 길이를 가진 4개의 성분을 가지는 데이터이다.
+  3.7 본 모델을 사용하면 R-CNN보다 SPPnet보다 빨리 학습 할수있고, 성능역시 개선할수 있다.
+  3.8 https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Girshick_Fast_R-CNN_ICCV_2015_paper.pdf
