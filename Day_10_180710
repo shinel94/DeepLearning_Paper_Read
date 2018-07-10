@@ -1,0 +1,9 @@
+1. Fisher kernel을 통해서 Fisher vector를 잘 얻어내면, image classification을 잘 할수 있다.
+  1.1 Fisher kernel을 이용해서 Fisher vector라는 latent variable을 찾아내서 이를 이용해서 다양한 classifier를 적용할 수 잇다.
+  1.2 지금 딥러닝이 Fisher kernel영역까지 알아서 학습이 한번에 진행되기 때문에 좋은 성능을 나타낸다.
+  1.3 결국에 학습을 위해서 선형적인 관계나 많은 제약이 들어가기 때문에, 신경망에 비해서 성능이 낮은것 같다.
+  1.4 하지만 Fisher vector를 찾는 방법을 딥러닝에 적용시킬 수 있다면 그 Fisher vector역시 Fully connected layer의 입력으로 넣어주면 성능이 좋아 질 것같다.
+  1.5 Fisher kernel은 Maximum Likelihood를 이용해서 estimation해서 SGD로 학습할 수 있다.
+  1.6 결국 Fisher kernel 따로 Classifier 따로따로 학습해서 모델을 만드는것 같다.
+  1.7 https://www.robots.ox.ac.uk/~vgg/rg/papers/peronnin_etal_ECCV10.pdf
+  
