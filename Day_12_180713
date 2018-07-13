@@ -11,3 +11,17 @@
   1.9 inception model은 이 구조를 많이 반복해서 학습을 진행, 이때 에러를 보다 잘 전파해주기 위해서 중간중간 에러를 전파해주는 추가적인 텀이 학습시에는 적용됨
   1.10 https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf
   1.11 인용수가 8000번 실화냐
+
+2. 다양한 size를 가진 이미지를 처리하는 하나의 신경망
+  2.1 convolutional layer는 input image에 상관없이 입력에 독립적이고 출력만 바뀌게 된다.
+  2.2 하지만 convolutional model의 마지막 끝부분에는 항상 fully connected layer가 attach 되어 있다.
+  2.3 이때 Fully connected layer는 input size가 fixed되어 있기 때문에 입력 이미지의 크기조차 결정되어 버린다.
+  2.4 conv레이어의 출력값은 보통 이미지의 특징을 나타내주는 feature map이 출력되는데 이 feature map에서 region을 추출해서 이미지를 분류하는게 R-CNN
+  2.5 feature map은 input image size에 의해서 결정되는데 이 다양한 사이즈의 feature map을 잘 pooling해서 출력의 크기를 일정하게 할 수 있다.
+  2.6 이방법이 바로 spartial pyramid pooling이된다.
+    2.6.1 Spartial Pyramid Pooling(SPP)는 풀링되는 사이즈의 크기를 fix시켜서 그 사이즈의 크기에 맞게 필터와 stride를 정하게 되는데
+    2.6.2 이때 pooling filter의 사이즈가 같게 되는 이미지 크기 범위내의 입력은 모든 parameter를 공유할 수 있다.
+    2.6.3 이러한 다양한 인풋에 대한 파라미터 공유는 모델이 robust해진다는 장점이 있다.
+  2.7 이런 SPP덕분에 input image에 보다 독립적으로 모델을 학습 시킬 수 있다.
+  2.8 key point는 feature map에서 pooling layer를 입력값에 따라 조절해서 pooling의 출력이 fix되게 모델을 설정하는 방법.
+  2.9 https://arxiv.org/pdf/1406.4729.pdf
