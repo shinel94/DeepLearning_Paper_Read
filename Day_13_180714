@@ -1,0 +1,8 @@
+1. Machinel translation을 해주는 model
+  1.1 모델구성은 우선 convolutional model로 입력데이터의 n-gram의 의미를 파악한 벡터를 이용한다.
+  1.2 여기 출력된 값을 입력으로 받는 RNN모델을 작성하여 이전 문서의 번역값을 다음문서에 참고하는 식으로 데이터를 계속 입력한다.
+  1.3 이때 압축된 데이터를 바로 사용하는 것이 RCTM1
+  1.4 압축된 데이터를 다시 decompose하여서 정확하게 inverse CSM CSM이 뒤집한 모양이 붙어져 있는것 이때 이 ICSM의 출력을 입력으로 받는 RNN을 RCTM2라고 명명했다.
+  1.5 결국 두 모델 모두 단어의 sementic한 의미를 잘 얻어내고
+  1.6 단어의 순서에 비교적 상관없이 번역이 진행됨으로써 성능이 더 좋다.
+  1.7 https://www.aclweb.org/anthology/D13-1176
