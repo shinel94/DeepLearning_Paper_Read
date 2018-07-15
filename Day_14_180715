@@ -1,0 +1,8 @@
+1. 적은 양의 데이터로도 잘학습하는 u-net
+  1.1 u-net은 fully convolutional network 2개로 symmetric하게 구성되어 있다.
+  1.2 아래쪽으로 갈때는 일반적인 CNN처럼 data의 사이즈는 줄어들지만 채널의 숫자가 2배로 증가된다.
+  1.3 위로 up convolutional 부분에서는 데이터의 사이즈가 2배로 증가하고 채널수가 절반으로 줄어든다
+  1.4 이때 up convolutional된 데이터와 가장 작게 압축 되어있는 층을 기준으로 대칭인 곳에서 데이터가 사이즈가 같기 때문에 이곳으 마지막 출력을 concate한다.
+  1.5 un pooling할때 지난번 책으로 공부할때는 분명히 max pooling의 index를 저장해서 그값으로 un pooling한다고 들었는데 본 논문에는 자세하게 안적혀있는것 같다.
+  1.6 이러한 u net을 사용하면 데이터의 손실이 적어져서 더 적은 양으 데이터로도 학습이 가능해 진다는 장점이 있다.
+  1.7 https://arxiv.org/abs/1505.04597
