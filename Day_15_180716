@@ -38,3 +38,14 @@
   2.8 height간 가중치가 global reset gate라는 가중치로 값이 학습되고 i층해서 j층으로 가는 값을 모든 시간 시리즈에서 공유하면서 학습된다.
   2.9 같은 파라미터 수를 가지고 있는 다른 RNN unit보다 성능 면에서, 계산적인 측면에서 개선되는 것을 확인 할 수 있었다.
   2.10 https://arxiv.org/abs/1502.02367
+
+3. GRU vs LSTM
+  3.1 RNN unit중에 인기있는 Grated Recurrent Unit과 Long Short Term Meomory가 있다.
+  3.2 이때 두 모델은 모두 long term 데이터에 대한 정보를 잘 받기 위해 단순히 tanh를 적용 하는 것이 아닌 forget과 reset게이트를 이용해서 데이터를 처리한다.
+  3.2 두 unit의 큰 차이는 LSTM은 unit내부에 memory cell이 따로 존재 한다.
+  3.3 두 모델은 결국 모두 gate를 가지고 있는 것으로 생각 할 수 있는데 이 gate가 RNN의 성능에서 많은부분 기여한다.
+    3.3.1 학습 속도가 빨라지고 수렴속도 역시 빨라진다.
+    3.3.2 전반적인 신경망의 성능이 개선된다.
+  3.4 결국 GRU가 좋은지 LSTM이 좋은지는 정량적으로 empirical 하게 evaluation하지 못했다.
+  3.5 하지만 Gate 가중치는 상당히 성능에 영향을 많이 끼쳤다.
+  3.6 https://arxiv.org/abs/1412.3555
