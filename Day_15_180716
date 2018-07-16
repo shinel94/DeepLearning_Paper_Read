@@ -1,6 +1,6 @@
 1. Fisher vector를 이용한 kernel function
   1.1 주어진 데이터를 K개의 가우스 분포에 대한 정보로 바꿔 표현 하는 것이 기본적인 Fisher vector
-  1.2 N개의 데이터 차원을 가진 X 가 K개의 분산과 K개의 평균을 가진 데이터로 변형됨
+  1.2 Fisher vector N개의 데이터 차원을 가진 X 가 K개의 분산과 K개의 평균과 그값에 대한 가중치를 가진 데이터 로 변형됨
   1.3 많은 곳에서 similarity와 같은 데이터간 feature를 계산하기 위해서 사용되는 kernel function
   1.4 kernel function은 기본적으로 semi-positive-define되어 있어야 한다.
   1.5 이때 대표적인 kernel function이 내적과 euclidean distance가 대표적이다.
