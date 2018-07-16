@@ -12,3 +12,29 @@
     1.10.1 https://arxiv.org/pdf/1705.01064.pdf
   1.11 Fisher kernel은 데이터를 natural gradient로 mapping해서 데이터를 표현
   1.12 https://papers.nips.cc/paper/1520-exploiting-generative-models-in-discriminative-classifiers.pdf
+  
+  
+2. Stack 되어 있는 RNN의 성능을 향상 시킬 수 있는 GF-RNN
+  2.1 time series data나 sequantial data를 처리하기 위해서 t번째 출력을 내기 위해서 t-1번째 출력을 참고하는 RNN이 제안 되었다.
+  2.2 이때 지난번 데이터에서만 참고를 했기 때문에, 예전 데이터에 대해서는 지나치게 무시되는 경향이 있었다.
+  2.3 이를 막기 위해서 Long Short Term Memory 라는 LSTM 신경망 유닛이 제안되었다.
+    2.3.1 LSTM은 hidden unit 출력 h와 입력 x 그리고 메모리 셀 c 그리고 아웃풋 o 4개의 데이터 셀을 가지고 있다.
+    2.3.2 이때 이번 입력 데이터중 long term meomory cell에 기억할 데이터를 선택할때 사용할 input gate 가중치가 하나 계산된다
+    2.3.3 그리고 cell에 기억되어 있는 데이터중 잊을 데이터를 선택할 때 사용할 forget gate 가중치가 하나더 계산된다. 
+    2.3.4 그리고 이번 데이터(지난번 출력 h와 이번 입력 x의 합)중 cell에 저장될 후보가 되는 값을 계산한다. 
+    2.3.5 input gate와 2.3.4의 출력과 곱해지고 forget gate와 지난번 레이어에서 넘어온 cell data가 곱해져서 Long term meomory cell이 갱신된다.
+    2.3.6 그리고 cell에 저장된 값으로 tanh함수를 통과시켜 가중치를 하나 계산하고, 이번 입력(x와 h)로 output후보군을 계산해서 두개를 곱해서 출력을 계산한다.
+    2.3.7 자세한 설명은 논문참조
+    2.3.8 CNN이 파라미터수를 줄이고 channel을 늘린것과 유사한 방식
+    2.3.9 파라미터를 입력 데이터로 학습하고 그 숫자(channel)을 눌려서 성능을 개산
+  2.4 그리고 다른 논문에는 Gated Recurrent Unit 이란 GRU가 제안되었다.
+    2.4.1 Gated Recurrent Unit은 비교적 LSTM보다 단순하게 reset gate와 update gate로 구성되어 있다.
+    2.4.2 reset gate는 이번 출력의 후보가 되는 값을 계산할때 지난번 출력에 곱해져서 필요하지 않은 데이터를 지우는 역할을 한다.
+    2.4.2 update gate는 지난번 출력의값과 이번 출력의 후보가 되는 값을 이용해서 이번 출력의 값을 계산할때 가중치 역할을 한다.
+    2.4.3 자세한 설명은 논문참조
+  2.5 이때 conventional한 RNN의 경우에는 위에서 설명한 RNN unit들을 stacked해서 long term memory와 short term memory의 효과를 얻어낸다.
+  2.6 이때 stacked 되어 있는 RNN의 경우 같은 높이의 레이어로만 값이 전파 된다.(자세한건 논문내 Figure.1참조)
+  2.7 이떄 stacked 되어 있는 높이에 상관없이 값이 전파 될 수 있게 구성하는 것이 GF-RNN(Gated Feedback Recurrent Neural Network)
+  2.8 height간 가중치가 global reset gate라는 가중치로 값이 학습되고 i층해서 j층으로 가는 값을 모든 시간 시리즈에서 공유하면서 학습된다.
+  2.9 같은 파라미터 수를 가지고 있는 다른 RNN unit보다 성능 면에서, 계산적인 측면에서 개선되는 것을 확인 할 수 있었다.
+  2.10 https://arxiv.org/abs/1502.02367
