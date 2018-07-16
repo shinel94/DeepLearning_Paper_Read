@@ -49,3 +49,17 @@
   3.4 결국 GRU가 좋은지 LSTM이 좋은지는 정량적으로 empirical 하게 evaluation하지 못했다.
   3.5 하지만 Gate 가중치는 상당히 성능에 영향을 많이 끼쳤다.
   3.6 https://arxiv.org/abs/1412.3555
+  
+4. Paraphrase를 classify하는 Recursive Autoendocers
+  4.1 Recursive Autoencoders(RAE)를 사용해서 senetence의 syntatic한 의미를 가진 벡터로 잘 압축 할 수 있다.
+  4.2 RAE의 구성은 기본적으로 sentence를 단어로 쪼개고 단어를 나타내는 벡터를 인풋으로 받는 가변 배열이다.
+  4.3 이때 이 배열을 잘 압축하기 위해서 recurrent neural network에서 사용하는 회귀층을 사용한다.
+  4.4 이 회귀층을 이용하면 단어를 잘 압축하는 벡터를 얻을 수 있다.
+  4.5 이때 RAE의 학습은 기본적인 오토엔코더 처럼 입력값이 다시 돌아오게끔 신경망을 대칭으로 구성해 입력과 출력값 유클리디안 거리를 줄이는 방향으로 학습한다.
+  4.6 학습된 모델을 이용해서 encode된 데이터를 얻고 그 벡터를 통해서 sentence간 similarity를 계산한다.
+  4.7 이때 sentence의 길이가 다를 경우 similarity 행렬이 직사각형 모양이 되는데 이를 dynamic pooling을 통해서 정사각 행렬로 변형시킨다.
+  4.8 그리고 이 정사각 행렬의 윗 삼각형부분의 값을 이용해서 classification을 진행한다.
+  4.9 pooling은 min pooling을 주로 사용한다.
+    4.9.1 distnace를 이용해서 계산하기 때문에 값이 작을수록 similarity가 크기 때문
+  4.10 구체적인 신경망 구조는 논문속 그림을 보면 바로 이해 된다.
+  4.11 https://papers.nips.cc/paper/4204-dynamic-pooling-and-unfolding-recursive-autoencoders-for-paraphrase-detection.pdf
