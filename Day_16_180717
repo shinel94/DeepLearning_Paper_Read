@@ -18,3 +18,15 @@
   1.10 ReLU를 사용하면 사전학습도 필요없고, 전반적인 성능향상을 보이나, 실제로 사용해본 경험으로는 미분 기울기가 saturation하지 않기 때문에, solution이 쉽게 발산하려는 경향이 있다. 이를 잘 조절하면서 사용해야 하고, 초기화 문제 역시 있는 것으로 보인다.
   1.11 그래도 계산이 쉽고 미분이 쉽고 수렴이 빠르기 때문에 좋은건 맞다.
   1.12 http://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf
+
+2. Random Patch의 성능증가 - CNN이 왜 좋은 성능을 보여주는지 설명해주는 논문이라고 
+  2.1 CNN의 convolutional product가 왜 좋은 성능을 나타내는지 보여주는 논문
+  2.2 본 논문에서는 convolution필터의 구성은 ones 매트릭스로 데이터를 그대로 뽑아온뒤 일정 영역의 값을 sum pooling하게 되는 식으로 latent variable을 추출해낸다.
+  2.3 이 추출해낸 성분을 이용해서, 간단한 algorithm들 k-means나 GMM과 같은 계산 코스트가 적은 것들을 사용하여도 성능이 좋아지는 것을 확인 할 수 있다.
+  2.4 그래서 classification알고리즘이 단순한데도 좋은 성능을 보이는 것을 보아서, 더 복잡하고 성능이 좋은 classifier를 적용한다면 더 좋은 성능을 얻을 것이다.
+  2.5 CNN이 먼저 나온것인지 이논문이 먼저 나온것인지는 모르겠지만, CNN의 이미지 classification에서 좋은 성능을 보여주는 간단한 예나 설명인것으로 이해할 수 있다.
+  2.6 CNN은 이보다 복잡하게 latent variable을 만들때 사용하는 filter들 역시 학습을 통해서 조절해서 feature를 extraction하기 때문에 성능이 더 좋다.
+  2.7 또 Inception과 같은 더 깊은 논의가 진행되었고, 어떻게 필터의 모양을 구성하면 좋은지 도 논의되고 있고
+  2.8 stride역시 항상 같은 값으로 움직이는 것이 아닌 특정 비율만큼 감소 시킬수 있게끔 1과 2가 반복되는 숫자로 나오게 해서 어떤 부분은 겹치고 어떤부분은 겹치지 않게 필터가 움직이게 하는 것도 있다.
+  2.9 결국 filter를 통해서 extraction 즉 이미지 분류에서는 이미지의 모든 변수를 사용하는 것 보다 일부분만 사용하는 것이 모델 성능에 좋다.
+  2.10 https://www-cs.stanford.edu/people/ang/papers/nipsdlufl10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf
