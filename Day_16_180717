@@ -30,3 +30,17 @@
   2.8 stride역시 항상 같은 값으로 움직이는 것이 아닌 특정 비율만큼 감소 시킬수 있게끔 1과 2가 반복되는 숫자로 나오게 해서 어떤 부분은 겹치고 어떤부분은 겹치지 않게 필터가 움직이게 하는 것도 있다.
   2.9 결국 filter를 통해서 extraction 즉 이미지 분류에서는 이미지의 모든 변수를 사용하는 것 보다 일부분만 사용하는 것이 모델 성능에 좋다.
   2.10 https://www-cs.stanford.edu/people/ang/papers/nipsdlufl10-AnalysisSingleLayerUnsupervisedFeatureLearning.pdf
+  
+3. Long Term Memory를 저장하기 위한 RNN학파의 노력
+  3.1 RNN은 예전부터 나왔고 RNN의 큰 단점인 long term memory를 기억하지 못한다는 단점이 있다.
+    3.1.1 기억하지 못하는 이유는 gradient가 vanishing되기 때문에, 예전 인풋에대해서는 에러가 전파가 안됨
+  3.2 그래서 이 long term메모리를 다루기 위해서 많은 unit들이 제안 되었지만 최고봉은 역시 LSTM
+    3.2.1 최근 gate recurrent unit이란 GRU도 제안되긴 했다.
+  3.3 Long term memory저장을 위해서 clockwork RNN을 제안했다.
+  3.4 clockwork RNN (CW-RNN)의 구조는 직렬로 여려개 연결된 RNN 유닛을 여러개 병렬로 두어서 해당 병렬로 연결된 유닛 뭉치간 연결을 한쪽 방향으로만 진행되게 신경망이 구성되어 있다.
+    3.4.1 논문에서는 right to left로 hidden unit의 정보가 전파 되게 되어 있고, 유닛 내부는 fully connected되어 있으며 표현이 fast에서 slow로 전파 된다고 되어 있다.
+  3.5 output layer로 전파되는 값은 항상 모든 값을 이용하는 것이 아니라 (t mod Ti) 가 0이 되는 유닛만 출력됨
+    3.5.1 t는 진행된 시간을 나타내고 Ti는 RNN뭉치가 가지고 있는 고유한 스피드(시간값)
+  3.6 이를 통해서 수렴속도를 많이 증가 시킬 수 있고, 성능역시 개선되는 것을 확인 할 수 있었다.
+  3.7 결국 이 모델에는 기본 유닛으로 Simple Recurent Neural Network를 사용했는데 기본 유닛으로 LSTM이나 GRU를 사용한다면 성능이 더 좋아 질것이라고 생각된다.
+  3.8 https://arxiv.org/abs/1402.3511
