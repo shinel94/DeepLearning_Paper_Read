@@ -17,3 +17,43 @@
   3. Deep learning via Hessian-free optimization
   4. k-Sparse Autoencoders - arXiv:1312.5663
   5. Speeding up Convolutional Neural Networks with Low Rank Expansions - arXiv:1405.3866
+
+180629
+  1. Constrained Neural Style Transfer for Decorated Logo Generation - https://arxiv.org/abs/1803.00686
+  2. Distributed Representations of Words and Phrases and their Compositionality - https://arxiv.org/abs/1310.4546
+  3. On the difficulty of training Recurrent Neural Networks - https://arxiv.org/abs/1211.5063
+  
+180701 -180703
+  1. Xception: Deep Learning with Depthwise Separable Convolutions - https://arxiv.org/abs/1610.02357
+  2. UCNN: Exploiting Computational Reuse in Deep Neural Networks via Weight Repetition - https://arxiv.org/abs/1804.06508
+  3. Rich feature hierarchies for accurate object detection and semantic segmentation - https://arxiv.org/abs/1311.2524
+  
+180705
+  1. Network In Network - https://arxiv.org/abs/1312.4400
+  
+180706 
+  1. Deep filter banks for texture recognition and segmentation
+  2. ImageNet Classification with Deep Convolutional Neural Networks
+  
+180707
+  1. Efficient Estimation of Word Representations in Vector Space - https://arxiv.org/abs/1301.3781
+  2. Distilling the Knowledge in a Neural Network - https://arxiv.org/abs/1503.02531?context=cs
+  
+180708
+  1. Diagnosing Error in Object Detectors
+  2. Recognition using regions
+  3. Fast R-CNN
+  
+180710
+  1. Improving the Fisher Kernel for Large-Scale Image Classification
+  
+180711
+  1. Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation - https://arxiv.org/abs/1406.1078
+  2. Maxout Networks - https://arxiv.org/abs/1302.4389
+  
+180713  
+  1. Going Deeper with Convolutions
+  2. Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition - Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition
+  
+
+
