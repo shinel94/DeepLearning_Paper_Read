@@ -21,3 +21,20 @@
   2.8 이를 통해서 NLP task들을 처리 할 수 있다.
   2.9 하나의 단어를 압축하는 autoencoder를 recursive하게 사용함으로써 단어가 아닌 문장을 압축하는 autoencoder를 구성할 수 있다.
   2.10 http://www.aclweb.org/anthology/D11-1014
+
+3. RNN에 비해서 파라미터수가 너무나 많은 GRU와 LSTM
+  3.1 RNN에 비해서 LSTM은 4*(n*n+n*m+n) 개의 파라미터를 더 가진다.
+    3.1.1 n은 hidden unit의 갯수 m은 input unit의 갯수
+  3.2 GRU는 3*(n*n+n*m+n)개의 파라미터를 더 가진다.
+  3.3 이들은 RNN과 달리 long term tendency를 위해서 추가적인 gate unit이 필요하기 때문이다.
+    3.3.1 이때 이 gate unit역시 학습을 통해서 갱신이 되기 때문에 이를위한 파라미터가 필요하다.
+    3.3.2 LSTM은 추가적인 gate가 3개이고 GRU는 2개의 추가적인 게이트가 필요하다.
+  3.4 이때 gate를 계산하기 위한 parameter숫자를 줄임으로써 계산비용을 획기적으로 낮출수 있다.
+  3.5 GRU의 경우만 parameter를 조절하고 있다.
+  3.6 z와r gate를 계산할때 이전에는 이번입력 x와 지난번 출력h 그리고 bias 3개의 텀을 이용해서 게이트의 값을 계산하였다.
+  3.7 본 논문에서는 이번 입력x를 사용하지 않는 gate1, bias와 이번입력x를 사용하지 않는 gate2, bias만 사용하는 gate3로 구분해서 학습을 진행했다.
+  3.8 bias만 사용한 GRU의 경우에는 performance가 어느정도 감소하는 것을 확인 할 수는 있었지만 saturation이 늦게 일어나서 보다 오랜기간 학습을 진행하면 비슷한 성능을 보일것으로 생각된다.
+  3.9 gate1과 gate2의 경우에는 모든 파라미터를 사용하는 경우와 비교했을때 눈에 띄는 성능차이는 확인할 수 없었다.
+  3.10 하지만 본래 GRU유닛과 비교했을때 gate1과 gate2들의 성능은 거의 차이가 없었고, 비교적 간단한 문제의 경우에는 bias만 사용한 gate에서도 준수한 성능을 확인 할 수 있었다.
+  3.11 GRU에서 parameter를 이렇게 줄였으니, LSTM에서도 줄일수 있겠지? 논문도 있겠지?
+  3.12 https://arxiv.org/abs/1701.05923
