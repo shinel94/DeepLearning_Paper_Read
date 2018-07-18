@@ -38,3 +38,12 @@
   3.10 하지만 본래 GRU유닛과 비교했을때 gate1과 gate2들의 성능은 거의 차이가 없었고, 비교적 간단한 문제의 경우에는 bias만 사용한 gate에서도 준수한 성능을 확인 할 수 있었다.
   3.11 GRU에서 parameter를 이렇게 줄였으니, LSTM에서도 줄일수 있겠지? 논문도 있겠지?
   3.12 https://arxiv.org/abs/1701.05923
+
+4. MGU에도 parameter reduction을 적용시켜보자
+  4.1 RNN이 나오고 long term tendency를 위해서 lSTM이 나오고, 너무 복잡해서 GRU가 나오고 또 너무 복잡해서 MGU가 나왔다.
+  4.2 하지만 파라미터는 그래도 많다
+  4.3 3번의 논문과 같은 방식으로 parameter의 수를 줄인다.
+  4.4 왜 마지막에 바이어스만 들어있는 forget gate가 있는지는 Minimal Gated Unit for Recurrent Neural Networks논문을 참조하면 알 수 있다.
+  4.5 성능은 전부다 비슷하고 심지어는 지난번 출력만 forget gate의 인풋으로 사용한 MGU2가 성능이 가장 좋더라.
+  4.6 bias만 사용한 MGU는 파라미터가 거의 절반으로 줄어들어도 성능의 저하가 거의 없는것을 확인 할 수 있었다.
+  4.7 https://arxiv.org/abs/1603.09420
