@@ -33,3 +33,16 @@
   2.12 peephole connection이 없이 좋은 성능을 내는 MGU
   2.13 https://arxiv.org/abs/1603.09420
   
+3. Dropout을 쓴 RNN으로 handwriting recognition하기
+  3.1 RNN에는 아직 dropout이 적용되지 않았는데 recurrent connection에 영향을 주지않게 dropout을 적용했다.
+  3.2 handwriting에는 텍스트의 선과 이미지가 sequence 입력으로 들어와서 recognization 된다.
+  3.3 이때 최근에는 Hidden Matkov Model이 많이 사용됬다.
+    3.3.1 하지만 이 모델은 first order Markov chain만 쓰기 때문에 long term dependency를 잡을수 없다.
+    3.3.2 그리고 HMMs 들은 하나의 hidden state가 하나의 데이터만 가질수 있기때문에 log(n)bit의 데이터만 carry할 수 있다.
+  3.4 하지만 RNN은 그런거 없다.
+    3.4.1 RNN이 가지는 Recurrent Connection이 그것을 잘 처리해 준다.
+  3.5 recurrent에 dropout을 적용하지 않고 feedforward방향으로만 dropout을 적용시켜서 RNN에도 recurrent connection에 영향을 주지않고 dropout을 적용시킬 수 있다.
+  3.6 dropout이 classification model의 가중치에 L1 L2 weight decay regularization의 효과를 나타내는것으로 보여진다.
+  3.7 LSTM의 가중치는 dropout과 함께 크기가 커지는 것으로 보여진다.
+  3.8 overfitting이 눈에띄게 줄어드는것을 확인 할 수 있다.
+  3.9 https://arxiv.org/abs/1312.4569
