@@ -13,3 +13,23 @@
   1.4 이를 사용하면 text generation, music generation과 같은 sequence 데이터 생성에 잘 사용 할 수 있다.
   1.5 학습은 RL의 방식으로 recurrent를 적용해서 입력데이터를 얻어내는데 이를 oracle방식으로 생성해서 학습하면 짱짱
   1.6 https://arxiv.org/abs/1609.05473
+
+2. GRU를 넘어선 MGU
+  2.1 RNN신경망이 고안되었고, long term dependecy를 반영하기 위한 순환신경망으로 LSTM이 제안되었다.
+  2.2 하지만 LSTM은 3개의 gate와 2개의 giddene state를 가지고 있기 떄문에 구조가 복잡하다.
+  2.3 그래서 이를 gate 1개 hidden sate 1개로 줄인 GRU가 제안되었다.
+  2.4 RNN의 성능은 gate수에 비례해서 나타나지 않다고 알려졌고, 심지어 gate가 더욱 많은 LSTM보다 GRU가 보다 좋은 성능을 보여주고 있다.
+    2.4.1 하지만 이때 gate숫자에 비례해서 parameter도 증가해야하지만 model간 전체 parameter수를 통제해서 성능을 비교했다.
+  2.5 그래서 이보다 gate와 state수를 줄인 MGU가 제안되었다.
+  2.6 gate와 hidden state 수가 줄었기 때문에, 자연스레 파라미터 숫자역시 줄고 이로인해서 model complexity가 drastically 줄어든다.
+  2.7 GRU 이전에 LSTM with coupled gates가 있었다.
+    2.7.1 LSTM의 input gate(memory cell로 들어가는 input을 제어)가 1-forget gate로 대체된 신경망
+  2.8 RNN의 gate unit은 성능에 큰 영향을 끼친다.
+    2.8.1 이때 forget gate가 가장 중요하고 그다음이 input gate 그리고 output gate이다
+      2.8.1.1 GRU와 LSTM을 보면 유추할 수 있다.
+  2.9 forget gate is unanimously considered the most important one
+  2.10 그래서 MRU는 GRU의 reset gate를 forget gate로 대신한다.
+  2.11 파라미터가 더적은 MGU가 GRu보다 좋은 성능을 낸다.
+  2.12 peephole connection이 없이 좋은 성능을 내는 MGU
+  2.13 https://arxiv.org/abs/1603.09420
+  
