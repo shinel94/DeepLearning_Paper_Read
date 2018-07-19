@@ -1,0 +1,15 @@
+1. GAM에 RL 학습방법을 접목시킨 SeqGAN
+  1.1 GAN은 두가지 문제점을 가지고 있다.
+    1.1.1 처음 시작할때 완전히 임의의 인풋이 들어가기때문에, 인풋 데이터 간에 완전히 discrete되기 힘들다.
+    1.1.2 Score나 Loss를 계산할때 모든 sequence가 generate되고 난뒤에 계산이 된다. -> 시계열 데이터에 적용 시키기 힘들다.
+  1.2 이 두가지 문제를 해결하기 위해 강화학습 방법을 접목시킨다.
+    1.2.1 Generative Model is treated as an agent of reinforcement learning
+    1.2.2 The general token is treated as state
+    1.2.3 task-specific sequence score, such as BLEU is treated as Reward
+    1.2.4 Employe a Discriminator to evaluate the sequence and feedback the evaluation to guide the learning of the generative model.
+  1.2 Policy Gradient로 학습을 진행했고
+  1.3 입력값을 지나번 출력값과 concat하고 oracle evaluation mechanism을 사용 했다.
+    1.3.1 oracle evaluation mechanism이 뭔지?
+  1.4 이를 사용하면 text generation, music generation과 같은 sequence 데이터 생성에 잘 사용 할 수 있다.
+  1.5 학습은 RL의 방식으로 recurrent를 적용해서 입력데이터를 얻어내는데 이를 oracle방식으로 생성해서 학습하면 짱짱
+  1.6 https://arxiv.org/abs/1609.05473
