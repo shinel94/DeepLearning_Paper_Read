@@ -1,0 +1,20 @@
+1. RNN에 대해서
+  1.1 RNN의 가장큰 문제(신경망 자체의 주요한 문제)인 gradient가 vanishing되거나 exploding되는 문제가 있다.
+    1.1.1 exploding되는 경우는 그라디엔트를 clipping시켜서 특정 threshold를 넘어가면 값을 제한하는 식으로 제어할 수 있다.
+    1.1.2 하지만 vanishing되는 경우에는 gradient자체가 작은값을 나타내기 때문에 해결하기가 쉽지않다.
+  1.2 이 vanishing gradient를 address하기 위해서 제안된것이 LSTM
+  1.3 순환신경망은 이름에서 알수 잇듯이 자체적인 itterative한 nature를 가지고 있기 때문에 timestep에 따른 변화에 민감하게 반응하게 된다.
+  1.4 그냥 RNN은 short term dependency에 대한 weight가 long term dependency보다 더 크게 평가하는 경향이 있다.
+  1.5 그래서 LSTM은 long term dependecy의 gradient에 대한 정보를 저장하기 위한 memory cell과 short term deppendecy를 제어하는 hidden output이 있다.
+  1.6 다양한 실험조건으로 모델을 mutation하고 hyperparameter를 초기화 해서 실험을 진행한 결과
+    1.6.1 GRU가 LSTM보다 전반적으로 성능이 좋다. Language modeling을 제외하고.
+    1.6.2 GRU중에서 논문에서 제시한 MUT1이라는 GRU가 성능이 가장 좋았다.
+      1.6.2.1 update gate = sigm(W*x+b), reset gate = sigm(W*x+W*h+b), h = tanh(W*(r*h) + tanh(x) + b)*z + h*(1-z)
+    1.6.3 PTM language modeling에서 dropout을 적용한 LSTM모델들이 전부 성능이 좋았다.
+    1.6.4 forget gate의 bias를 크게한 LSTM은 다른 LSTM이나 GRU보다 성능이 좋았다.
+    1.6.5 LSTM의 input gate와 output gate를 빼고 dropout을 적용한 LSTM의 성능이 좋았다.
+      1.6.5.1 forget gate가 다른 gate들보다 중요하다.
+  1.7 forget gate, input gate, output gate 순으로 LSTM의 성능에 영향을 끼침
+  1.8 forget gate에 positive bias를 apply하면 좋은 성능을 나타냄
+  1.9 논문의 결론은 GRU가 LSTM보다 좋은 성능을 보이는것 같지만, LSTM역시 사용하기에 부족하지 않은데 LSTM을 쓸때는 forget gate에 positive bias를 1 더해주는게 좋다.
+  1.10 http://proceedings.mlr.press/v37/jozefowicz15.pdf
