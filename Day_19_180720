@@ -18,3 +18,16 @@
   1.8 forget gate에 positive bias를 apply하면 좋은 성능을 나타냄
   1.9 논문의 결론은 GRU가 LSTM보다 좋은 성능을 보이는것 같지만, LSTM역시 사용하기에 부족하지 않은데 LSTM을 쓸때는 forget gate에 positive bias를 1 더해주는게 좋다.
   1.10 http://proceedings.mlr.press/v37/jozefowicz15.pdf
+
+2. covariance matrix를 대신해서 쓸수있는 간단한 Spatial sign covariance matrix
+  2.1 우선 machinel learning or pattern recognition에서 nonparametric model의 장점은 익히 알려진바 있다.
+    2.1.1 과적합의 문제가 없다.
+    2.1.2 학습이 간단하다.
+    2.2.3 outlier에 비교적 강하다.
+  2.2 데이터의 차원수가 높은 경우 PCA나 PLS를 적용해서 계산할수 없을 정도로 computational complexity가 높다.
+  2.3 여기서 variance covariance maxtirx가 조금 높은 지분을 차지 하는것 같다.
+  2.4 그래서 이 matrix를 대신해서 spartial sign covariance matrix를 사용하면 좋다.
+  2.5 계산복잡도와 robustness 부분 에서 모두 개선되는 것이 나타난다.
+  2.6 결국 이 multivariable의 전처리 방법을 통해서 계산복잡도도 개선할 수 있고, robustness역시 개선할 수 있다.
+  2.7 https://www.ncbi.nlm.nih.gov/pubmed/16711760
+  
