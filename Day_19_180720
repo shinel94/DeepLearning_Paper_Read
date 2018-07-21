@@ -31,3 +31,21 @@
   2.6 결국 이 multivariable의 전처리 방법을 통해서 계산복잡도도 개선할 수 있고, robustness역시 개선할 수 있다.
   2.7 https://www.ncbi.nlm.nih.gov/pubmed/16711760
   
+3. 신경망의 계산 복잡도를 늘리지 않고 학습속도를 개선시키는 방법\
+  3.1 이전에 봤던 residual을 이용한 성능개선이 아닌 filter를 fatorization시키는 것으로 계산복잡도를 늘리지 않고, 오히려 줄이면서 성능 개선을 시킬 수 있다.
+    3.1.1 residual을 이용하면 개산복잡도가 줄어 들지는 않는다.
+  3.2 fatorization은 크기가 큰 필터를 적용했을때와 같은 크기의 아웃풋이 나오지만 사이즈가 작은 filter를 여러개 붙여서 parameter수를 줄이면서 표현력은 유지 시킬 수 있다.
+    3.2.1 5x5 filter를 3x3 두개를 cascade하게 연결시키면 같은크기의 입력이면 같은 크기의 출력이 나옴
+    3.2.2 더 극단적인 경우는 nxn filter를 nx1 + 1xn필터2개로 fatorization시킬 수도 있다.
+  3.3 신경망 작성할때 요령
+    3.3.1 표현하는 데이터의 크기를 너무 급격하게 줄이거나 변형시키지 마라
+    3.3.2 tile당 activation function을 더 적게 사용하라?
+    3.3.3 필터의 크기와 필터의 갯수는 blance를 이루게 조절 하는 것이 좋다.
+    3.3.4 spatial aggregating은 데이터를 잘 압축 시킬 수 있다.
+  3.4 auxiliary classification을 적용하면 error를 더 잘전파해서 학습을 보다 빠르게 시킬 수 있다.
+    3.4.1 마지막 head에 달린 classifier말고 추가적으로 중간에 classifier를 달아서 학습 시키는 방법
+  3.5 output값을 하나의 분포가 아닌 2개의 분포를 적용해서 학습 속도를 개선 시킬 수 있다.
+    3.5.1 이때 두개의 분포의 차이를 KL-divergence로 최대한이 대게 한다.
+  3.6 pooling할때도 작은 사이즈를 가지게 pooling을 2개를 나눠서 한뒤 concat을 하면 parameter를 줄일 수 있다.
+  3.7 신경망을 작성 할 때, filter의 사이즈를 작게 여러번 하는것이 sparse한 효과를 얻으면서 계산은 dense하게 할 수 있는 방법이다.
+  3.8 https://arxiv.org/abs/1512.00567
