@@ -13,3 +13,23 @@
   1.7 NoCs는 깊은수록 성능이 좋아지고 Conv layer가 MLP보다 좋은 성능을 낸다.
   1.8 출력으로 새로운 모델이 학습 되는 것이기 때문에, 성능이 개선 되는 것으로 보임
   1.9 https://arxiv.org/abs/1504.06066
+  
+2. NLP처리를 위핸 Recurrent Convolutional Neural Network RCNN
+  2.1 document를 처리하는데 있어서 Recurrent, Recursive neural network가 좋은 성능을 내고 있다.
+    2.1.1 Recursive는 단어수의 제곱에 비례하는 시간복잡도를 가지기 때문에 긴 문장에서는 비효율적이다.
+    2.1.2 Recurrent는 long term dependency를 찾을 수 없어서, 최근 단어, 뒤쪽 단어를 중요하게 생각하는 경향이 있다.
+  2.2 그래서 복잡성을 줄이면서 context의 의미를 잘 catch하기위해서 bidirectional RNN을 제안했음
+  2.3 두개 RNN의 direction이 반대 방향으로 구성 되어 있다.
+  2.4 left context를 비교하는 model은 지난번 출력과 이번 단어의 embedding vector를 이용해서 이번 출력값을 계산한다.
+  2.5 right context의 경우에는 오른쪽 문장에서 계산된 값과 이번 단어의 embedding vector를 이용해서 왼쪽으로 출력값을 넘긴다.
+  2.6 같은 position의 값 vector들을 concat 해서 x_i = [c_l(wi);e(wi);c_r(wi)]로 구성해서 activation function을 적용해서 출력 y 를 계산한다.
+  2.7 이 y값들 중에서 필요한 값만 추출하는 정제과정을 거친다.
+  2.8 각 단어에 대한 출력을 하나의 벡터로 압축 maxpooling한다.
+  2.9 이 벡터를 이용해서 다시한번 classification을 위한 퍼셉트론을 적용한다.
+  2.10 문서를 k class로 분류하는 softmax를 적용한다.
+  2.11 word embedding은 Skip-gram model to pre-train을 적용해서 embedding한다.
+  2.12 전통적인 방법보다 sparse한 data에도 강하고 symentic한 의미도 잘 잡아낸다.
+  2.13 Recursive NN의 경우에는 tree의 structure가 성능에 큰 영향을주는 것 같다.
+  2.14 long distance feature도 RCNN모델을 사용하면 잘 catch할 수있고, 추가적인 window filter를 사용하는 것이 아니라서 사람의 영향이 들어가는 hyper parameter가 적고 성능이 전반적으로 좋다.
+  2.15 https://www.aaai.org/ocs/index.php/AAAI/AAAI15/paper/view/9745
+  
