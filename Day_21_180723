@@ -1,0 +1,15 @@
+1. Object classifier로서 적용할 수 있는 Networks on Convolutional feature maps(NoCs)
+  1.1 object dector들은 대부분 2가지 main part로 구성되는데 하나는 feature extractor이고 나머지 하나는 classifier이다.
+  1.2 feature extractor는 활발히 논의되고 있지만 classifier의 경우에는 그렇지 않다.
+    1.2.1 SPPnet이나 Fast/Faster R-CNN의 경우가 featrue extractor의 예시
+    1.2.2 대부분 모델에서 classifier는 그냥 simple multi-layer perceptrons으로 구성해서 진행하고 있다.
+  1.3 많은 CNN 구조가 연구되고 있지만 모든 구조의 꼭대기에는 다층퍼셉트론이 붙어 있다.
+    1.3.1 Fast R-CNN은 RoI pooling출력값을 이영해서 fine-tuned이 진행되고
+    1.3.2 Faster R-CNN은 proposing regions 의 값들 역시 fine-tune으로 학습이 된다
+    1.3.3 SPPnet의 경우에는 Conv net의 출력값을 특정 사이즈의 값을 가지게 pooling을 하게 되고 그 값을 다층 퍼셉트론으로 분류한다.
+  1.4 최근의 많은 논문에서 제시된 방법들은 다층퍼셉트론이 다 붙어 있는데, 이 다층 퍼셉트론 대신에 linear SVM을 써도 성능에는 큰 차이가 없다.
+  1.5 근데 이 논문에서는 특별한 구조를 제안 한 것이 아니라 그냥 CNN 모델의 출력값들중 FC가기 전의 값을 또다른 인풋으로 하는 다른 신경망을 제안한 것뿐
+  1.6 특별한 추가적이고, 쌈박한 방법이 제시된것 같지는 않다.
+  1.7 NoCs는 깊은수록 성능이 좋아지고 Conv layer가 MLP보다 좋은 성능을 낸다.
+  1.8 출력으로 새로운 모델이 학습 되는 것이기 때문에, 성능이 개선 되는 것으로 보임
+  1.9 https://arxiv.org/abs/1504.06066
