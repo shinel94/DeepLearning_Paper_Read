@@ -45,3 +45,21 @@
   3.9 압축된 데이터를 이용해서 classification과 같은 supervised learning을 하면 잘된다.
   3.10 심층신뢰망이나 제약볼츠만머신들보다 좋은 성능을 가지는 것으로 보여진다.
   3.11 http://www.cs.toronto.edu/~larocheh/publications/icml-2008-denoising-autoencoders.pdf
+
+4. RNN에 Residual을 합치자
+  4.1 Residual neural network ResNet이 매우 깊은 layer를 가진 신경망에 학습을 잘되는 것을 확인 할 수 있었다.
+    4.1.1 highway network처럼 바로 통과하는 입력이 있어서 gradient가 vanishing되는 문제를 control할수 있다.
+  4.2 RNN에 residual을 적용 in vanila RNN의 경우
+    4.2.1 hidden vector들이 ResNet의 x처럼 이번 인풋과 함께 출력으로 나오고 그와 동시에 계산에 들어가지 않고 바로 통과하는 residual이 있음
+      4.2.1.1 ResNet의 x역할을 RNN에서 h가 맡음
+    4.2.2 ResNet에도 모든 layer에서 적용하는 것이 아니라 특정 block 단위에서 적용했듯이 RNN에서도 RNN model이 K만큼 붙어 있는 것을 하나의 block으로 생각함
+      4.2.2.3 가중치 벡터가 K개로 늘어남(RNN에서는 가중치를 공유하기 때문)과 동시에 저장해야될 벡터들도 K개로 들어남
+  4.3 Long term dependecy를 저장하는 LSTM의 경우 그냥 Skip connection을 적용하면 잘 안되서 다른 modify된 모델을 제안
+    4.3.1 alpha만큼의 기간 term이 지날때마다 alpha만큼 전에서의 hidden layer출력값을 이번 hidden layer출력값으로 add하게 structure를 구성
+  4.4 Hybrid Residual LSTM
+    4.4.1 LSTM과 vanila RNN에 residual을 적용한 RRN에 같은 입력을 넣어서 출력을 얻은뒤 두개의 hidden layer값을 산술평균하여서 다음 layer로 전달함
+  4.5 ResRNN을 쓰면 같은 성능을 내는 LSTM에 비해서 파라미터수가 절반정도면 된다.
+    4.5.1 이를 통해서 information flow를 잘 조절할 수 있고, Residual이 Sequence learning에 도움을 많이 주는것을 확인 할 수 있었다.
+  4.6 Skip-Connect LSTM이 vanila LSTM보다 좋은 성능을 보인다.
+    4.6.1 jump하는 distance L에 따라 very long term dependecy도 잘 catch할수 있다.
+  4.7 https://www.aclweb.org/anthology/D16-1093
