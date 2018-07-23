@@ -63,3 +63,18 @@
   4.6 Skip-Connect LSTM이 vanila LSTM보다 좋은 성능을 보인다.
     4.6.1 jump하는 distance L에 따라 very long term dependecy도 잘 catch할수 있다.
   4.7 https://www.aclweb.org/anthology/D16-1093
+
+5. Residual 엘에스템
+  5.1 Shortcut connection을 memory cell 에 적용하지 않고 output vector에 적용을 시킨다.
+    5.1.1 memory cell에 short cut connection을 이용해서 reuse하면 학습을 오히려 더 어렵게 만든다.
+  5.2 depth gate를 통해서 vanila LSTM에서 memory cell의 데이터를 layer방향 depth방향으로 전파 시키는 모델도 있다.
+  5.3 Residual LSTM의 경우에는 input, forget, memory cell, output vector가 변형되지 않고 그대로 쓰인다.
+  5.4 바뀌는 것은 hidden unit이 바뀌는데 hidden의 후보가 되는 벡터가 output vector와 곱해지기 전에 이번 입력을 한번더 더해주게 된뒤(residual) output vector와 곱해진다.
+  5.5 ResNet처럼 residual은 입력 x vector이고 출력이 tanh(c)가 된다.
+  5.6 이를 통해서 파라미터 숫자가 증가하지 않고 성능 개선을 할 수 있다. Highway LSTM은 파라미터숫자가 증가하고, memory cell data를 control하는 경향이 있다.
+  5.7 Highway는 degradation문제가 나타나지만 Residual model은 degradation문제가 나타나지 않는다.
+  5.8 plain은 degradation문제가 심각하게 발생하고 Residual이나 Highway를 적용한 model이 전반적으로 좋은 performance를 보여준다.
+  5.9 https://arxiv.org/abs/1701.03360
+
+
+
