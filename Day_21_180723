@@ -76,5 +76,14 @@
   5.8 plain은 degradation문제가 심각하게 발생하고 Residual이나 Highway를 적용한 model이 전반적으로 좋은 performance를 보여준다.
   5.9 https://arxiv.org/abs/1701.03360
 
-
+6. RNN의 depth란
+  6.1 RNN에서는 다른 신경망들과 다르게 depth의 개념이 애매모호하다.
+  6.2 본 논문에서는 3가지로 depth를 정의한다. 인풋 x와 h가 합쳐져서 모델로 들어가기 전에 단순히 합쳐지는 것이 아니라 depth하게 신경망이 구성되는 depth
+  6.3 hidden과 output간의 depth가 두번째이고 그리고 전통적인 레이어들 간 time sequence간 depth가 3번째 depth이다.
+  6.4 신경망은 기본적으로 depth가 깊어질수록 성능이 좋아진다.
+  6.5 shorcut(residual)이 본논문에도 적용되는데 depth가 적용되는 hidden과 translation 사이의 depth에서 shorcut이 적용된다.
+  6.6 성능은 입력과 hidden 출력간 깊이가 있을때, 그리고 hidden과 출력간 depth가 있을때 성능이 좋다. 단순히 stacked된 경우보다 좋음 하지만 parameter 수가 DOT가 sRNN을 제외하면 가장 많다.
+  6.7 convolutional shallow RNN은 좋은성능을 내지 않았다.
+  6.8 하나의 depth만 깊게 하는 RNN으로는 가장 좋은 성능을 내는 RNN을 찾지 못했다, 추후에 다른 두가지 이상의 depth를 키운 model을 학습한다면, 좋은 성능을 낼것 같다.
+  6.9 https://arxiv.org/abs/1312.6026
 
