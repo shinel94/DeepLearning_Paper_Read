@@ -10,6 +10,6 @@
   1.9 sementic controlled LSTM을 사용하면 문장을 generating하는 모델을 잘 만들 수 있다
   1.10 학습은 처음 주어진 조건에 대한 one hot ecoding data와 문장에 대한 embbeding vector 2가지가 들어가서 학습이 진행됨
   1.11 structure는 기본적인 LSTM에 추가적인 sentence planning data를 담고있는 one hot encoding 벡터를 처리하는 부분이 있고 여기서 reading gate를 통과해서 일반적인 LSTM과 달리 memory cell에 추가적인 데이터가 들어간다.
-  1.13 forward를 학습을 하고 난뒤 그 모델을 이용해서 backward를 학습해서 generator를 학습시킨다.
-  1.12 https://arxiv.org/abs/1508.01745
+  1.12 forward를 학습을 하고 난뒤 그 모델을 이용해서 backward를 학습해서 generator를 학습시킨다.
+  1.13 https://arxiv.org/abs/1508.01745
   
