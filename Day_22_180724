@@ -13,3 +13,12 @@
   1.12 forward를 학습을 하고 난뒤 그 모델을 이용해서 backward를 학습해서 generator를 학습시킨다.
   1.13 https://arxiv.org/abs/1508.01745
   
+2. Depth Gated LSTM
+  2.1 main idea는 memory나 node의 데이터간 connection을 만들고, flow를 control하는 gate도 학습해서 데이터 flow를 잘 조절하게 하자
+  2.2 Highway network와 기본적으로 개념은 같다.
+  2.3 Depth Gated는 LSTM의 memory cell의 데이터를 layer방향으로 전파시켜 보자는거에서 출발
+  2.4 이 gate를 통해서 memory cell에도 layer방향으로 error가 잘 전파되는 것을 확인 할 수 있었다.
+  2.5 GRU에는 memory cell이 없이 좋은 성능을 내는 것도 memory cell이 time 방향으로만 connection이 있기 때문일 수도 있겠다.
+  2.6 LSTM의 구조는 크게 바뀌지 않고 memory cell간 연결을 layer방향 depth방향으로 connection gate를 가지는 structure를 제안
+  2.7 성능이 비교적 잘나옴 하지만 Degradation문제가 나타나는 것을 확인 할 수 있었다.
+  2.8 https://arxiv.org/abs/1508.03790
