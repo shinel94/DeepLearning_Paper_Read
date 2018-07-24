@@ -29,3 +29,21 @@
   3.3 scheduled sampling을 사용하면 다른 방법들과 함께 사용해서 성능을 개선하 수 있다.
   3.4 모든 데이터가 중요한것은 실제와 조금 다르기 때문에, sampling을 통해서 중요한 데이터만 다음 레이어로 넘기는 식으로 성능을 개선한다.
   3.5 https://arxiv.org/abs/1506.03099
+
+4. 대화 작성? Discourse Compositionality를 위한 RNN
+  4.1 신경망을 사용하면 과거에 사용했던 모델들로는 실패 했던 다양한 문제들을 해결 할 수 있다.
+    4.1.1 단어의 order나 syntactic structure를 학습 할 수 있다.
+    4.1.2 단어의 sententail한 feature도 capture 할 수있다.
+  4.2 Bag of n - grams 과 word vector averaging model은 둘다 모두 좋은 성능을 낸다.
+  4.3 대부분 신경망은 paragraphs의 semantic한 양상인다 더 longer한 text에 집중해서 bag of n - gram이나 embbeding word vector를 얻는다.
+  4.4 CNN을 적용해서 Discourse Compositionality를 위한 신경망을 만들 수 있다.
+  4.5 CNN을 통해서 단어의 sentence를 추출해내는 sentence model을 위한 Hierachical Convolutional Neural Network를 작성한다.
+  4.5 모든 커넬은 계속해서 커져야 하고 마지막 kernel의 사이즈보단 작거나 같게 구성되어 있다.
+  4.6 문장을 CNN으로 압축한 데이터를 RNN의 입력으로 놓고 문장들간의 연결을 RNN으로 연결시킨다.
+  4.7 Discourse의 central property를 catch하기위한 RNN으로 구성된 Discourse Model을 구성한다.
+  4.8 두 문장을 작성한 화자가 같은지 비교
+  4.9 RNN의 입력은 CNN에서 압축한 데이터와 이번 sequence of label인 x벡터와 지난번 hidden node 출력으로 hidden node를 계산하고 이를 통해서 speakers 나 agenet를 예측한다.
+  4.10 h 가 dialoge를 representation 하는 vector로 생각 할 수 있다.
+  4.11 대화에 대한 정보를 즉 화자를 예측할때, 문장 자체의 정보를 embbeding한 값을 RNN에 추가적인 입력으로 넣으면 성능이 잘 나온다.
+  4.12 이때 CNN의 출력은 단순히 하나의 문장을 embbeding한 것이지만, RNN의 hidden node의 값은 dialogue에서 해당 문장을 embbeding한 vector라고 생각 할 수 있다.
+  4.13 https://arxiv.org/abs/1306.3584
