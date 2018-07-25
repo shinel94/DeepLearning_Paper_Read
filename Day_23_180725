@@ -62,3 +62,26 @@
   5.12 ARNet을 통해 압축된 데이터가 robust하고 clustering도 잘 된다.
   5.13 RNN을 통해서 압축한 데이터를 autoencoder로 복원시키는 모델과 classifiaction 모델을 두가지를 동시에 학습 시키면 unseen data에 대해서 더 잘 적용하는 모델을 만들 수 있다.
   5.14 https://arxiv.org/abs/1701.01272
+
+6. 신경망 구조를 학습하는 신경망 모델
+  6.1 강화학습을 통해서 신경망 모델을 학습하는 방법이 제시됬다.
+  6.2 RNN과 CNN각각 다음 상황을 갈 수 있는 방법을 제한해서 정해두고, 해당 정책이 선택 되었을때 주어지는 보상을 계산해서 보상이 가장 큰 방향으로 모델을 확장시킨다.
+  6.3 기존에 제안되었더 Neural Architecture Search 방법보다 약 1000배 정도 빠른데, 이는 parameter를 sharing 해서 그런것으로 생각된다.
+  6.4 RNN의 경우
+    6.4.1 해당 인풋이 있는 상황에서 다음 hidden layer로 넘어갈때, RNN모델의 출력 처럼 h1을 계산한다.
+    6.4.2 h1을 입력으로 가지는 non linear activation function을 가진 추가적인 hidden node h2를 계산한다.
+    6.4.3 h1과 h2를 바탕으로 각 각에 또 다른 activation function 들을 조합하는 h3와 h4를 계산한다.
+    6.4.4 이때 h2에 사용된 activation function과 h2를 사용한 hidden node를 계산하는 activation function을 같게해 가중치를 공유한다.
+    6.4.5 h1의 경우도 같은 방식으로 계산한다.
+    6.4.6 마지막 출력을 h3와h4의 산술평균으로 설정한다.
+    6.4.7 이때 변경하는 것은 activation function을 종류들을 변경해가며, 최적의 모델을 찾는다.
+  6.5 CNN의 경우
+    6.5.1 CNN 입력에서 RNN의 경우와 같이 추가적인 hidden node h2를 계산한다.
+    6.5.2 각 각 hidden node에 identity, 3x3, 5x5 convolutional structure를 attach한다
+    6.5.3 그리고 3x3 max나 average pooling을 진행한다.
+    6.5.4 총 5가지 경우를 조합해서 최적의 모델을 계산한다.
+    6.5.5 이때 모든 activation function을 ReLU나 tanh중에 골라서 사용했는데 임의로 identity나 sigmoid로 변경해도 성능이 개선된다.
+  6.6 최고의 모델을 찾는다고 생각할 수는 없지만, 최선의 성능을 내는 모델을 학습하는 것으로 생각된다.
+  6.7 계산속도역시 이전에 제안된 NAS보다 drastically 빨라서 ENAS라고 부르게 되었다.
+  6.8 아직도 봐야할 논문은 산더미, 모르는 개념 산더미 시벙
+  6.9 https://arxiv.org/abs/1802.03268
