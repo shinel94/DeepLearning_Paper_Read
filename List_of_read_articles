@@ -113,4 +113,4 @@
   68. Don’t count, predict! A systematic comparison of context-counting vs. context-predicting semantic vectors
   69. A Simple Way to Initialize Recurrent Networks of Rectified Linear Units - https://arxiv.org/abs/1504.00941
   70. Autoencoder Regularized Network For Driving Style Representation Learning - https://arxiv.org/abs/1701.01272
-
+  71. Efficient Neural Architecture Search via Parameter Sharing - https://arxiv.org/abs/1802.03268
