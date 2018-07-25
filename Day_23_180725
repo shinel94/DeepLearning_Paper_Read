@@ -1,0 +1,16 @@
+1. Longer memory 를 learning하는 RNN
+  1.1 sequentail data를 address하기 위해서는 RNN을 통해서 하는 것이 좋다.
+  1.2 하지만 RNN은 long term dependecy에 대해서는 gradient가 vanishing되거나 exploding되는 문제가 발생한다.
+  1.3 exploding의 경우는 gradient cliping으로 쉽고 효율적으로 처리가 가능하다.
+  1.4 하지만 대부분 RNN에서는 gradient가 exponentially shrink하기 때문에 short term dependency에 더 focus하는 결과를 보여준다. practically ignoring longer term dependecy
+  1.5 gradient가 줄어드는 두가지 이유가 있다.
+    1.5.1 Standard nonlinearity function은 gradient가 대부분의 점에서 0과 가깝다. ReLU로 일부분 해결 가능하다.
+    1.5.2 시간에 따라서 미분될때, 가중치 행렬의 고윳값이 작다면 시간에 따라서 exponentially 0으로 수렴하게 된다.
+  1.6 일반적으로 5 ~ 10step 정도면 0으로 거의 수렴하게 된다. 그래서 long term dependency catch가 힘들다.
+  1.7 long term dependecy를 catch할 추가적인 node(context layer)로 Simple Recurrent Neural Network를 개선할 수 있다.
+  1.8 context layer는 x에서 값이 추가적인 nonlinear function없이 추가되고, 그 값이 다음 hidden layer와 output에 영향을 준다.
+  1.9 시간에 따른 context layer에서 사용되는 가중치 alpha값을 학습할 수 있다면, time delay에 따라서 다르게 context를 capture할 수 있을 것이다.
+  1.10 Hidden node의 수가 일정할때 context layer의 node숫자가 많을수록 좋은 성능을 나타낸다.
+  1.11 LSTM과 같은수의 hidden node가 있을때 context layer를 가지고 있는 model이 성능이 전반적으로 좋다.
+  1.12 LSTM보다 같은 파라미터를 가진다면 더 좋은 성능을 보여준다.
+  1.13 https://arxiv.org/abs/1412.7753
