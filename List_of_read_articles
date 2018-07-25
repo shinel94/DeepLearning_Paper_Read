@@ -88,4 +88,27 @@
   50. Dropout improves Recurrent Neural Networks for Handwriting Recognition - https://arxiv.org/abs/1312.4569
   51. Deep Residual Learning for Image Recognition - https://arxiv.org/abs/1512.03385
   
+180720
+  52. An Empirical Exploration of Recurrent Network Architectures
+  53. Spatial sign preprocessing: a simple way to impart moderate robustness to multivariate estimators.
+  54. Rethinking the Inception Architecture for Computer Vision - https://arxiv.org/abs/1512.00567
   
+180721
+  55. BLEU: a Method for Automatic Evaluation of Machine Translation
+
+180722
+  56. Object Detection Networks on Convolutional Feature Maps - https://arxiv.org/abs/1504.06066
+  57. Recurrent Convolutional Neural Networks for Text Classification
+  58. Extracting and Composing Robust Features with Denoising Autoencoders
+  59. Recurrent Residual Learning for Sequence Classification
+  60. Residual LSTM: Design of a Deep Recurrent Architecture for Distant Speech Recognition - https://arxiv.org/abs/1701.03360
+  61. How to Construct Deep Recurrent Neural Networks - https://arxiv.org/abs/1312.6026
+
+180724
+  62. Semantically Conditioned LSTM-based Natural Language Generation for Spoken Dialogue Systems -1 https://arxiv.org/abs/1508.01745
+  63. Depth-Gated LSTM - https://arxiv.org/abs/1508.03790
+  64. Scheduled Sampling for Sequence Prediction with Recurrent Neural Networks - https://arxiv.org/abs/1506.03099
+  65. Recurrent Convolutional Neural Networks for Discourse Compositionality - https://arxiv.org/abs/1306.3584
+
+
+
