@@ -107,5 +107,10 @@
   64. Scheduled Sampling for Sequence Prediction with Recurrent Neural Networks - https://arxiv.org/abs/1506.03099
   65. Recurrent Convolutional Neural Networks for Discourse Compositionality - https://arxiv.org/abs/1306.3584
 
-
+180725
+  66. Learning Longer Memory in Recurrent Neural Networks - https://arxiv.org/abs/1412.7753
+  67. Extensions of recurrent neural network language model
+  68. Don’t count, predict! A systematic comparison of context-counting vs. context-predicting semantic vectors
+  69. A Simple Way to Initialize Recurrent Networks of Rectified Linear Units - https://arxiv.org/abs/1504.00941
+  70. Autoencoder Regularized Network For Driving Style Representation Learning - https://arxiv.org/abs/1701.01272
 
