@@ -34,3 +34,14 @@
   3.7 단어 벡터들을 통해서 선형적인 연산을 적용해서 sentatic한 의미를 나타내는지도 확인하고 유사한 의미를 지닌 단어들을 pair시켜서 성능을 비교한다.
   3.8 predict 모델이 count model보다 더 robust하고 그리고 초기 설정에 따라 count model은 성능 차이가 발생한다.
   3.9 http://www.aclweb.org/anthology/P14-1023
+
+4. initialization을 잘해서 RNN을 잘 써보자
+  4.1 Recurrent neural network는 input sequence 를 output sequence로 mapping시켜주는 model이다.
+  4.2 초기 가중치와 momentum을 잘 조절하고 gradient를 clipping하면 좋은 성능을 내는 모델을 얻을 수 있다.
+  4.3 LSTM은 longterm dependecy를 위해서 memory cell을 가지고 memory cell에 들어가서 더해지는 정보의 양을 조절하기 위해서 gate구조를 가지고 있고, memory cell에서 데이터를 꺼낼떄 떄 추가적인 gate를 통과해야 한다.
+  4.4 초기 ReLU unit의 가중치를 초기화 할때, weigth matrix는 identity matrix로 bias는 zero 벡터로 설정한다.
+    4.4.1 제일 첫번째 계산될 때, 지난번 레이어의 값이 그대로 전달되게 된다.
+  4.5 recurrent connection에 사용되는 weight들만 identity로 initalize
+  4.6 LSTM에서 forget gate의 bias를 크게하면 long term dependecy를 잘 catch함
+  4.7 RNN의 recurrent weight를 identity matrix로 초기화 하면, randomly initailizaion한 것보다 long term dependency를 잘 읽어낸다.
+  4.8 https://arxiv.org/abs/1504.00941
