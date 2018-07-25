@@ -23,3 +23,14 @@
   2.4 그리고 원래 output은 단어벡터가 그대로 나와서 값을 비교해서 classification을 진행했는데, class term까지 추가하여서 출력을 비교해서 계산한다.
   2.5 학습속도가 개선되는 것을 확인 할 수 있다.
   2.6 https://ieeexplore.ieee.org/document/5947611
+
+3. 세지말고 예측하자
+  3.1 단어를 sementic한 의미를 measure하는데 co-occurance matrix를 사용하면 비교적 sementic한 의미를 catch할 수 있다.
+  3.2 DISSECT toolkit과 같은 것을 사용하면 count model을 구성할 수 있다.
+  3.3 predict model은 word2vec toolkit으로 쉽게 변형 할 수 있다.
+  3.4 skip-gram과 CBOW방법이 있는데 CBOW방법이 larger dataset에 더 적합하다.
+  3.5 각 각 방법으로 embbeding된 벡터에서 유사한 단어들의 벡터의 simillarity를 measure해서 semantic한 의미를 추출하는 성능을 파악한다.
+  3.6 압축된 단어 벡터들에 clustering을 적용해서 categorization도 measure할 수 있다.
+  3.7 단어 벡터들을 통해서 선형적인 연산을 적용해서 sentatic한 의미를 나타내는지도 확인하고 유사한 의미를 지닌 단어들을 pair시켜서 성능을 비교한다.
+  3.8 predict 모델이 count model보다 더 robust하고 그리고 초기 설정에 따라 count model은 성능 차이가 발생한다.
+  3.9 http://www.aclweb.org/anthology/P14-1023
