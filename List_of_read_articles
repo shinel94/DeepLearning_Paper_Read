@@ -54,16 +54,13 @@
 180713  
   32. Going Deeper with Convolutions
   33. Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition - Spatial Pyramid Pooling in Deep Convolutional Networks for Visual Recognition
-  
+
 180714
-  34. U-Net: Convolutional Networks for Biomedical Image Segmentation - https://arxiv.org/abs/1505.04597
+  34. Recurrent Continuous Translation Models
 
 180715
-  35. Exploiting generative models in discriminative classifiers
-  36. Gated Feedback Recurrent Neural Networks - https://arxiv.org/abs/1502.02367
-  37. Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling - https://arxiv.org/abs/1412.3555
-  38. Dynamic Pooling and Unfolding Recursive Autoencoders for Paraphrase Detection
-  
+  35. U-Net: Convolutional Networks for Biomedical Image Segmentation - https://arxiv.org/abs/1505.04597
+ 
 180716
   36. Exploiting generative models In discriminative classifiers
   37. Gated Feedback Recurrent Neural Networks - https://arxiv.org/abs/1502.02367
