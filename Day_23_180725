@@ -46,3 +46,19 @@
   4.7 RNN의 recurrent weight를 identity matrix로 초기화 하면, randomly initailizaion한 것보다 long term dependency를 잘 읽어낸다.
   4.8 이떄 recurrent unit에 사용되는 non linear activation function은 Rectified Linear Unit 으로 설정해야 장기의존성을 잘 읽어냄
   4.9 https://arxiv.org/abs/1504.00941
+
+5. trip2vec 자동차 운행기록을 보고 운행자 상태를 예상해보자 ARNet
+  5.1 생물학적 gait와 같이 driver's driving behavior의 패턴을 인식하는게 중요하다.
+  5.2 기존의 데이터를 가지고 결과물을 예측하는 방법으로는 새로운 입력에 대해서 오류가 너무나 많이 발생했다.
+  5.3 그래서 본 논문에서는 차량의 GPS데이터를 입력으로 하는 Autoencoder Regularized Network를 제안했다.
+  5.4 RNN을 통해서 time 에 따른 GPS data를 embadding한 벡터를 입력으로 받아서 데이터를 압축한다.
+  5.5 GRU 2개를 쌓았고 한층에 128개의 recurrent 유닛이 있다.
+  5.6 압축된 데이터를 바탕으로 다시 본래 입력값으로 복원시키는 FC와 압축된 데이터를 바탕으로 classification 시키는 FC 2개지를 각각 작성해서 두가지 출력을 얻어낸다.
+  5.7 autoencoder부분을 통해서 압축된 데이터가 style을 잘 representation하게끔 학습된다.
+  5.8 classification부분은 FC를 지나고 softmax를 통해서 classification을 하게된다.
+  5.9 autoencoder가 있기 때문에 unseed driver에 대한 classification을 잘하게 된다. 없을때 seen driver에 overfit되는 것으로 볼 수 있다.
+  5.10 clustering 방법을 활용해서 driver를 미리 분류한다.
+  5.11 autoencoder가 결국 regularizer로 역할을 한다. 그리고 class 는 prior로써 unsupervised learning을 guide하는 역할을 한다.
+  5.12 ARNet을 통해 압축된 데이터가 robust하고 clustering도 잘 된다.
+  5.13 RNN을 통해서 압축한 데이터를 autoencoder로 복원시키는 모델과 classifiaction 모델을 두가지를 동시에 학습 시키면 unseen data에 대해서 더 잘 적용하는 모델을 만들 수 있다.
+  5.14 https://arxiv.org/abs/1701.01272
