@@ -44,4 +44,5 @@
   4.5 recurrent connection에 사용되는 weight들만 identity로 initalize
   4.6 LSTM에서 forget gate의 bias를 크게하면 long term dependecy를 잘 catch함
   4.7 RNN의 recurrent weight를 identity matrix로 초기화 하면, randomly initailizaion한 것보다 long term dependency를 잘 읽어낸다.
-  4.8 https://arxiv.org/abs/1504.00941
+  4.8 이떄 recurrent unit에 사용되는 non linear activation function은 Rectified Linear Unit 으로 설정해야 장기의존성을 잘 읽어냄
+  4.9 https://arxiv.org/abs/1504.00941
