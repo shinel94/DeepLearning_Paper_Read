@@ -60,3 +60,19 @@
   3.17 이처럼 Squeeze Network에서 적용한 parameter를 줄이는 방법을 적용해서 보다 간단한 model을 develop할 것으로 생각된다.
   3.18 https://arxiv.org/abs/1602.07360
   
+4. Highway LSTM으로 학습을보다 빠르게 진행 시킬 수 있다.
+  4.1 layer의 memory cell간에 gate connection을 연결해서 LSTM의 신경망이 깊어질수록 발생하는 학습속도가 너무 느리거나 학습이 진행되지 않는 문제를 해결 할 수 있다.
+  4.2 해당 Highway connection에 dropout을 적용시킴으로써 DSR에 성능개선을 얻을 수 있다.
+  4.3 LSTM을 cascade하게 LSTM의 cell output이 다음layer LSTM의 input x vector가 되게 LSTM을 stack할 수 있다.
+  4.4 Gate를 통해서 memory cell data를 전달
+    4.4.1 지난번 레이어의 cell data와 이번 레이어의 지난번 시간 cell data그리고 이번 시간대 input x 들을 이용해서 sigmoid filter를 학습하고, 이 filter와 memory cell data를 element-wise multifly해서 다음 cell로 전달 시킨다.
+  4.5 나머지 hidden layer나 forget input output gate는 동일하게 계산된다. 오로지 memory cell data가 갱신되는 방식만 지난번 memory cell 데이터를 추가로 참고해서 gate를 만들고 memory cell data를 이번 레이어로 전파 시킨다.
+  4.6 bidirectional LSTM은 입력순서를 정반대로한 LSTM모델을 하나 추가하는것뿐
+  4.7 sequence를 고정된 길이의 chunks로 split을 하고 왼쪽 청크와 오른쪽 청크를 합쳐서 하나의 입력으로 하는 모델을 학습한다.
+  4.8 하나의 chunk를 계산할때 지난번 입력을 그냥 받으면 된다.
+  4.9 LSTM의 memory cell 의 데이터를 layer 간 gate를 통해서 전달해주면 보다 깊은 구조를 가진 LSTM도 잘 학습할 수 있고 performance역시 좋다.
+  4.10 https://arxiv.org/abs/1510.08983
+
+
+
+  
