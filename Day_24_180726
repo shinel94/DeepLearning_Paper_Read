@@ -73,6 +73,15 @@
   4.9 LSTM의 memory cell 의 데이터를 layer 간 gate를 통해서 전달해주면 보다 깊은 구조를 가진 LSTM도 잘 학습할 수 있고 performance역시 좋다.
   4.10 https://arxiv.org/abs/1510.08983
 
-
-
+5. Shake-Shake regularization
+  5.1 최근 신경망의 overfit문제를 다루기위해 많은 방법들이 제안되고 있다.
+  5.2 Batch Nomalization을 통한 computing statistic을 안정하게 하는방법이 제안되었다.
+  5.3 Stochastic Gradient Descent을 통한 noisy gradient로 성능을 개선 시킬 수 있었다.
+  5.4 가장 간단한 방법인 Dropout도 제안되었는데 Dropout과 Batch Nomalization을 동시에 사용하면 성능이 저하되는 문제가 발생한다.
+  5.5 multi baranch를 가지는 NN에서 해당 branch를 standard summation of parallel branches with a stochastic affine combination으로 변형시키는 방법이 제안되었다.
+  5.6 Gradient가 backpropagate 될떄 의도적으로 noise를 추가하면 더 generalization한 model을 얻을 수 있다.
+  5.7 다른 filtter에서 CNN출력 벡터들의 covariance와 같은 상관계수를 비교해서 다른 특징들을 잘 학습하는지 확인 할 수 있다.
+  5.8 multibranch model에서 2개의 branch를 가지는 모델들에 적요할때 하나의 가지의 출력에 의도적으로 dropout과 같은 효과를 내는 sparse matrix를 alpha를 곱하고 다른 가지에는 1-alpha를 곱한것을 출력으로 사용하고, 돌아올때는 노드 출력값도 같은 식으로 shake 해주면 그라디엔트에 noise를 추가하는 효과를 줌으르쏘 성능을 개선 시킬수 있다.
+  5.9 https://arxiv.org/abs/1705.07485
+  
   
