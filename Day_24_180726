@@ -84,4 +84,13 @@
   5.8 multibranch model에서 2개의 branch를 가지는 모델들에 적요할때 하나의 가지의 출력에 의도적으로 dropout과 같은 효과를 내는 sparse matrix를 alpha를 곱하고 다른 가지에는 1-alpha를 곱한것을 출력으로 사용하고, 돌아올때는 노드 출력값도 같은 식으로 shake 해주면 그라디엔트에 noise를 추가하는 효과를 줌으르쏘 성능을 개선 시킬수 있다.
   5.9 https://arxiv.org/abs/1705.07485
   
-  
+6. Dynamically Evaluate RNN
+  6.1 sequential data를 학습할때, sequence가 global 특성만 가지고 있는것이 아니라 local 특성역시 가지고 있다.
+  6.2 보통적인 Recurrent neural network 모델로는 global 한특성은 학습할 수 있지만 local한 특성은 학습할 수 없다.
+  6.3 local 특성을 catch하기 위해서 Dynamic evaluation이 제안 됬다.
+  6.4 전체 L개의 변수를 가지는, sequence의 길이가 L인 배역을 N개의 partial sequence chunk로 잘라서 각각 chunk별로 학습을 진행해서 error를 전파한다.
+  6.5 chunk를 학습하면서, 해당 부분에서 발생한 에러를 SGD와 유사한 방식으로 파라미터를 갱신한다.
+  6.6 global한 특성을 기억하는 추가적인 파라미터 set theta_g를 설정해서 global한 특징과 local한 특징 두가지를 모두 학습 시킬 수 있다.
+  6.7 하나의 큰 모델을 chunk로 잘라서 부분적인 RNN모델을 N개 학습해서 전체 paramter를 학습 시키는 방식으로 진행하는걸로 보인다.
+  6.8 결국에 길이가 L인 순환신경망을 N개로 잘라서 작은 신경망들을 여러개 학습하는 방식으로, 에러는 전파될때, dynamic evaluation을 이용해서 학습이 진행된다.
+  6.9 https://arxiv.org/abs/1709.07432
