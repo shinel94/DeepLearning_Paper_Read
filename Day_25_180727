@@ -25,3 +25,18 @@
   2.6 rare한 단어의 출현 확률은 특정 threshold값을 정해서 보다 가중치를 더주어서 확률을 보정한다.
   2.7 이렇게 가중치를 추가해서 RNN을 통해 Language modling task를 apply하면 얘전에 제안되었던 model들보다 성능이 개선된다.
   2.8 http://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS100722.pdf
+
+3. 이미지 트래킹을 하는 대신 colorization을 해서 그 효과를 얻자
+  3.1 video data를 gray scale로 변형시켜서 첫번째 reference frame을 기준으로 나머지 frame을 colorization하는 모델을 학습하면 object tracking, segmaent tracking, pose detection과 같은 복잡한 기능을 가진 모델을 학습 할 수 있다.
+  3.2 이때 여러가지 task를 위해서 추가적인 fine tuning을 할 필요가 없다.
+  3.3 첫번째 프레임 데이터를 low embbeding matrix로 압축을 하고나서, 해당 embbeding matrix를 reference로 진행
+  3.4 특정 시간대의 frame의 데이터도 embbeding을 진행하고, 각 fixel data를 통해서 inner product softmax로 similarity matrix를 찾고 해당 변형을 통해서 object를 tracking할 수 있다.
+  3.5 tracking을 해서, colorization도 진행 할 수 있다.
+  3.6 target의 color data를 잘 묘사할 수 있게 이때 color는 클러스터링으로 숫자를 줄여서 colorization을 진행한다.
+  3.7 이 color quntization data의 L2 distance를 error로 설정해서 backpropaation을 진행한다.
+  3.8 논문에 제안된 모델은 ResNet을 사용하고 동영상의 크기를 256x256으로 자르고 4frame을 기준으로 처음 3개의 frame이 reference frame이 되고 마지막 4번째 frame이 target frame이 되서 target을 colorization한다.
+  3.9 동영상 1초당 6장의 프레임을 사용했다.
+  3.10 이를 통해서 colorization하고, feature map을 통해서 similarity를 잘 계산하면 제안된 모델이 입력 데이터에 상관없이 robust를 가지는 모델인 것으로 확인된다.
+  3.11 같은 모델을 통해서 colorization task와 tracking task를 진행시켰는데 둘의 실패나 성공정도가 비슷한것으로 나타난다.
+  3.12 하나의 labelled되지 않은 비디오 데이터에서 reference frame을 설정해서 self supervised laerning이 가능하며, 이를 통해서 colorization, tracking, pose detecting과 같은 복잡한 task를 하나의 모델로 처리 할 수 있다.
+  3.13 https://arxiv.org/abs/1806.09594
