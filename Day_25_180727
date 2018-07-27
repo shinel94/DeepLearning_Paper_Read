@@ -13,4 +13,5 @@
   1.12 attention의 query가 지난번 encoder의 출력에서 나오면 self-attention layer 가되고 이번 block의 입력에 포함 되어 있으면 encoder decoder attention이 되어서 query가 모든 layer에서 일정하게 들어간다.
   1.13 입력과 출력을 embbeding해서 tokenization해서 성능을 올릴 수 있다.
   1.14 self attention을 사용하면 계산복잡도도 줄어들고, 계산을 병렬화 처리 시킬수 있고, path length between long range dependecy에도 좋다.
+    1.14.1 이떄 self attention은 자기 데이터를 이용해서 embbeding이나 tokenization을 통해서 query와 key value를 각각 학습해서 계산해낸다.
   1.15 https://arxiv.org/abs/1706.03762
