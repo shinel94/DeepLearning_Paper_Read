@@ -15,3 +15,13 @@
   1.14 self attention을 사용하면 계산복잡도도 줄어들고, 계산을 병렬화 처리 시킬수 있고, path length between long range dependecy에도 좋다.
     1.14.1 이떄 self attention은 자기 데이터를 이용해서 embbeding이나 tokenization을 통해서 query와 key value를 각각 학습해서 계산해낸다.
   1.15 https://arxiv.org/abs/1706.03762
+
+2. RNN based LM
+  2.1 RNN이 backoff language model보다 월등히 좋은 성능을 보여준다.
+  2.2 우선 language model의 목표는 context data를 이용해서 다음에 올 word를 predict하는 것이 궁극적인 목표이다.
+  2.3 기본적인 MLP와 같은 NN으로 fixed length로 입력을 고쳐서 넣으면 비교적 좋은 성능을 나타낸다.
+  2.4 그리고 RNN은 입력의 길이가 arbitary한 수로 정할 수 있다. 하지만 RNN 은 long term dependecy를 catch하기 힘들다는 문제가 있다.
+  2.5 이번 입력과 지난번 layer의 state 출력을 concate 시킨벡터를 입력으로 하는 RNN을 구성한다.
+  2.6 rare한 단어의 출현 확률은 특정 threshold값을 정해서 보다 가중치를 더주어서 확률을 보정한다.
+  2.7 이렇게 가중치를 추가해서 RNN을 통해 Language modling task를 apply하면 얘전에 제안되었던 model들보다 성능이 개선된다.
+  2.8 http://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS100722.pdf
