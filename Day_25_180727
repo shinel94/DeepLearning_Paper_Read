@@ -1,0 +1,16 @@
+1. Attention please
+  1.1 sequence를 transduction 하는 모델이 많이 제안되었다.
+  1.2 LSTM이나 GRU와 같은 RNN이나 encoder - decoder구조를 가지고 있는 CNN이 제안되었다.
+  1.3 RNN은 지난먼 출력 h와 이번 입력 x를 이용해서 출력을 계산하는 모델이라서 데이터 처리를 병렬로 하는것이 불가능 해졌다.
+  1.4 이는 입력이 아주 길고 큰 sequence일때 심각한 문제가 발생한다.
+  1.5 RNN모델에 parallelization을 적용하기 위해서 제안 되었다. 데이터 input output간 global한 dependecy를 찾으려는 것을 피한다.
+  1.6 Trasnfomer 모델의 구조는 입력 데이터를 encoding하는 구조와 decoder구조를 가지는데 이번 입력에 대해서 압축된 값과 지난번 출력값을 이용해서 sequence를 압축한다.
+  1.7 encoder는 self multi head intension block과 feed forward block 두개가 하나로 구성되었고 Residual connection이 각 block에 연결되어 있고 layer normalization이 적용되는 module이 6개 겹쳐져 있다.
+  1.8 decoder는 encoder에서 들어온 데이터와 지난번 decoder의 출력을 모두 입력으로 받는데 지난번 step에서 넘어온 출력은 masked multi head attention block을 먼저 한번 통과시키고 이후에 입너 입력과 encoder와 비슷한 구조를 통과시킨뒤 신경망을 통과시켜 softmax를 처리한다.
+  1.9 attention의 입력은 Query, Key, Value가 pair로 구성되어서 입력이 들어간다.
+  1.10 이때 query와 key를 통해서 attention할 value를 계산한다.
+  1.11 이 attention block이 palallel하게 여러개 연결 되어 있으면 multi head attention block이 된다.
+  1.12 attention의 query가 지난번 encoder의 출력에서 나오면 self-attention layer 가되고 이번 block의 입력에 포함 되어 있으면 encoder decoder attention이 되어서 query가 모든 layer에서 일정하게 들어간다.
+  1.13 입력과 출력을 embbeding해서 tokenization해서 성능을 올릴 수 있다.
+  1.14 self attention을 사용하면 계산복잡도도 줄어들고, 계산을 병렬화 처리 시킬수 있고, path length between long range dependecy에도 좋다.
+  1.15 https://arxiv.org/abs/1706.03762
