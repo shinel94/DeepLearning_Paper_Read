@@ -40,3 +40,14 @@
   3.11 같은 모델을 통해서 colorization task와 tracking task를 진행시켰는데 둘의 실패나 성공정도가 비슷한것으로 나타난다.
   3.12 하나의 labelled되지 않은 비디오 데이터에서 reference frame을 설정해서 self supervised laerning이 가능하며, 이를 통해서 colorization, tracking, pose detecting과 같은 복잡한 task를 하나의 모델로 처리 할 수 있다.
   3.13 https://arxiv.org/abs/1806.09594
+
+4. 속도가 다른 2개의 RNN으로 성능을 올려보자
+  4.1 RNN을 학습할때 long term dependecy가 catch되지 않는 문제점은 항상 재기되어 왔다
+  4.2 이를 해결하기 위해 구조를 바꾸는 LSTM이나 GRU 또는 MRU와 같은 gate를 가진 RNN이 제안되었다.
+  4.3 그리고 구조적으로 이를 해결 하기 위해서 clockRNN이라는 속도가 다른, 갱신되는 주기가 다른 RNN을 여러개 붙인 RNN이 제안되었다.
+  4.4 Fast-Slow RNN은 ClockRNN을 보다 효율적으로 만든 RNN이다.
+  4.5 Fast RNN이라는 매시간 갱신되어서 Short term dependecy를 잡기 위한 구조이다.
+  4.6 Slow RNN은 하나의 x 인풋에 대해서 첫번째 블록에서 나온 값 한번만 사용되는 모델로 하나의 시간대 입력에서 한번만 사용되서 gradient가 흐르는 통로의 길이가 short하다.
+  4.7 기본적으로는 stack 된 RNN과 같은 모양이고, stack되어 있는 부분이 Fast RNN이고 따로 하나의 추가적인 long term dependency를 위한 RNN모델이 합쳐져 있는 것으로 볼 수 있다.
+  4.8 이때 사용된 RNN 모델이 RNN이든 LSTM이든 GRU이든 MRU이든 상관없이 어떤 RNN모듈이라도 적용 할 수 있다.
+  4.9 이를 통해서 장기의존성을 보다 잘 capture 하는것을 확인 할 수 있었다.
