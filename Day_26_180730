@@ -54,3 +54,21 @@
     4.5.3 그래서 총 현재 프레임 데이터의 갯수와 context data의 숫자 그리고 frame 숫자에 따라서 데이터를 얼마나 겹치게 할지, emperical하게 조절 할 수 있다.
   4.6 이를 입력으로 하는 LSTM을 학습하면 좋은 성능을 내는 것으로 확인 할 수 있었다.
   4.7 https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7428837
+
+5. embedding to embedding으로 LM의 성능을 향상 시키자
+  5.1 보통의 Language model은 input으로 embedding vector를 입력으로 받는다.
+    5.1.1 보통 embedding은 embedding matrix U와 representation word vector c의 행렬곱으로 표현된다.
+  5.2 embedding된 값을 이용해서 LSTM과 같은 model을 통과시켜서 next에 등장할 word를 softmax로 prediction으로 예측한다.
+  5.3 embedding to embedding 사이에 regularization을 위한 projection P를 추가한다.
+    5.3.1 이를 통해서 translation model의 사이즈를 성능에 해를 끼치지 않고 절반 가까이 줄일수 있다. 
+  5.4 보통 NNLMs는 word sequence의 probability를 반환한다.
+  5.5 Skip-Gram 과 같은 word2vec 방식으로 word vector를 embedding한다.
+  5.6 특정 논문에서는 출력 벡터와 similarity를 비교해서 output을 내기도 했다,
+  5.7 NNLM의 경우에는 embedding vector의 갱신이 해당 시간대의 row vector만 갱신된다. 즉 입력벡터가 드물게 등장한다면 embedding matrix가 더 적은 빈도수로 업데이트 되게 된다.
+  5.8 tied NNLM의 경우 embedding과 output weight matrix 가 같게 두어서, U=V로 두어서 time step에서 사용되지 않더라도 output에서 사용된다면 embedding matrix가 갱신된다.
+  5.9 neural translation model의 경우에는 입력과 출력은 같은식으로 돌아가게 되는데 추가적으로 context와 resource vector가 추가 되게 된다.
+  5.10 이 context vector와 그를 통한 gate와 같은 식의 G를 학습해서 최종 출력을 경정하게 된다.
+  5.11 후보 출력은 resource vectorㅘ 입력벡터 지난번 출력벡터를 통해서 결정된다.
+  5.12 Tied가 된 경우 overfitting에 조금더 강한것을 확인 할 수 있었다.
+  5.13 입력벡터만 embedding 시키는 것이 아니라, 출력값을 다시 embedding 시키는 방식으로 성능을 개선 시킬 수 있는데, input embedding matrix와 output embedding matrix에 TIed 방식을 사용하면, 다양한 Language model에 parameter수를 줄이면서 성능은 향상 시킬 수 있다.
+  5.14 https://arxiv.org/abs/1608.05859
