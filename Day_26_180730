@@ -72,3 +72,6 @@
   5.12 Tied가 된 경우 overfitting에 조금더 강한것을 확인 할 수 있었다.
   5.13 입력벡터만 embedding 시키는 것이 아니라, 출력값을 다시 embedding 시키는 방식으로 성능을 개선 시킬 수 있는데, input embedding matrix와 output embedding matrix에 TIed 방식을 사용하면, 다양한 Language model에 parameter수를 줄이면서 성능은 향상 시킬 수 있다.
   5.14 https://arxiv.org/abs/1608.05859
+
+
+
