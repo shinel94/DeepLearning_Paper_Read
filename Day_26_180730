@@ -1,0 +1,20 @@
+1. 신경망 module의 최전선? fractal
+  1.1 image classification을 하기 위한 신경망 model이 계속 improve되어 왔고 AlexNet 에서 VGG로 그리고 GoogLeNet 그리고 마지막으로 ResNet이 되었다.
+  1.2 Inception model에서 부터 Residual connection을 통해서 deep하고 sparse한 신경망을 학습 할 수 있게 되었다.
+  1.3 regularizer로 drop-path, dropou이 제안되었고 그리고 stochastic depth나 student-teacher training method들이 제안되었다.
+  1.4 추가적으로 data argumentation을 통해서도 성능이 향상되는 것을 확인 할 수 있었다.
+  1.5 학습을 개선하기 위해서 Sigmoid나 tanh같은 gradient가 vanishing 되는것을 막기위해서 ReLU가 제안되었고 다양한 개량형 ReLU가 제안되었다.
+  1.6 good initialization또한 이런 문제를 잘 개선시킬 수 있다.
+  1.7 학습 속도를 개선시키기 위해 main loss가 아닌 auxiliary loss를 통해서 학습 속도를 개선 시킬 수 있지만 training과 실제 값 사이의 차이가 발생하게 된다.
+  1.8 Fractal 도형처럼 같은 모양의 그림이 작아지면서 반복되게 등장하는 module
+  1.9 각 module 간에는 pooling layer가 있고 하나의 module안에는 가장 바깥쪽에 가장 긴 것 과 평행하게 그것의 절반이되는 것 2개 또 절반 4개 인 식으로 module이 구성되어 있다.
+  1.10 F_1 = conv(z), F_c+1 = [F_c dot F_c)] join conv(z) 인 식으로 되어 있다.
+  1.11 모든 signal, input들이 conv layer를 거치기 때문에, 더 중요한 데이터가 있지 않다.
+  1.12 drop path를 적용할때, local 방식과 global 방식 2가지로 적용한다.
+    1.12.1 local은 각 각 join position에서 하나의 fractal 조각이 drop된다.
+    1.12.2 global은 join 간 하나의 path가 사라지게 된다.
+  1.13 이를 통해서 performance를 계속해서 확인해서 성능에 영향을 많이주는 path를 찾아서 model을 compression 시킬 수 있다.
+  1.14 이 논문에서는 fractal의 기본 단위로 conv layer를 사용했다. 다른 fire module이나 inception moduel을 사용하면 성능이 개선 되는지 궁금하다.
+  1.15 drop-path와 batch normalization을 같이 적용 할 수 있다는 것인지, 두가지를 따로따로 적용했는지 잘 모르겠다.
+  1.16 어쨋든 drop-path 방식역시 fractalnet과 같이 여러 path로 나누어져 있는경우 깊은 신경망 학습에 이용하면 아주 좋다.
+  1.17 https://arxiv.org/abs/1605.07648
