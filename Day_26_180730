@@ -18,3 +18,16 @@
   1.15 drop-path와 batch normalization을 같이 적용 할 수 있다는 것인지, 두가지를 따로따로 적용했는지 잘 모르겠다.
   1.16 어쨋든 drop-path 방식역시 fractalnet과 같이 여러 path로 나누어져 있는경우 깊은 신경망 학습에 이용하면 아주 좋다.
   1.17 https://arxiv.org/abs/1605.07648
+
+2. 증식 LSTM
+  2.1 sequence data를 입력으로 받아서 sequence data를 출력으로 내놓는 model에 대해서 RNN은 좋은 성능을 보여주고 있다.
+  2.2 RNN의 한계점인 vanishing gradient문제는 LSTM과 같은 추가적인 model로 개선을 시킬 수 있다.
+  2.3 하지만 이런 RNN은 입력 데이터가 잘 정제되지 않았을때, 실제 예측을 진행할 때, 잘못된 입력이 들어왔을때, hidden cell data가 고쳐지는데 시간이 오래 걸리게 되는 문제점이 발생 한다.
+  2.4 이런 문제점을 해결 하기 위해서 Multiplicative LSTM(mLSTM)이 제안 되었다.
+  2.5 multiplicate RNN의 경우 입력 데이터가 차원이 높은 tensor의 경우 입력 tensor를 쪼개서, 각 array 별로 gate를 만들어서 hidden node를 통과시킬 gate를 학습시키는 방식으로 학습이 진행됨
+  2.6 하지만 mRNN의 gate는 추가적인 sigmoid함수가 아닌 linear summation으로 gate가 학습되서 표현력이 sigmoid보다 좋음.
+  2.7 mLSTM은 mRNN과 같은식으로 지난번에 출력된 hidden state의 data를 추가적인 multiplicate gate를 통해서 갱신해서 그 데이터를 vanila LSTM의 hidden state처럼 학습을 진행
+  2.8 mLSTM은 다른 LSTM들과 달리 depth가 깊지 않아도, performance가 잘나오기 때문에 깊이가 깊어질 필요가 없고, 다른 요인때문에, 좋은 성능을 나타내는 것으로 보인다.
+  2.9 요인에 대한 설명은 나와있지 않는것 같다.
+  2.10 요즘 데이터들 중에는 입력데이터가 tensor가 아닐수는 없기 때문에, 다양한 곳에서 적용 할 수 있을 것 같다.
+  2.11 https://arxiv.org/abs/1609.07959
