@@ -51,3 +51,4 @@
   4.7 기본적으로는 stack 된 RNN과 같은 모양이고, stack되어 있는 부분이 Fast RNN이고 따로 하나의 추가적인 long term dependency를 위한 RNN모델이 합쳐져 있는 것으로 볼 수 있다.
   4.8 이때 사용된 RNN 모델이 RNN이든 LSTM이든 GRU이든 MRU이든 상관없이 어떤 RNN모듈이라도 적용 할 수 있다.
   4.9 이를 통해서 장기의존성을 보다 잘 capture 하는것을 확인 할 수 있었다.
+  4.10 https://arxiv.org/abs/1705.08639
