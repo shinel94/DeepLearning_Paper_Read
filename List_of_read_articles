@@ -128,3 +128,10 @@
   79. Recurrent neural network based language model
   80. Tracking Emerges by Colorizing Videos - https://arxiv.org/abs/1806.09594
   81. Fast-Slow Recurrent Neural Networks - https://arxiv.org/abs/1705.08639
+
+180730
+  82. FractalNet: Ultra-Deep Neural Networks without Residuals - https://arxiv.org/abs/1605.07648
+  83. Multiplicative LSTM for sequence modelling - https://arxiv.org/abs/1609.07959
+  84. Sequence to Sequence Learning with Neural Networks - https://arxiv.org/abs/1409.3215
+  85. Training Deep Bidirectional LSTM Acoustic Model for LVCSR by a Context-Sensitive-Chunk BPTT Approach
+  86. Using the Output Embedding to Improve Language Models - https://arxiv.org/abs/1608.05859
