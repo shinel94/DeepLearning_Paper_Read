@@ -49,3 +49,19 @@
   3.12 hidden state의 변화를 입력에 대해 조금더 robust하게 network를 학습 시킬 수 있고, flow of information도 imporve 시킬 수 있다.
   3.13 https://arxiv.org/abs/1606.01305
 
+4. Self attention sentence embedding
+  4.1 짧은 text data를 가지고 classification을 하기위해서 CNN이나 LSTM과 같은 방식이 제안 되었다.
+  4.2 그리고 attention mechanism 역시 제안 되었다
+    4.2.1 데이터에 추가적인 attention에 대한 정보를 가지고 있어서, 집중해야할 정보에 대한 데이터를 input에 가지고 있는 model
+  4.3 하지만 sentence를 나타내는 data들은 이런 attention information을 가지고 있기가 쉽지 않다.
+  4.4 이를 개선하기 위해서 self attention이 제안 되었다.
+  4.5 우선 모델은 LSTM을 통해서 전체 문장을 embedding vector로 표현을 하고, 하나의 vector에서 값을 추려내서 사용하는 것이 아니라 전체 embedding vector를 matrix로 표현해서 해당 matrix를 한번에 처리한다.
+  4.6 이때 H matrix와 gate matrix와 같은 structure를 가진 A weight metrix를 H를 기반으로 학습해서 self attention이 진행된다.
+  4.7 그리고 이 A와 H의 곱을 통해서 얻은 feature vector를 이용해서 사용자 classification이나 star point prediction에 사용한다면 좋은 성능을 보여준다.
+  4.8 그리고 이 A matrix에 추가적인 penalty가 추가 되어서 regularizer로서 효과를 나타낼 수 있다.
+    4.8.1 A*A^T가 identity matrix에 가깝게 학습하게 되면, A가 같은 것끼리는 같게 다른것들끼리는 다르게 embedding하는 효과를 얻을 수 있다.
+  4.9 hidden state 값을 pooling해서 embedding하는 것이 아닌 hidden state map을 self attention으로 더 많은 정보를 효율적으로 embedding시킴으로써 단순한 pooling보다 성능이 좋다.
+  4.10 모든 hidden state 값을 한번에 사용하기 때문에, long term dependecy나 단어간 interdependecy를 더 잘 catch할 수 있다.
+  4.11 그리고 출력 벡터의 width뿐 아니라 height가 증가되면 데이터의 표현력도 커지지만 일정크기 이상으로는 성능이 좋아지지 않는다.
+  4.12 LSTM이나 RNN 또 GRU 그리고 bidirectional LSTM 들의 특정 timestep에 대한 값에 따로따로 pooling을 진행하는 것 보다 전체 hidden state map을 구하고 이를 통해서 self-attention을 적용하게 되면 보다 embedding vector를 잘 표현 할 수 있다.
+  4.13 https://arxiv.org/abs/1703.03130
