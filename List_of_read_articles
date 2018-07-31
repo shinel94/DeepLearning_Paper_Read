@@ -135,3 +135,10 @@
   84. Sequence to Sequence Learning with Neural Networks - https://arxiv.org/abs/1409.3215
   85. Training Deep Bidirectional LSTM Acoustic Model for LVCSR by a Context-Sensitive-Chunk BPTT Approach
   86. Using the Output Embedding to Improve Language Models - https://arxiv.org/abs/1608.05859
+
+180731
+  87. Factorization tricks for LSTM networks - https://arxiv.org/abs/1703.10722
+  88. Layer Normalization - https://arxiv.org/abs/1607.06450
+  89. Zoneout: Regularizing RNNs by Randomly Preserving Hidden Activations - https://arxiv.org/abs/1606.01305
+
+
