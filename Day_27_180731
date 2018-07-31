@@ -32,4 +32,20 @@
   2.9 Layer별로 Normalization을 진행하면 FC나 CNN에 적용된 Batch Normalization이 가지고 있는 큰 장점인 학습속도가 증진되는 효과, 학습률을 증가시켜도 안정된 gradient를 보인다는 효과를 얻을 수 있다.
   2.10 https://arxiv.org/abs/1607.06450
   
-  
+3. 정규화 하자 정규화 RNN에 ZoneOut
+  3.1 많은 regularizaing technique가 사용되고 발전되고 있다.
+    3.1.1 early stopping이나 reccurent를 제외한 곳에 dropout을 적용하거나 또 batch normalizaion이나 layer normalizaion들이 제안되었고 성능을 개선 시켰다.
+  3.2 zoneout이라는 novel regularizaing method 가 제안되었다.
+  3.3 dropout은 해당 node의 값을 drop시키는 것인데 간단하게 말하면 특정 node의 값을 previous timestep의 값으로 대체하는 것을 의미한다.
+  3.4 이 방법을 통해서 dropout과 달리 vanishing gradient 문제에 보다 잘 대처 할 수 있다.
+  3.5 최근까지 제안된 RNN은 recurrent connection이 아닌 feed-forward connection에만 dropout이 적용되었다.
+  3.6 또 더 최근 논문에는 memory cell이나 GRU state에 dropout이 적용되는 식으로 dropout이 개선되고 있다.
+    3.6.1 input output gate에 dropout이 적용되고 있다.
+  3.7 LSTM과 GRU와 같이 gate를 가지고 있는 곳에서만 time step으로 dropout을 적용시킬 수 있다.
+  3.8 zoneout은 어떤 RNN에도 상관 없이 적용시킬 수 있고, 지난번 값을 이용하는 것이기 때문에, 학습할때도 gradient가 vanishing 되는것을 막을 수 있다.
+  3.9 zoneout을 per-unit version of stochastic depth로 볼 수 있다. 
+  3.10 zoneout을 적용하면 왜곡된 데이터에 보다 강한 robustness가 보다 강해지는 것을 확인 할 수 있었다.
+  3.11 zoneout은 다른 batch normalization전략과 feed-forward connection에 dropout을 적용하는 것과 동시에 적용할 수 있공 성능역시 향상되는 것을 볼 수 있다.
+  3.12 hidden state의 변화를 입력에 대해 조금더 robust하게 network를 학습 시킬 수 있고, flow of information도 imporve 시킬 수 있다.
+  3.13 https://arxiv.org/abs/1606.01305
+
