@@ -65,3 +65,30 @@
   4.11 그리고 출력 벡터의 width뿐 아니라 height가 증가되면 데이터의 표현력도 커지지만 일정크기 이상으로는 성능이 좋아지지 않는다.
   4.12 LSTM이나 RNN 또 GRU 그리고 bidirectional LSTM 들의 특정 timestep에 대한 값에 따로따로 pooling을 진행하는 것 보다 전체 hidden state map을 구하고 이를 통해서 self-attention을 적용하게 되면 보다 embedding vector를 잘 표현 할 수 있다.
   4.13 https://arxiv.org/abs/1703.03130
+
+5. Recurrent Highway Network
+  5.1 신경망 model은 layer가 깊어질수록 좋은 성능을 내는 것으로 알려져 있다.
+  5.2 RNN은 time axis로는 deep하게 연결되어 있는것으로 생각 할 수 있다.
+  5.3 하지만 신경망의 depth가 커질수록 error가 backpropagation이 잘 되지 않는 문제를 확인 할 수 있다.
+  5.4 그래서 RNN에서도 모든 시간입력에 대해서 error를 계산해서 전파하는 것이 아닌 특정 시간대별로 주기별로 잘라서 error를 전파하는 방식으로 depth를 조절한다.
+  5.5 그리고 추가적으로 다양한 method들이 제안 되었다.
+    5.5.1 간단하게 memory cell을 통해서 그리고 self attention을 할 수 있는 gate를 통해서 error가 보다 잘 흐르게 모델을 만들거나
+    5.5.2 skip connection을 줄여서 error가 돌아올 path의 길이를 줄이는 방법도 제안되었다.
+    5.5.3 그리고 bidirection 으로 에러를 양방향으로 학습을 진행 하거나
+    5.5.4 또는 RNN이 아닌 model에서는 auxiliary error를 전파하는 식으로 error를 더 잘 전파 시킬 수 있다.
+    5.5.5 Fast-Slow RNN이나 clockwork-RNN 또는 Depth-gate LSTM과 같은 다양한 model이 제안되고 있다.
+  5.6 gradient의 문제를 해결하기 위해서 Highway layer를 가지고 있는 Recurrent Highway Network가 제안되었다.
+  5.7 간단한 Stacked RNN의 경우 model의 구조가 결국 Time에 의한 depth T와 feed-forward depth D가 곱해진 T*D개의 cell을 가지게 된다.
+  5.8 시간축으로 전파될때 사용되는 가중치 R에따라서 gradient가 vanishing될지 exploding할지 정해지는데 이때 R의 eigenvalue의 크기로 이를 예측할 수 있다.
+  5.9 Highway Network와 같은 방식으로 학습이 진행된다
+    5.9.1 이때 이번 입력으로 들어오는 값은 highway network와 같은 방식으로 gate mechanism으로 학습되고 해당시간대 출력이 결정된다. 이때 gate들에서는 이번 cell의 모든 입력을 이용해서 gate를 학습한다.
+  5.10 GRU와 차이를 잘 모르겠음, 지난번 출력에 대해서 사용할 데이터를 고르기 위한 gate와 이번 입력에서 고르기 위한 gate 2개를 학습하는데 결국 GRU와 같은 형식이 아닌가
+  5.11 결국 Gate를 학습함으로써 깊은 recurrent neural network를 학습 시킬 수 있고, 효율도 좋아진다.
+  5.12 https://arxiv.org/abs/1607.03474
+  
+  
+  
+    
+    
+
+
