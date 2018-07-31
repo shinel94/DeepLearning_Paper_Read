@@ -14,3 +14,22 @@
   1.8 Group LSTM의 경우 2층 stack이 되어있을때 1층에는 4개의 그룹으로 2층에는 8개의 그룹으로 와 같은 식으로 hierarchical하게 만들 수도 있다.
   1.9 LSTM을 factorization 시키거나 작은 LSTM으로 나누어서 학습 할 수 있게 데이터를 group화 시켜서 parameter수를 줄이면서 성능을 개선 시킬 수 있다.
   1.10 http://arxiv.org/abs/1703.10722
+
+2. Batch Normalization 을 RNN에도 써보자
+  2.1 학습 속도를 증진시키기 위해서 Batch Normalization이라는 방식이 제안 되었다.
+    2.1.1 BN은 각 activation function으로 들어가기 전 feature map에 적용되는 방식으로, cell의 값을 -1과 1사이의 값을 가지는 z값으로 정규 분포화 시킨뒤 그 값에 scale fator와 shift factor를 곱해주어서 값을 보정해서 일반적인 whitening 보다 강한 표현력을 가지고 있다.
+      2.1.1.1 BN의 변수는 scale factor와 shift factor로 batch마다 한쌍의 factors들이 할당 된다.
+    2.1.2 CNN에 BN을 적용시키는 방법은 BN이 activation function을 통과하기 전에 적용시키는 방식이기 때문에, CNN의 합성곱이 일어나고 난 feature map의 각 cell에 할당되는 scale factor와 shift factor가 정해진다.
+      2.1.2.1 쉽게 말해서 filter 와 곱해지는 입력 data part를 하나의 batch로 보고 normalization이 일어나느 것으로 볼 수 있다.
+  2.2 RNN은 batch size가 fixed 되어 있지 않기 떄문에, BN을 적용시키기가 힘들다.
+  2.3 이를 위해서 layer normalization이 제안 되었다.
+  2.4 covariate shift문제를 해결하기 위해서 제안 되었다
+    2.4.1 non linear activation에 들어가기 전에 summation되기 전에 적용되어서 covariate shift문제를 완화 시킬 수 있다.
+  2.5 layer nomalizaton은 batch가 아닌 하나의 hidden layer에 적용해서 normalization을 적용시킨다.
+  2.6 scale factor와 shift factor를 모든 시간대의 입력에대해서 공유한다.
+  2.7 vanila RNN의 경우 hidden state가 결정되기 직전에 normalization이 진행된다.
+  2.8 weight normalization에는 하나의 벡터만 normalization될 때는 영향을 받지만 entire하게 matrix를 normalization할때는 영향을 받지 않는다 그리고 batch normalization에는 영향을 받는것으로 볼 수 있다.
+  2.9 Layer별로 Normalization을 진행하면 FC나 CNN에 적용된 Batch Normalization이 가지고 있는 큰 장점인 학습속도가 증진되는 효과, 학습률을 증가시켜도 안정된 gradient를 보인다는 효과를 얻을 수 있다.
+  2.10 https://arxiv.org/abs/1607.06450
+  
+  
