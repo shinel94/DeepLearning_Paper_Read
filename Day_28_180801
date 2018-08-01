@@ -15,3 +15,22 @@
   1.11 모델의 uncertainty를 같이 출력함으로써, 그 값을 통해서 추가적인 handle이 필요한 data를 extract할 수 있다.
   1.12 이해가 어렵습니다.
   1.13 https://arxiv.org/abs/1506.02142
+
+2. Filter의 channel방향으로 한번에 처리하는것이 아니라 쪼개서 64를 4개짜리 독립된 여러개의 path로 나누는 ResNeXt
+  2.1 Filter를 channel방향으로 쪼개서 여러개의 독립된 path로 하지만 수학적으로 topology는 동일하게 structure를 구성해서 image classification을 진행
+  2.2 합성곱신경망을 구성할때, 너무나 많은 hyperparameter들을 구성하야 하는 문제를 해결하기 위해 VGGnet에서 동일한 위상을 가진 블록을 반복해서 쌓는 식으로 모델을 작성했다.
+  2.3 ResNet역시 이러한 특징을 inherite하고, VGG에 없던 residual, skip-connection을 attach했다.
+  2.4 그리고 Inception model에서는 이러한 model의 topoloy적인 design을 개선해서 theoretical complexity를 낮추는 방법을 제안했다.
+    2.4.1 split - transform- merge straetegy
+    2.4.2 inception에서는 정확하게 큰 크기의 filter를 작은 사이즈의 필터로 쪼갠뒤에 concatenation이 진행되었다.
+    2.4.3 이 방법을 통해서 inception model의 layer들을 dense하게 만듦으로써 표현력을 늘렸고, 동시에 오히려 계산량은 줄일 수 있었다.
+  2.5 많은 양의 채널을 가진 하나의 path를 적은 수의 채널을 가진 여러개의 path로 쪼갬으로써 계산복잡도를 줄이면서 성능을 개선 시킬 수 있었다.
+  2.6 VGG/ResNet의 경우 filter의 width, height, chaanel수를 통제해서 출력이 같으면 모델의 hyperparameter도 동일하게 output이 줄어들면 계산 flops는 일정하게 유지할 수 있게끔 hyperparameter를 setting한다.
+  2.7 학습할때는, BatchNormalization과 initialization 전략이 따로 사용됬고, SGD momentum method를 이용해서 학습을 진행 시켰다.
+  2.8 path의 숫자가 커지면 커질수록 신경망을 깊고 넓게 잘 학습 시킬 수 있고, 성능도 좋아진다.
+  2.9 Inception을 통해서 filter를 쪼갰고 ResNeXt를 통해서 channel을 쪼개서 계산은 dense하게 하지만 model은 sparse하게 만듦으로써 계산 복잡도는 줄이면서, 성능을 향상 시킬 수 있다.
+  2.10 https://arxiv.org/abs/1611.05431
+  
+  
+  
+  
