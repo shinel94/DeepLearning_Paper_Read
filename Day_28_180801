@@ -31,6 +31,41 @@
   2.9 Inception을 통해서 filter를 쪼갰고 ResNeXt를 통해서 channel을 쪼개서 계산은 dense하게 하지만 model은 sparse하게 만듦으로써 계산 복잡도는 줄이면서, 성능을 향상 시킬 수 있다.
   2.10 https://arxiv.org/abs/1611.05431
   
+2. Filter를 다른 방향으로  factorization 시켜보자
+  2.1 합성곱 신경망 모델을 만들때, 일반적으로 너무 많은 parameter들을 결정해야 한다.
+  2.2 그래서 제안된것이 VGG와 같이 같은 model block을 겹겹이 쌓아서 최대한 parameter수를 줄인다.
+  2.3 그리고 VGG의 경우 모델의 output에 따라 hyperparameter들이 결정되는데, output을 절반으로 줄일때, 계산 flops 들은 유지될수 있게 channel수를 늘리는 식으로 모델을 확장한다.
+  2.4 VGG의 계산양을 줄이기 위해서 filter를 fatorization 시키는 inception model이 제안되었다.
+    2.4.1 Inception에서는 filter의 크기가 5x5인것을 3x3 2개로 쪼개거나, 1x1필터로 바꾼다.
+    2.4.2 이런 변경을 통해서 계산은 dense하게 하면서 model은 sparse하게 하는 효과를 얻을 수 있다.
+  2.5 그리고 model의 학습속도를 개선하기 위해서 skip connection과 같은 방식이 제안되었다.
+  2.6 그래서 본 model에서는 256, 1x1, 64의 block을 (256, 1x1, 4) x32로 block을 parallel하게 fatorization 시키고 계산 flops는 유지시키는 방향으로 모델을 설정했다.
+  2.7 그래서 multi branch conv net의 효과와 grouped conv그리고 compressing conv net효과를 통해서 ensemble의 효과를 통해서 성능을 개선 시킬 수 있다.
+  2.8 https://arxiv.org/abs/1611.05431
   
+3. sequnece data에서 모든 단어가 같은 중요도를 가지지는 않지!
+  3.1 문장을 통해서 단어를 embedding할때, 하나의 문장에서 모든 단어들이 특정단어에 같은 영향을 끼치지 않는다.
+  3.2 특정 단어는 local context를 위해서 쓰일수도 있고, 또 다른 단어는 global context를 위해 쓰인다.
+  3.3 CBOW나 skip-gram의 경우는 단어를 embedding할때, 특정 window이내의 단어들은 모두 같은 크기의 가중치를 두고, embedding에 영향을 미친다.
+  3.4 다음에 나타날 특정 단어를 예측하기 위해 추가적으로 가중치를 학습한다.
+    3.4.1 구체적으로 단어별로 주변 거리에따른 추가적인 가중치 alpha를 학습해서 skip gram이나 CBOW를 학습할때 사용한다.
+  3.5 그리고 hierachical softmax나 negative sampling을 통해서 계산량을 줄일 수 있다.
+  3.6 본 논문에서느 negative sampling을 통해서 계산량을 줄일 수 있었다.
+  3.7 학습을 할때, 다음단어를 예측하는 것에서는 skip gram이나 CBOW로 예측을 하는데, 원래는 단순히 average시켰었는데, 보다 사람생각에 더 맞게끔 attention mechanism처럼 추가적인 paramter들을 학습을 시킴
+  3.8 https://www.cs.cmu.edu/~ytsvetko/papers/emnlp15-attention.pdf
+
+4. LSTM모델을 정규화하고 최적화 시키는 방법
+  4.1 Sequence모델을 학습하기 위해서 RNN모델이 제안 되었다.
+  4.2 다른 심층신경망이나 CNN의 경우는 dropout과 BN과 같은 정규화 방법을 잘 적용 시킬 수 있었다.
+  4.3 하지만 이를 RNN에 바로 적용을 시키면 RNN이 가지고 있는 time direction dependecy를 잘 capture하지 못하는 문제가 발생한다.
+  4.4 batch normalization의 경우는 hidden state 값을 추가적인 scale, shift factor를 학습함으로써 학습에 더 잘맞게 데이터의 표현을 바꾸는 방식
+  4.5 dropout의 경우는 RNN에는 zoneout과 같은 방식으로 개선되게 제안되었는데, 본 모델에서는 dropconnect방식으로 제안되었다.
+  4.6 이때 dropconnect되는 mast가 batch별로 변경되서어서, 학습은 더 빨리 되면서 정규화 시키는 model을 만들 수 있었다.
+  4.7 그리고 sequence 길이역시 항상 똑같이 설정하는 것이 아니라 특정 정규분포를 가지는 값에서 추출함으로써, 보다 time direcion dependecy를 잘 catch할 수 있었다.
+  4.8 다른 모델에서와 비슷하게 embedding되는 matrix에는 똑같인 dropout을 적용시켜서 overfitting에 도 robust하게 했다.
+  4.9 단순한 SGD방식이 아닌 average-SGD를 제안해서 학습속도와 학습된 모델의 성능을 개선 시킬 수 있었다.
+    4.9.1 특정 trigger가 작동되면, model이 가지고 있는 가중치를 특정 시간대 범위에서 가졌던 가중치들의 산술평균으로 새롭개 갱신하는 방식으로 모델을 학습시킨다.
+  4.10 그래서 dropconnect와 dropout 그리고 layer normalization을 통해서 regularization시키고 ASGD를 통해서 optimiation 시켜서 성능을 개선 시킬 수 있었다.
+  4.11 https://arxiv.org/abs/1708.02182
   
   
