@@ -142,3 +142,9 @@
   89. Zoneout: Regularizing RNNs by Randomly Preserving Hidden Activations - https://arxiv.org/abs/1606.01305
   90. A Structured Self-attentive Sentence Embedding - https://arxiv.org/abs/1703.03130
   91. Recurrent Highway Networks - https://arxiv.org/abs/1607.03474
+
+180801
+  92. Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning - https://arxiv.org/abs/1506.02142
+  93. Aggregated Residual Transformations for Deep Neural Networks - https://arxiv.org/abs/1611.05431
+  94. Not All Contexts Are Created Equal: Better Word Representations with Variable Attention
+  95. Regularizing and Optimizing LSTM Language Models - https://arxiv.org/abs/1708.02182
