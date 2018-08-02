@@ -104,7 +104,16 @@
   5.20 https://arxiv.org/abs/1506.02640
   5.21 드디어 100편째, 여기까지 읽으려고 했는데 아직 모르는게 넘모 많아서 더 읽어야 할것 같다. 계속힘내자 
 
-
-
+6. Deep Convolutional Nets이 Deep하고 Convolutional할 필요가 있을까?
+  6.1 당연 deep하고 convolutional 해야지
+  6.2 같은수의 parameter를 가졌지만 depth가 다른 신경망을 학습시켰을때, depth가 성능에 영향을 미치는지 확인 할 수 있다.
+  6.3 신경망 모델을 압축하는 열쇠는 compact model을 another larger, moder complex model을 따라하게끔 학습하는 것이다.
+  6.4 emperical한 실혐을 통해서 deep convolutional models 을 to shallow student model로 압축할때, loss of accuracy가 반드시 발생한다.
+  6.5 압축한 student 모델의 경우 convolution 쪽으로는 넓어지면 성능이 증가 했지만 depth방향으로 증가할떄는 2~3까지 최고가 되었다가 4~5이 되면 감소하는 것을 확인 할 수 있었다.
+  6.6 Conv가 없는 모델로 압축할 때는 더 성능이 좋지 않았다.
+  6.7 teacher model의 결과로 soft targets을 학습하는 student 모델은 추가적인 regularizer가 들어가면 성능이 저하 되는것으로 보아서, 선생 model이 가르침녀서 regularization이 작동 하는 것으로 생각 할 수 있다.
+  6.8 learnable parameter의 수를 control해서 학습하면 single non convolutional fully connected model이 deep convolutional model의 성능을 따라 잡을 수 없다.
+  6.9 하지만 압축된 모델에서는 얇고 conv가 fewer한 모델이 더 좋은 성능을 내는것은 확인할 수 있었다.
+  6.10 https://arxiv.org/abs/1603.05691
 
   
