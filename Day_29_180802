@@ -38,3 +38,22 @@
   2.11 KNN이 모든 데이터를 memory에 저장해서 하는것처럼, 특정 기간내의 데이터를 저장하는 memory를 추가해서 성능을 개선했다.
   2.12 https://arxiv.org/pdf/1410.3916.pdf
   
+3. Swapout 쓸어서 날려버렷 앙상블 효과를 주는 학습법
+  3.1 Swapout은 dropout과 stochasitc depth 그리고 residual architecture를 혼합한 special case이다.
+  3.2 Swapout이 강한 regularization을 가한다.
+  3.3 dropout은 특정 output의 individual unit을 random하게 zero로 만드는것
+  3.4 stochastic depth는 학습할때 데이터 flow를 임의로 skip 시키는 방식으로 모델을 학습시키는것
+  3.5 Swapout방법을 통해서 같은 깊이의 ResNets보다 성능을 향상 시킬 수 있다.
+  3.6 만약 학습이 가능하다면, 신경망의 깊이가 깊어질수록 모델의 성능이 증가된다.
+  3.7 Swapout은 4가지의 조건들 중에 하나의 값으로 반환된다.
+    3.7.1 첫번째 반환값은 0으로 dropout의 효과를 얻을 수 있다.
+    3.7.2 두번째 반환값은 F(x)로 일반적인 feedforward unit의 반환으로 생각 할 수 있다.
+    3.7.3 세번째 반환값은 입력 x벡터를 그대로 반환하는 것으로 skipped connection효과를 얻을 수 있다.
+    3.7.4 네번째 반환값은 x + F(x)로 residual network unit의 반환으로 생각 할 수 있다.
+  3.8 이 4개의 값들은 X와 F(x)의 값들의 조합으로 이루어 져있기 때문에 2개의 parameter를 임의의 확률로 추출해서 값을 얻을 수 있다.
+    3.8.1 theta_1 * x + theta_2 * F(x) 에서 theta들이 임의추출될 parameter
+  3.9 이렇게 출력을 정함으로써, model을 학습할때, dropout, stochastic depth, residual connection효과를 동시에 볼 수 있다.
+  3.10 swapout을 적용하면 model의 performance도 증가하는데, optimizaion process에서 성능이 개선 된것으로 보인다.
+  3.11 layer 간 connection을 학습 할 수 있게 하는것 같다.
+  3.12 dropout과 stochastic depth, residual architecture의 효과를 동시에 적용시킬 수 있는 swapout모델을 쓰면 모델의 성능이 더 좋게 학습이 된다.
+  3.13 https://arxiv.org/abs/1605.06465
