@@ -57,3 +57,21 @@
   3.11 layer 간 connection을 학습 할 수 있게 하는것 같다.
   3.12 dropout과 stochastic depth, residual architecture의 효과를 동시에 적용시킬 수 있는 swapout모델을 쓰면 모델의 성능이 더 좋게 학습이 된다.
   3.13 https://arxiv.org/abs/1605.06465
+
+4. RNN에 dropout적용하기
+  4.1 feedforward connection에 dropout을 적용하는 것이 아닌 recurrent connection에 long term memory에 loss없이 dropout을 적용했다.
+  4.2 단순히 feedforward architecture에 적용하는 것처럼 적용하면 time axis로는 dropout을 적용시키지 못한다.
+  4.3 이전의 논문에는 LSTM의 memory cell에 dropout을 적용시켜서 성능을 개선했다
+    4.3.1 Moon 의 논문에는 memory cell출력에 dropout이 적용됬다
+    4.3.2 Gal의 논문에는 memory cell도 들어오는 input gate를 통과할 데이터에 dropout이 적용되었다.
+  4.4 GRU에 단순하게 reccurent에 dropout을 적용하게 되면, dropout probability가 time에 따라 계속해서 곱해지게 되서 long-term dependecy를 capture하지 못하게 된다.
+  4.5 하지만 gate에 들어가는 mask vector를 0과 1 두가지를 가진 discrete한 vector로 두면 학습이 잘된다.
+  4.6 LSTM은 모든 gate의 hidden state input에 mask vector가 곱해지고, 그리고 memory cell에 위에설명한 두방식으로 각각 dropout이 적용된다.
+  4.7 GRU의 경우에도 hidden state의 업데이트에서 지난번 hidden state가 입력될때 mask가 곱해진다.
+  4.8 mask로 sampling을 진행하는게 direct로 dropout을 적용하는것보다 성능이 좋다.
+  4.9 per step별로 time step 별로 mask를 할당해서 sampling을 하는게 성능이 가장 좋다.
+  4.10 conventional한 feedfowrad방향으로 dropout을 적용시키고 mask sampling을 통해서 reccurent unit에 dropout을 적용시키면 모델을 과적합을 막으면서, 잘 학습 시킬 수 있다.
+  4.11 https://arxiv.org/abs/1603.05118
+  
+  
+  
