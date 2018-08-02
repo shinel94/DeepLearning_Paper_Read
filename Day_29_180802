@@ -73,5 +73,38 @@
   4.10 conventional한 feedfowrad방향으로 dropout을 적용시키고 mask sampling을 통해서 reccurent unit에 dropout을 적용시키면 모델을 과적합을 막으면서, 잘 학습 시킬 수 있다.
   4.11 https://arxiv.org/abs/1603.05118
   
-  
+드디어 백편째 논문, 싀벌 아는거 존나 많은줄 알았는데, 진짜 좆도 모른다.
+아모른직다. 어렵다 십ㄹ
+
+5. YOLOY 욜로 you only look once
+  5.1 사람은 image를 볼때 glance만 해도 뭐가 어디에 있는지 어떻게 연관되어 있는지 알수 있다.
+  5.2 빠르고 정확한 시스템은 자율주행자동차와 같은 곳에 추가적인 센서없이 사용되기에 중요한 모델이다.
+  5.3 R-CNN의 경우 우선 후보 box들로부터 potential bounding box를 계산하고 그 box내에서 classifiaction이 진행된다.
+  5.4 전체 입력이미지를 SxS grid로 나눈다.
+  5.5 각 박스별로 class probability를 계산한다. 이때 box별로는 conditionaly indipendent가 성립한다.
+  5.6 bounding boxes 와 confidence로 각 object가 차지하고 있는 bounding box를 계산해서 final detection을 찾아낸다.
+  5.7 box 내에 class가 있을 신뢰도를 계산하고 특정 신뢰도 이상의 값만 취함으로써 원하는 box를 찾을 수 있다.
+  5.8 개발된 CNN structure에 head 부분을 modify해서 YOLO를 만들었다.
+  5.9 모델의 마지막 출력은 각 그리드별로 bounding box의 center의 값과 bounding box의 width와 height 그리고 confidence에 대한 정보 그리고 어떤 class로 할당될지 class의 확률을 가진 vector로 구성되어 있다.
+    5.9.1 제안된 모델은 B개의 bounding box를 찾기 때문에 SxSx(5xB+C)로 output이 정해진다.
+  5.10 precision이 reponsible한 grid에서만 error cost가 계산된다
+  5.11 error cost는 bounding box 의 position error와 size error가 L2 Norm으로 더해지고, class error는 obj가 있을때와 없을때를 나눠서 error가 전파되고 마지막으로 precision역시 L2Norm으로 error가 전파된다.
+  5.12 작은 물체가 반복되거나, 학습되지 않은 bounding box처럼 size가 일반적이지 않고 왜곡된 경우 detection이 잘 되지 않는다.
+  5.13 몇 단계의 layer를 거쳐서 나온 feature map을 대상으로 bouding box를 예측하므로 object의 localization이 다소 부정확해지는 경우가 있다.
+  5.14 작은 box의 error가 큰 box에서 발생한 error보다 더 가혹하게 평가된다.
+  5.15 출력의 7x7x30의 값을 입력 이미지의 각 grid값과 비교해서 regression을 진행
+  5.16 마지막 출력의 7x7x30에서 1,1,:의 값이 input image의 1,1그리드의 데이터와 같게 학습하는 방식 바뀐건 출력값 단 하나
+  5.17 학습할때, Grid cell의 여러 bounding box들 중, ground-truth box와의 IOU가 가장높은 bounding box를 predictor로 설정한다.
+    5.17.1 이때 각 grid의 데이터를 아래와 같은 3가지 기준으로 나눈다.
+    5.17.2 Object가 존재하는 grid cell i의 predictor bounding box j 
+    5.17.3 Object가 존재하지 않는 grid cell i의 bounding box j 
+    5.17.4 Object가 존재하는 grid cell i 
+  5.18 계산이 빠르다는 것은 model이 light하다고도 받아 들일수 있다, 그래서 YOLO는 CNN의 마지막 부분에 FC를 달아서 regression 모델로 바꿈으로써 test속도를 drastically 거의 in-time test가 가능하도록 video에 대해서 평가 할 수 있도록 제안된 신경망이다.
+  5.19 구체적인 계산방법은 위의 설명과 논문에서 제안되어 있으나, 간단하게 말하면 CNN의 통과한 feature map에서 FC를 통과시켜서 regression 을 위한 predicted value를 B*5+C개 만들허서 학습을 진행하는 모델이다.
+  5.20 https://arxiv.org/abs/1506.02640
+  5.21 드디어 100편째, 여기까지 읽으려고 했는데 아직 모르는게 넘모 많아서 더 읽어야 할것 같다. 계속힘내자 
+
+
+
+
   
