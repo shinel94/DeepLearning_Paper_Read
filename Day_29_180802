@@ -19,6 +19,6 @@
   1.13 tied시키면 가중치를 학습할때 한번의 행렬곱이면 되서 single GPU로는 학습이 더욱 효율적이다.
   1.14 embadding connection에 dropout을 적용하지 않고, 너무큰 dropout probability는 overfitting을 유발한다.
   1.15 embedding connection과 recurrent connection에 같이 dropout을 적용하면 robustness가 증가하는 효과를 얻을 수 있다.
-  1.16 LSTM이나 GRU에 dropout을 적용하기 위해서 gaussian distribution을 가진 분포의 값으로 mask를 할당해서 x input과 hidden state에 dropout mask를 적용시켜서 dropout을 적용시킨다.
+  1.16 LSTM이나 GRU에 dropout을 적용하기 위해서 gaussian distribution을 가진 분포의 값으로 all time step에  mask를 할당해서 x input과 hidden state에 dropout mask를 적용시켜서 dropout을 적용시킨다.
   1.17 https://arxiv.org/abs/1512.05287
   
