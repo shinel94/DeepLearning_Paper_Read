@@ -1,0 +1,24 @@
+1. New Variational inference based dropout technique
+  1.1 sequence data를 처리하기위해서 RNN이 제안되었다.
+  1.2 RNN은 time step data에 대해서 쉽게 overfit되는 문제가 발생한다.
+  1.3 이를 막기위해서 다른 신경망처럼 dropout을 적용했지만, time step reccurent unit에 적용하면 성능이 저하되는문제가 발생된다.
+    1.3.1 다양한 zonedout이나 dropconnect와 같은 방식이 제안되었다.
+  1.4 적은양의 데이터로 학습을 해야하는 RNN은 regularisation의 부재로 early stopping이나 model자체를 작게하는 방법들이 쓰이고 있다.
+  1.5 dropout은 신경망에 적용하는 popular regularisation technique이다.
+    1.5.1 network unit을 randomly masked시키는 방법으로 임의로 unit을 dropped 시키는 방법이다.
+  1.6 특정 time step 에서 dropout mask를 같게 적용시키는 방식으로 dropout을 적용
+  1.7 예전 논문들에서는 RNN에 dropout을 적용시킬때, reccurent connection에 적용을 시키면 성능이 떨어지고, layer방향 non reccurent 방향으로 dropout을 적용시키면 성능이 향상되는 것을 확인 했다.
+  1.8 Bayesian Neural Networks는 결국 입력데이터 들을 이용해서 가중치의 prior를 찾을수 있다는 것을 기반하고 있는것 같다.
+    1.8.1 결국 weight의 prior distribution을 예측해야 하는데 이를 입력데이터들로(X,Y) 할 수 있고, 이게 dropout이랑 비슷하다.
+  1.9 dropout mask를 임의로 0으로 정하는것이 아니라 특정 분포안의 값은 평균이 0이고 분산을 가지는 정규분포로 나머지는 그 값과 분산을 가진 정규분포로 값을 바꾸는 mask를 통해서 성능을 개선시킬 수 있다.
+  1.10 LSTM이나 GRU의 입력 x와 hidden state에 dropout mask를 적용시킨다.
+  1.11 모든 time step에 mask를 같은 것을 적용했다 고 적혀있다.
+    1.11.1 이뜻이 각 batch별로 mask를 다르게 썼다는 뜻인거 같긴 하다.
+    1.11.2 하지만 each time step별로 mask를 다르게 설정해서, 다른 batch에 대해서는 같은 time step이면 동일하게 dropout을 적용시킬 수 있을것 같다.
+  1.12 tied weight가 gate를 학습할때 2K x 4K로 가중치를 성정한다는 것인것 같다.
+  1.13 tied시키면 가중치를 학습할때 한번의 행렬곱이면 되서 single GPU로는 학습이 더욱 효율적이다.
+  1.14 embadding connection에 dropout을 적용하지 않고, 너무큰 dropout probability는 overfitting을 유발한다.
+  1.15 embedding connection과 recurrent connection에 같이 dropout을 적용하면 robustness가 증가하는 효과를 얻을 수 있다.
+  1.16 LSTM이나 GRU에 dropout을 적용하기 위해서 gaussian distribution을 가진 분포의 값으로 mask를 할당해서 x input과 hidden state에 dropout mask를 적용시켜서 dropout을 적용시킨다.
+  1.17 https://arxiv.org/abs/1512.05287
+  
