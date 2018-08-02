@@ -22,3 +22,19 @@
   1.16 LSTM이나 GRU에 dropout을 적용하기 위해서 gaussian distribution을 가진 분포의 값으로 all time step에  mask를 할당해서 x input과 hidden state에 dropout mask를 적용시켜서 dropout을 적용시킨다.
   1.17 https://arxiv.org/abs/1512.05287
   
+2. RNN으 메모리가 넘모 작어
+  2.1 stream of word를 읽고 next word를 predict하는 것과 같은 RNN모델이 제안되었다.
+  2.2 이런 모델은 대답을 위해서 기억해야할 데이터를 저장하기 위한 memory cell의 크기가 너무 작아서 성능이 잘 나오지 않는것 같다.
+  2.3 단순히 입력된 데이터를 그대로 출력하는 model에서 많은 어려움을 가지고 있다.
+  2.4 이러한 memory의 부족을 해결하기 위해서 제안된 것이 memory network이다.
+  2.5 input feature map은 가중치의 선형곱만이 아닌 입력데이터를 특정 feature map으로 mapping시킬 수 있는 방법을 사용하면 된다.
+  2.6 입력데이터를 어떤 memory cell의 position에 저장할지도 학습을 한다.
+  2.7 O는 hidden state에서 output출력을 내는데 R은 output 출력에서 classification이나 regression을 위해서 사용되는 mapping unit이다.
+  2.8 입력 데이터들을 그대로 기억시킴으로써, 여러 문장을 읽어야 알 수 있는, 문맥상의 의미를 파악할 수 있는 model을 만들 수 있다.
+  2.9 입력데이터들을 저장할때 그대로 저장하는 것은 memory의 한계가 있기때문에 hashing 방법을 통해서 저장할 데이터를 추린다.
+    2.9.1 입력 데이터를 그대로 hashing하는 방법이 있는데, 이는 단어를 공유하고 있는지만 considered된다.
+    2.9.2 입력 데이터를 clustering을 통해서 정확하게는 k-means clustering을 통해서 cluster point로 할당해서 휴사한 것들을 찾을 수 있게 했다.
+  2.10 입력데이터를 그대로 넣던 embedding해서 넣던 데이털르 보관하는 memory를 추가함으로써 문맥을 파악해서 질문에 답하는 모델을 만들 수 있다.
+  2.11 KNN이 모든 데이터를 memory에 저장해서 하는것처럼, 특정 기간내의 데이터를 저장하는 memory를 추가해서 성능을 개선했다.
+  2.12 https://arxiv.org/pdf/1410.3916.pdf
+  
