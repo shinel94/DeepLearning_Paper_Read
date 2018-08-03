@@ -30,3 +30,31 @@
   2.8 attentive pooling을 사용하면 입력 sequence의 길이가 길어져도, 저하되는 성능이 큰 차이가 없는것을 확인 할 수 있어서, 모델의 robustness가 증가 되는것을 확인 할 수 있었다.
   2.9 embedding 시켜서 얻은 벡터를 CNN이나 bi-LSTM으로 feature map을 얻고, 얻은 feature map을 이용해서 gate를 하나더 학습해서 gate를 통과시켜 Q와 A간 similarity를 비교하는 벡터를 찾는데 사용할 수 있다.
   2.10 https://arxiv.org/abs/1602.03609
+
+3. 욜로 구천
+  3.1 제안된 YOLO가 우수한 성능을 보였지만 한계점이 있다.
+    3.1.1 localization error가 너무 크다
+    3.1.2 recall수치가 region proposal based method보다 너무 낮다.
+  3.2 batch normalizartion을 이용해서 성능을 향상 시켰다.
+  3.3 classifier network의 사이즈를 2배로 키우고 imagenet을 이용해서 fine tune을 적용해 성능을 개선했다.
+  3.4 Fully connected layer를 통해서 bounding box를 예측하는 것이 아닌 anchor box를 통해서 bounding box를 예측한다.
+    3.4.1 원래는 각 그리드의 크기를 예측하기 위한 FC가 필요했지만, 이제는 FC가아닌 anchor box를 통해서 feature를 extract할 수 있기 때문
+    3.4.2 anchor box는 이미지가 있을 것으로 예상되는 window size 정도로 생각하면 될것 같다.
+  3.5 입력이미지에 대한 가장 적절한 anchor box를 k-means clustering으로 찾아서 사용했다.
+  3.6 하나의 이미지에서 특정사이즈의 이미지가 특정 position에 있는지를 찾을 수 있는게 anchor box인것 같다.
+  3.7 anchor box position을 결정해서 해당 anchor box에 어떤 물체가 있는제 조건부 확률로 계산하는 방식
+  3.8 feature map의 size는 줄이고 map의 channel수를 늘려서 성능을 향상 시켰다.
+  3.9 마지막에 FC layer 가 사라짐으로써 입력이미지의 크기 제한이 없어져서 다양한 사이즈의 이미지에 대해서 학습을 진행 했다.
+  3.10 계산을 빠르게 하기 위해서 feature map을 얻어내는 network를 VGG16 대신 Darkenet-19를 사용했다.
+    3.10.1 3x3 filter의 전후에 1x1 filter를 attach해서 3x3의 계산양을 줄일 수 있었다.
+  3.11 training할때 data에 random crop, rotation, hue, saturation, and exposure shift를 적용시켰다.
+  3.12 Hierarchical Classification을 적용했다.
+    3.12.1 label의 단어들을 WordNet에 있는 structure로 hierarchical 구조를 가지게 object를 구성한다
+      3.12.1.1 가장 root object는 physical object이기 때문에 Pr(physical object) = 1이 되어야 한다.
+  3.13 결국 이미지를 grid로 나눈고 거기에 anchor box데이터를 이용해서 모델을 학습하는 방식인것 같다.
+  3.14 layer의 마지막에 FC를 빼고 conv layer를 추가함으로써 입력데이터의 사이즈에 제한이 없어졌다.
+  3.15 classification을 hierarchical하게 진행함으로써 다양한 class를 분류 할 수 있게 되었다.
+  3.16 마지막으로 압축된 feature map이 이미지의 그리드에대한 그리드 수 와 anchor box의 숫자와 class 숫자에 의해 결정된다
+  3.17 마지막에 average pooling으로 원하는 크기로 데이터를 줄인다.
+  3.18 줄인 데이터를 이용해서 classification을 진행할때, bounding box를 예측하는 것이 아닌 정해진 anchor box들 중에 탐색을 진행하고, 특정 anchor box에 특정 class 가 등장할 확률을 계산한다.
+  3.19 https://arxiv.org/abs/1612.08242
