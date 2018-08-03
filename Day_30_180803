@@ -10,3 +10,23 @@
   1.9 성능이 가장 좋지는 않지만, 하나의 모델로 다양한 task에 embedding을 진행 할 수 있다.
   1.10 얻어낸 vector가 문장과 단어의 특징을 general하게 extract되어서 extract된 벡터만 이용해서 추가적인 fine-tuning없이 linear classification을 진행 할 수 있다.
   1.11 https://arxiv.org/abs/1506.06726
+
+2. Question과 Answer가 잘 pair되었는지 확인하는 model
+  2.1 Question과 Answer가 잘 pair되었는지 확인하기 위한 model이 제안되었다.
+    2.1.1 이 모델은 입력 question과 Answer sentence들을 WordeEmbedding으로 문장에 대한 matrix를 얻는다.
+    2.1.2 이 문장에 대한 matrix를 이용해서 CNN이나 bidirectional LSTM을 적용해서 sentece를 압축한 feature map을 얻는다.
+      2.1.2.1 Bidirectional LSTM은 uni LSTM이 과거에 대한 정보로 미래를 예측하는 것과 달리, 미래와 과거의 정보 즉 전체적인 문장의 내용을 이용해서 현재 위치를 압축하는 방식
+    2.1.3 예전에 제안된 방법인 이 Question과 Answer에 대한 각각의 feature map에 단순히 max pooling을 진행해서 얻은 vector로 둘 사이의 similarity를 계산한다.
+    2.1.4 이 논문에서는 cosine similairty가 이용됬다.
+    2.1.5 correct pair의 similarity는 1에 가깝게 학습하고, incoreect pair의 similairty는 0에 가깝게 학습하는 loss function을 설정하고 SGD를 적용해서 모델을 학습한다.
+  2.2 여기서 제안된 pooling이 Qestion과 Answer사이의 관계는 상관없이 모델을 출력하기 때문에, 이를 개선하기 위해서 attentive pooling을 적용했다.
+  2.3 attentive pooling은 추가적인 gate를 학습하는 것과 같은 방식으로 학습된다.
+  2.4 Qeustion에 대해서 얻은 feature map Q와 Answer에 대해서 얻은 feature map A를 이용해서 gate를 학습하는데 이 둘간의 관계를 찾아줄 선형 가중치 matrix U를 추가해서 학습한다.
+  2.5 attentive pooling의 gate는 tanh(Q^TxUxA)로 학습이 진행된다.
+    2.5.1 Q를 위해서 사용할 gate 변수들은 column-wise maxpooling된 값에 softmax를 적용시켜서 통과시킨다.
+    2.5.2 A를 위해서 사용할 gate 변수들은 row-wise maxpooling된 값에 softmax를 적용시켜서 통과시킨다.
+  2.6 얻은 gate vector를 Q와 A에 행렬곱을 시켜서 마지막 similarity를 계산할 두 vector를 얻는다.
+  2.7 attentive pooling을 사용하면 더 적은 모델 parameter로 더 좋은 성능을 내는 것을 확인 할 수 있었다.
+  2.8 attentive pooling을 사용하면 입력 sequence의 길이가 길어져도, 저하되는 성능이 큰 차이가 없는것을 확인 할 수 있어서, 모델의 robustness가 증가 되는것을 확인 할 수 있었다.
+  2.9 embedding 시켜서 얻은 벡터를 CNN이나 bi-LSTM으로 feature map을 얻고, 얻은 feature map을 이용해서 gate를 하나더 학습해서 gate를 통과시켜 Q와 A간 similarity를 비교하는 벡터를 찾는데 사용할 수 있다.
+  2.10 https://arxiv.org/abs/1602.03609
