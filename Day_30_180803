@@ -58,3 +58,4 @@
   3.17 마지막에 average pooling으로 원하는 크기로 데이터를 줄인다.
   3.18 줄인 데이터를 이용해서 classification을 진행할때, bounding box를 예측하는 것이 아닌 정해진 anchor box들 중에 탐색을 진행하고, 특정 anchor box에 특정 class 가 등장할 확률을 계산한다.
   3.19 https://arxiv.org/abs/1612.08242
+  3.20 https://m.blog.naver.com/sogangori/221011203855
