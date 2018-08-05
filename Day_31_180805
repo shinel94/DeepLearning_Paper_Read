@@ -1,0 +1,33 @@
+1. RNN에 dropout이 아닌 방법으로 regularization을 적용하는 방법
+  1.1 RNN은 time serise data에 강점을 보이는데 특히 Language model에서 많은 영역에서 state of art의 performance를 보여주고 있다..
+  1.2 RNN에 overfitting 문제가 많이 나타나고 있는데 이를 막기 위해서 많은 방법들이 적용되고 있다.
+  1.3 첫번째로 적용할 수 있는 것은 batch normalization인데 RNN에서는 batch normalization뿐 아니라 layer normalization의 형식으로 적용되고 있다.
+  1.4 그리고 Reccurenct Highway network와 같이 Gate를 나타내는 방식으로 structure를 수정해서 RNN의 성능을 개선하는 방식이 제안되고 있다.
+    1.4.1 RHN이나 GRU나 MRU그리고 clockwise RNN이나 fast-slow RNN과 같이 다양한 structure를 가진 RNN으로 long term dependecy에 대해서 중요도가 적게 판단되는 것과 gradient discent와 같은 문제나 overfitting문제를 해결하고 있다.
+  1.5 그리고 추가적으로 적용되는게 dropout이다.
+  1.6 하지만 RNN의 recurrent connection에 dropout을 적용하게 되면 오히려 time dependecy를 잘 capture하지 못하는 문제점이 나타나고 있다.
+  1.7 그리서 non reccurenct connection에 dropout을 적용하는 방식이나 LSTM에 memory cell에 dropout이 적용되고 또 zoneout이라는 hidden state가 갱신되지 않고 지난번 출력으로 그대로 사용되는 model이 제안되고 있다.
+  1.8 본 논문에서는 dropout을 다른 방향으로 hidden output과 time step간 hidden output간 distance를 L2 norm을 시켜서 그 에러값을 이용해서 regularization을 적용한다.
+  1.9 hidden output에 L2 norm을 적용하기 전에 time step에 따른 dropout mask를 hidden output에 적용시켜서, 특정 노드값을 drop시키고 L2 norm을 계산한다.
+  1.10 time에 따른 hidden output간 L2 norm을 적용할때 역시, 두개의 distance를 구한 matrix에 dropout mask를 적용시킨다.
+  1.11 모델의 안정성인 높아짐과 동시에 regularization을 적용시킬 수 있는 방법인것 같고, 결국 성능이 향상되는 것을 확인 할 수 있었다.
+  1.12 Swapout방식을 RNN에 적용시키거나 embedding matrix가 tie 될때 특정 dropout mask만 tie되게 모델을 학습하면 더 좋을것 같다는 생각이 든다.
+  1.13 https://arxiv.org/abs/1708.01009
+  
+2. RNN에 state of art performance를 내기위한 hyperparameter tunning
+  2.1 RNN이 다양한 분야에서 우수한 성능을 나타내고 있다.
+  2.2 하지만 RNN은 long term dependecy 를 capture하지 못한다는 한계점을 보이고 있다.
+  2.3 그리고 gradient가 vanishing되거나 overfitting이 쉽게 일어난다는 문제점이 있다.
+    2.3.1 쉽게말해서 RNN은 time step방향의 depth로는 거의 arbitary한 숫자로 정할 수 있기 때문에, 과적합이 쉽게 일어난다고 볼 수 있다.
+  2.4 이를 개선하기 위해서 RNN의 모델을 LSTM과 같이 추가적은 cell을 가진 모델로 개선하거나, 또는 다양한 regularization방법들이 제안되고 있다.
+  2.5 본 논문에서는 현재 제안된 많은 순환신경망 뿐만아니라 다른 신경망도 가지고 있는 hyperparameter들을 tunning하는 방법에 대해서 말한다.
+  2.6 hyperparamter가 숫자가 많아지면 많아질수록 grid search방법이 더욱 효율적이다.
+  2.7 Google Vizier에 의해서 hyperparamter들이 tunning되었다.
+  2.8 그리고 같은 hyperparameter setting을 가지고 있더라고 모델이 가지는 uncertainty때문에 성능이 일정하게 나오지 않는ㄷ.
+    2.8.1 첫째로는 컴퓨터로 계산하는데 있어서 floating point의 계산이 완전히 정확하게 계산되지 않아서 각 모델간 차이가 발생한다.
+    2.8.2 둘쨰로는 가중치나 bias를 initailization할때 설정하는 seed값에 의해서 결과값이 많이 바뀐다.
+    2.8.3 validation과 test 그리고 training set을 나누는데 있어서 한정된 데이터를 이용해서 나누기 때문에 모델의 성능에 차이가 발생한다.
+  2.9 그리고 hyper parameter tune을 하면 LSTM이 RHS보다 상승폭이 큰것으로 보아 RHS가 LSTM보다 이미 hyperparameter가 tune되어있는 모델로 생각 할 수있다.
+  2.10 그리고 language model에서 embedding matrix를 input과 output을 내는데 tie 시킴으로써 더 robust하고 성능이 좋은 모델을 학습 할 수 있다.
+  2.11 그래서 현재까지 제안된 RNN cell을 초매개변수를 잘 튜닝해서 하면 좋은 성능을 내는 모델을 만들 수 있다.
+  2.12 https://arxiv.org/abs/1707.05589
