@@ -20,3 +20,15 @@
   1.7 각 레이어가 모두 output layer에 연결되어 있기 때문에, 모든 feature map을 활용해서 model의 classification을 진행함으로써 과적합을 막을 수 있고, 적은 파라미터로 좋은 성능을 낼 수 있다.
   1.8 결국 파라미터가 적은수가 필요해지기 때문에 과적합 문제도 개선이 되고, 계산 비용역시 감소하지만 성능은 오히려 더 좋은 성능을 얻어내는 모델을 학습 시킬 수 있다.
   1.9 https://arxiv.org/abs/1608.06993
+
+2. RNN에 dropout을 적용시키는 방법
+  2.1 RNN이 language model에서 우수한 성능을 내는 것을 확인 할 수 있었다.
+  2.2 하지만 RNN의 가장 큰 문제점이 gradient가 vanishing되거나 exploding되는것과 학습중에 과적합이 쉽게 발생한다는 것이다.
+  2.3 여기서 과적합을 막기위해서 다른 형태의 신경망에서 제안된 dropout을 적용시키려 하지만 간단하게 적용하면 성능이 감소되는 현상이 나타난다.
+  2.4 이를 개선하기위해서 첫째로 non-reccurent connection에만 dropout을 적용시키면, 성능이 개선되는 것을 확인 할 수 있었다.
+  2.5 그리고 추가적으로 LSTM의 memory cell에 적용하면 또 역시 성능이 일부분 개선되는 것을 확인할 수 있었다.
+  2.6 추가적으로 reccurent connection에 zoneout이나 highway connection으로 hidden state 값을 덜 갱신하거나, 추가적인 gate를 학습해서 모델을 개선 할 수 있다.
+  2.7 그리고 본 논문에서 제안된 rnnDrop은 같은 입력에 대해서 같은 dropout mask를 적용하는 것을 말한다.
+  2.8 이때 입력이 같으면 모든 time step에 대해서 동일한 dropout mask가 적용되기 때문에, 학습하는데는 오히려 더 쉬울것이라 예상된다.
+  2.9 하나의 RNN을 rnnDrop으로 쪼개서 입력데이터 숫자만큼의 모델을 만들어서 ensemble 시키는것과 유사하다고 볼 수 있을것 같다.
+  2.10 https://ieeexplore.ieee.org/document/7404775/
