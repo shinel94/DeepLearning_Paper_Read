@@ -1,0 +1,22 @@
+1. ResNet을 넘고 FractalNet을 넘은 DenseNet
+  1.1 신경망이 특히 CNN이 이미지 인식에서 우월한 성능을 나타내고 있어서 이를 개선하기 위해서 많은 방법들이 제안되었다.
+  1.2 3가지 관점에서 신경망이 개선되고 있다고 생각 할 수 있다.
+    1.2.1 첫번째 관점은 데이터의 preporcessing과 관련된 부분이다.
+      1.2.1.1 batch noramalization과 같이 데이터의 분산과 분포에 대한 영향을 줄이기 위해서 적용하는 방법이다.
+      1.2.1.2 stochastic gradient discent 방식으로 특정데이터에 대한 중요도를 낮출 수 있고, 또 전반적인 학습이 개선된다.
+      1.2.1.3 가중치를 초기화 하는 전략역시 다양한 방면에서 개선되고 있다.
+      1.2.1.4 학습시에 dropout 이나 dropconnect 와 같이 regularization을 적용하여서 모델의 과적합을 막는다.
+    1.2.2 두번째 관점은 얻어낸 feature map에 다른 형식의 classifier를 적용하는 것이다.
+      1.2.2.1 이런 모델은 특정 성능이나, 특정 기능을 가진 모델을 학습하게 되는데 neural style과 yolo또는 sppnet과 같이 CNN 구조를 개선하는 것이 아닌 feature map의 데이터를 어떻게 관리해서 특정 기능을 할 수 있게 만드는 것을 목표로 하고 있다.
+    1.2.3 세번째 관점은 CNN구조 block을 개선하는 방식이다.
+      1.2.3.1 dropout에서 개선된 방식으로 residual 이나 skip connection이나 highway network나 stochastic depth와 같이 connection에 변형을 주어서 모델의 학습속도를 개선하고 과적합을 막는다.
+      1.2.3.2 Network in network나 inception model과 같이 하나의 신경망으로 여러개의 ensemble효과를 줄 수 있는 모델을 한번에 학습한다.
+      1.2.3.3 Filter를 fatorization하는 방식으로 적은 수의 파라미터로 성능을 얻을 수 있다.
+      1.2.3.4 auxillary classifier를 추가해서 학습할때 error를 더 잘 전파 할 수 있게 할 수 있다.
+  1.3 위의 다양한 방식으로 CNN이 개선되고 있고, 본 논문에서는 Residual connection을 더 개서 시키는 방식이 제안 되었다.
+  1.4 Densely Connected Convolutional Network는 특정 block의 아웃풋간 연결을 다른 상위 layer로 direct connection을 추가하는 방식이다.
+  1.5 수학적으로는 Residual connection과 차이가 없지만, 본 모델에서는 layer간 데이터를 받아올때 summation을 통해서 받는 것이 아닌 concatenation을 통해서 입력 데이터가 합쳐진다.
+  1.6 적은 수의 필터수만 가지고도 좋은 성능을 내는 모델을 학습 할 수 있다.
+  1.7 각 레이어가 모두 output layer에 연결되어 있기 때문에, 모든 feature map을 활용해서 model의 classification을 진행함으로써 과적합을 막을 수 있고, 적은 파라미터로 좋은 성능을 낼 수 있다.
+  1.8 결국 파라미터가 적은수가 필요해지기 때문에 과적합 문제도 개선이 되고, 계산 비용역시 감소하지만 성능은 오히려 더 좋은 성능을 얻어내는 모델을 학습 시킬 수 있다.
+  1.9 https://arxiv.org/abs/1608.06993
