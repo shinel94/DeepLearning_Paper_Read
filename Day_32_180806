@@ -32,3 +32,12 @@
   2.8 이때 입력이 같으면 모든 time step에 대해서 동일한 dropout mask가 적용되기 때문에, 학습하는데는 오히려 더 쉬울것이라 예상된다.
   2.9 하나의 RNN을 rnnDrop으로 쪼개서 입력데이터 숫자만큼의 모델을 만들어서 ensemble 시키는것과 유사하다고 볼 수 있을것 같다.
   2.10 https://ieeexplore.ieee.org/document/7404775/
+
+3. RNN architecture의 complexity를 emperical하게 measure하는 방법
+  3.1 RNN모델은 2가지의 depth를 가지고 있고, 이때문에 다른 신경망과 달리 모델의 복잡도를 표현하기에 제약이 있다.
+  3.2 본 논문에서는 이를 위해서 3가지로 나누어서 복잡도를 계산한다.
+  3.3 reccurent depth를 통해서 reccurent에 대한 복잡도를 계산한다.
+  3.4 feedforward depth를 통해서 feedforward에 대한 복잡도를 계산한다.
+  3.5 마지막으로 skip - connection에 대한 복잡도를 위해서 skip - coefficient를 제안했다.
+  3.6 RNN도 역시 모델이 깊어지고 complexity가 증가될 수록 모델의 성능이 증가되는 경향을 확인 할 수 있었다.
+  3.7 https://arxiv.org/abs/1602.08210
