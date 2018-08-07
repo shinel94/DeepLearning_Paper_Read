@@ -11,3 +11,20 @@
   1.9 이 논문은 결국 하나의 CNN module block을 개선시켜서 더 계산복잡도와 계산비용을 줄이고, multi core process에서 더 잘 작동하는 module block을 제안하는 논문으로, YOLO나 neural style이나 object detection과는 다른 목적을 가지고 있는 논문이다.
   1.10 그래서 결국 parallel하게 연결된 모듈들과 stochastic하게 drop되어 있는 connection에 의해서 하나의 모델로 다양한 ensemble효과를 내는 모델을 학습 할 수 있게된다.
   1.11 https://arxiv.org/abs/1609.05672
+
+2. LSTM에 Batch Normalization을 적용시키는 방법
+  2.1 RNN의 좋은 성능을 내지만 gradient가 vanishing되고 exploding되는 문제가 발생한다.
+  2.2 이를 해결하기 위해서 LSTM과 같은 모델이 제안되었다.
+  2.3 gate를 통해서 long term dependency를 capture하는데, 이를 적용함으로써 학습이 잘 진행되지 않는 문제역시 발생한다.
+  2.4 이를 개선하기 위해서 Batch Noramlization방법을 적용하려고 했지만 time - step에 대해서 길이가 너무나 깊기 때문에, repeated rescaling을 적용하는 BN이라서 gradient가 쉽게 exploding되는 문제가 발생한다.
+  2.5 이를 해결하기 위해서 Layer Noamlization이라는 독자적인 논문이 제안되었다
+    2.5.1 상기 논문에는, layer 별로 scale과 shift factor를 설정해서 학습하는방법으로 time 에 대해서 independet하기 때문에, 학습에 더 효율적이고 gradient가 exploding하는 문제역시 조절 가능하다.
+  2.6 그리고 본 논문에서 LSTM에 BN을 적용하는 방법이 제안되었다.
+    2.6.1 우선 BatchNormalization을 gate에 입력되기 전, gate의 activation function에 들어가기 전에 Batch Normalization즉 covariate shift를 적용함으로써 BN을 적용시킬 수 있다.
+    2.6.2 이때 BN을 적용할때, reccurent connection에 의한 hidden unit과 input unit을 각각 따로 BN을 적용시켜서 정보의 이동을 조절한다.
+      2.6.2.1 gate(BN(Wh,beta,gamma) + BN(Wx,beta,gamma) + b)와 같이 따로따로 구성시킨다.
+    2.6.3 이때 하나의 출력에 하나의 바이어스가 이미 있기 때문에 unnecessary redundancy를 줄이기 위해서 BN의 shift factor는 0으로 고정한다.
+    2.6.4 그리고 gamma의 값이 너무작아지면(0.001보다 작으면) 모델이 instable해지는 문제가 발생하기 때문에, gamma는 0.1로 설정했다.
+  2.7 이렇게 적용한 BN덕분에 모델의 학습속도를 개선시키면서 장기의존성을 더 잘 capture하는 좋은 성능을 내는 모델을 얻을 수 있다.
+  2.8 LSTM에 gate를 들어가기 전에 BN을 적용시킴으로써 학습속도와 성능을 개선시킬 수 있다.
+  2.9 https://arxiv.org/abs/1603.09025
