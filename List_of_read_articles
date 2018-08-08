@@ -171,3 +171,11 @@
   108. Densely Connected Convolutional Networks - https://arxiv.org/abs/1608.06993
   109. RNNDROP: A novel dropout for RNNS in ASR
   110. Architectural Complexity Measures of Recurrent Neural Networks - https://arxiv.org/abs/1602.08210
+
+180807
+  111. Multi-Residual Networks: Improving the Speed and Accuracy of Residual Networks - https://arxiv.org/abs/1609.05672
+  112. Recurrent Batch Normalization - https://arxiv.org/abs/1603.09025
+  
+108008
+  113. Regularizing Neural Networks by Penalizing Confident Output Distributions - https://arxiv.org/abs/1701.06548
+  114. ShuffleNet: An Extremely Efficient Convolutional Neural Network for Mobile Devices - https://arxiv.org/abs/1707.01083
