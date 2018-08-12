@@ -1,0 +1,33 @@
+1. YOLO v3
+  1.1 이렇게 논문을 써도 된다니 일단 진짜 성공하고 봐야된다.
+  1.2 anchor box를 사용함으로써 모델의 성능을 향상 시킬 수 있던 yolo 9000의 모델을 같게 사용하였다.
+  1.3 CNN모델은 보다 깊게 structre를 구성해서 모델을 학습 시켰다.
+  1.4 그리고 다른 대부분의 변수들은 동일하게 사용했지만, classification에 변형이 있다.
+  1.5 hierachical하게 classification하거나 아니면 하나의 class로 softmax로 분류하는 방식이 아니라, 각 각 클래스 별로 binary logistic regression을 통해서 모델의 classifiaction을 진행했다.
+  1.6 본 방식을 이용하면 하나의 데이터가 여러개의 class를 가지고 있는 문제를 효율적으로 처리할 수 있고, 모델의 전체적인 성능역시 증가 되었다.
+  1.7 마지막 node에 average pooling을 이용해서 모델의 파라미터를 줄였다.
+  1.8 결국 입력 데이터의 class를 k-means clustering으로 분류를 1차적으로 해서 anchor box별로 classification을 진행해서 모델의 성능을 개선 시킬 수 있다.
+  1.9 https://pjreddie.com/media/files/papers/YOLOv3.pdf
+  
+2.  Unitary Weight matrix로 gradient 문제를 해결할 수 있다.
+  2.1 RNN은 hidden to hiddne weight matrix의 eigenvalue의 절댓값이 1과 멀어지면, gradient가 vanishing되거나 exploding하는 문제가 발생한다.
+  2.2 이러한 gradient의 문제가 RNN의 장기 의존성을 잘 capture하지 못하는 문제점을 나타내고, 학습도 잘 하지 못하는 문제가 발생한다.
+  2.3 그래서 unitary matrix라는 eigenvalue가 1인 matrix W*W^T = I가 되게끔 orthogonal하게 모델을 학습한다.
+  2.4 이때 단순하게 orthogonal하고 unitary 하게 학습을 하게 되면 모델의 계산복잡도가 지나치게 커지게 된다.
+  2.5 이를 개선하기 위해서 complex conjugate transformation방법을 이용해서 complex domain으로 모델을 확장해서 unitary한 matrix를 학습 시킬 수 있다.
+  2.6 즉 real 모델과 complex모델을 입력값에서 잘 분해시켜서 하나의 데이터를 이용해서 두개의 개별된 모델의 인풋으로 나누고 해당 모델을 통과시켜서 두게의 출력을 하나로 합쳐서 classification을 진행해서 모델의 성능을 향상 시킬 수 있다.
+  2.7 결국 모델이 수학적으로 unitary하게 됨으로써 gradient가 exploding되거나 vanishing되는 문제를 일부분 해결 할 수 있다.
+  2.8 그래서 모델의 gradient가 잘 조절되기 때문에 information flow를 잘 조절할 수 있고 이를 통해서 모델의 long term dependecy를 잘 capture할 수 있게 된다.
+  2.9 그리고 모델이 orthogonal하게 되면 출력값들 사이가 비슷해지는 효과를 얻을 수 있다. W^T*W = I가 orthogonal하기 때문에, 지난번출력과 이번출력이 비슷하게 값을 가질 수 있다.
+  2.10 https://arxiv.org/abs/1511.06464
+  
+3. LSTM을 깊고 bidirection으로 만들면 학습이 잘된다.
+  3.1 RNN의 구조적인 한계와 gradient가 vanishing되거나 exploding되는 문제를 해결하기 위해 다양한 모델들이 제안되고 있다.
+  3.2 그리고 RNN의 과적합을 막기위해서 또 다양한 학습방법과 모델들이 제안되고 있다.
+  3.3 그리고 최근에 제안된 RNN을 bidirection하게 입력값을 변형시켜서 2개의 모델을 학습시켜서, 과거의 값과 미래의 값을 조합해서 이번 값을 예측하면 모델성능이 향상되는 것을 확인 할 수 있다.
+  3.4 그리고 이 방법을 LSTM에 적용시켜서 hidden state값을 과거의 값과 미래의 값을 합쳐서 입력으로 받게끔 모델을 학습하고 non reccurent방향으로 deep하게 모델을 쌓아서 성능을 향상 시킬 수 있다.
+  3.5 그리고 sequence 모델을 한번에 error로 전파함으로써 모델의 학습속도를 더욱 개선 할 수 있다.
+  3.6 그리고 weight에 gaussian noise를 추가함으로써 모델의 과적합을 막을 수 있다.
+  3.7 이때 noise를 time step에따라서 매번 넣는것이 아니라, training sequence별로 noise를 추가해서 모델의 성능을 개선 시킬 수 있다.
+  3.8 결국 LSTM모델을 bidirection하게 모델을 구성해서 gaussian noise를 추가하면 모델의 성능을 향상 시킬수 있다.
+  3.9 https://ieeexplore.ieee.org/document/6707742/
