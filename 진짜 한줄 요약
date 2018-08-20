@@ -1,0 +1,4 @@
+1. 음성인식에서, 여러개의 마이크를 통해서 multi channel로 음성을 데이터화 시켜서 그 데이터로 신경망 입력으로 넣고 데이터를 처리하면 더 좋은 성능을 내는 것을 확인 할 수 있다.
+  1.1 https://ieeexplore.ieee.org/abstract/document/6707744/
+2. layer의 가중치를 학습할때, second order term을 쉽게 계산하기 위해서 mean shift데이터를 이용하면 모델을 더 쉽고 빠르게 학습할 수 있고, 과적합 역시 일부분 개선 되는 것을 확인 할 수 있다.
+  2.1 https://ieeexplore.ieee.org/document/6853582/
