@@ -1,4 +1,8 @@
 1. 음성인식에서, 여러개의 마이크를 통해서 multi channel로 음성을 데이터화 시켜서 그 데이터로 신경망 입력으로 넣고 데이터를 처리하면 더 좋은 성능을 내는 것을 확인 할 수 있다.
   1.1 https://ieeexplore.ieee.org/abstract/document/6707744/
+
 2. layer의 가중치를 학습할때, second order term을 쉽게 계산하기 위해서 mean shift데이터를 이용하면 모델을 더 쉽고 빠르게 학습할 수 있고, 과적합 역시 일부분 개선 되는 것을 확인 할 수 있다.
   2.1 https://ieeexplore.ieee.org/document/6853582/
+
+3. 단어를 embedding을 진행하고 문장을 번역할때, 언어간 차이에서 오는 문장의 차이를 epsilon token을 추가해서 행렬을 정사각으로 만들어서 진행하면 모델의 학습이 더 잘 진행되고 또, LSTM을 정방향과 역방향 모델을 각각 학습을 진행해서 출력을 구하면 모델의 성능을 증가 시킬 수 있다. backword LSTM의 경우에는 단어 데이터만 이용해서 모델을 학습하게 되고 forward LSTM의 경우에는 지난번 출력값과 이번 단어들을 이용해서 모델을 학습한다. 그리고 출력값에 단어의 class term을 추가함으로써 모델의 성능을 증가 시킬 수 있다.
+  3.1 https://www-i6.informatik.rwth-aachen.de/publications/download/936/SundermeyerMartinAlkhouliTamerWuebkerJoernNeyHermann--TranslationModelingwithBidirectionalRecurrentNeuralNetworks--2014.pdf
