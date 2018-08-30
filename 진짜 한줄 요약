@@ -6,3 +6,11 @@
 
 3. 단어를 embedding을 진행하고 문장을 번역할때, 언어간 차이에서 오는 문장의 차이를 epsilon token을 추가해서 행렬을 정사각으로 만들어서 진행하면 모델의 학습이 더 잘 진행되고 또, LSTM을 정방향과 역방향 모델을 각각 학습을 진행해서 출력을 구하면 모델의 성능을 증가 시킬 수 있다. backword LSTM의 경우에는 단어 데이터만 이용해서 모델을 학습하게 되고 forward LSTM의 경우에는 지난번 출력값과 이번 단어들을 이용해서 모델을 학습한다. 그리고 출력값에 단어의 class term을 추가함으로써 모델의 성능을 증가 시킬 수 있다.
   3.1 https://www-i6.informatik.rwth-aachen.de/publications/download/936/SundermeyerMartinAlkhouliTamerWuebkerJoernNeyHermann--TranslationModelingwithBidirectionalRecurrentNeuralNetworks--2014.pdf
+
+4. RNN에 Batch Normalization을 적용하는 방법
+  4.1 RNN에서는 feed-forward network에서 적용한것 처럼 BN을 적용하면 학습이 잘 되지 않는 문제가 발생한다.
+  4.2 그래서 보통 horizontal한 방향으로는 BN을 적용하지 않는다. 이때 horizontal 은 time direction한 방향을 의미
+  4.3 이를 개선하기 위해서 time step wise로 BN을 적용해서 scale factor와 shift factor를 학습해서 모델의 학습속도를 개선 할 수 있다.
+  4.4 하지만 과적합이 쉽게 발생하는 문제가 발생했다.
+  4.5 결론적으로 RNN에 dropout을 적용하는 방식과 같은식으로 input to hidden이나 hidden to output이나 아니면 vertical한 방향으로만 BN을 적용시키면 모델의 성능을 조금 향상 시킬 수 있다.
+  4.6 https://arxiv.org/abs/1510.01378
