@@ -32,3 +32,6 @@
 
 7. 기본적으로 성능이 검증된 CNN structure를 backbone으로 feature map을 얻어내고, 해당 feature map 데이터를 이용해서 position-senstitive pooling을 통해서 전체 이미지를 gird로 나누어서 해당 grid에대한 데이터를 하나의 채널에 데이터를 넣고 그리고 출력된 특징데이터를 이용해서 RoI pooling을 다시 진행해서 얻어낸 데이터로 classification을 진행한다.
   7.1 https://arxiv.org/abs/1605.06409
+
+8. multi scale의 object와 이미지 classification을 진행하기 위해서 기본적인 CNN으로 얻어낸 feature map 데이터를 pyramid형식으로 데이터를 embedding시켜서 feature map을 얻어내고 가장 상위 layer에부터 모두 1x1 pooling을 통해서 predict를 위한 independent variable을 얻어내고, 가장 상위 레이어의 independent variable을 upsampling하여서 큰 사이즈의 independent variable에 데이터를 추가해서 predict를 진행해서 multi sacle의 문제를 해결 하는데 좋은 성능을 얻어 낼 수 있다.
+  8.1 https://arxiv.org/abs/1612.03144
