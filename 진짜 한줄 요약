@@ -29,3 +29,6 @@
   6.2 입력데이터를 embedding을 진행하고 embedding된 데이터의 similarity를 다양한 방법으로 계산하여서, 그 similarity행렬로 가중치를 학습하거나 바로 attention을 진행해서 모델을 학습하면 단어간 연관성을 더 잘 찾을 수 있게 된다.
   6.3 stack을 하여서 ABCNN을 학습할때는, 하위 레이어만 가지고 먼저 학습을 진행한뒤 이후에는 하위 레이어는 fix시키고 상위레이어를 학습시키는 식으로 모델을 stack해 나간다.
   6.4 https://arxiv.org/abs/1512.05193
+
+7. 기본적으로 성능이 검증된 CNN structure를 backbone으로 feature map을 얻어내고, 해당 feature map 데이터를 이용해서 position-senstitive pooling을 통해서 전체 이미지를 gird로 나누어서 해당 grid에대한 데이터를 하나의 채널에 데이터를 넣고 그리고 출력된 특징데이터를 이용해서 RoI pooling을 다시 진행해서 얻어낸 데이터로 classification을 진행한다.
+  7.1 https://arxiv.org/abs/1605.06409
