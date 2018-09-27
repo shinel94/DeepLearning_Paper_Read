@@ -1,0 +1,6 @@
+1. Object Detection with Discriminatively Trained Part Based Models
+  1.1 이미지 모델을 학습할때, 낮은 resolution 이미지를 통해서 사물의 개략적인 위치를 파악하고, 높은 resolution으로 갈때 하위 이미지에서 추출된 물체가 있는곳에 집중을 해서 latent variable을 얻어낸다.
+  1.2 학습을 진행할때, SGD방식으로 학습을 진행하면서, 처음 정해진 subset에 boosting방식을 적용해서, 학습하기 쉬운 이미지는 제거되고, 학습하기 쉬운 이미지는 추가해서 새롭게 모델을 학습을 진행한다.
+  1.3 HOG방식으로 얻어낸 latent variable을 이용해서 SVM을 적용시켜서 모델을 학습한다.
+  1.4 결국 가장 낮은 resolution에서 어떤 영역에 집중해서 latent variable을 얻어낼지 찾아내고, 그 지역 근처의 값들로만 classification을 진행 사물이 있는지 없는지와, 어떤 사물인지 분류하는 모델을 만들 수 있다.
+  
