@@ -1,0 +1,13 @@
+1. MnasNet
+  1.1 많은 CNN모델이 있지만 계산비용과 복잡도가 너무커서 resource가 제한적인 device에는 적용할 수 있다.
+  1.2 shufflenet과 같은 방식으로 계산 복잡도를 줄이려고 한다.
+    1.2.1 shuffleNet은 데이터 입력과 출력을 group화 시켜서 작은 모델을 학습하는 것과 같은 방식으로 계산량 자체를 줄인다.
+    1.2.2 첫번째 레이어가 10x10 인경우 5x5로 4개로 group을 나누어서 계산을 하고 다음 레이어로 값이 전파될때, group간 어느정도 shuffle을 통해서 robustness와 모델의 성능을 얻을 수 있었다.
+  1.3 추가적으로 parameter shapring이나 pruning filter나 filter factorization 같은 방식으로 계산량을 줄인다.
+  1.4 모델의 accracy값을 maximizaion을 하는것으로 목적으로 하고, latency값을 penalty로서 적용해서 latency와 acc의 trade-off로 모델을 학습한다.
+  1.5 이때 모델을 Reinforce learning으로 학습을 진행하는데 reward를 위에서 찾은 acc와 laterency의 상관관계값으로 하고, 입력 변수들을 통해서 RNN으로 token을 얻어내고, reward값을 최대화 하게 모델을 만들어 가게 된다.
+  1.6 CNN의 model을 미리 정해둔 block의 sequnece로 확장하게 된다.
+    1.6.1 block은 ConvOp, KernelSize, SkipOp와 같은 block로 구성된다.
+  1.7 비교적 간단하지만 다양한 model block을 적용해서 모델을 학습해서 계산하게 되면 계산량을 줄이면서 성능을 늘일 수 있다. 특히 5x5 depth wise conv의 경우 depth가 7개 이상이 될경우 5x5보다 3x3, 2개 사용하는 것이 계산량적 효율이 좋다.
+  1.8 latency값을 penalty로 주고 acc와 latency값의 panelty값을 곱해서 reward를 계산해서 reinforce learning을 시킬때 RNN을 통해 token을 찾고 그값으로 model에 추가할 block을 선택하고 모델의 성능을 향상하고 계산량을 줄일 수 있고 높은 latency를 가벼운 모델을 만들 수 있다.
+  1.9 https://arxiv.org/abs/1807.11626
