@@ -11,3 +11,21 @@
   1.7 비교적 간단하지만 다양한 model block을 적용해서 모델을 학습해서 계산하게 되면 계산량을 줄이면서 성능을 늘일 수 있다. 특히 5x5 depth wise conv의 경우 depth가 7개 이상이 될경우 5x5보다 3x3, 2개 사용하는 것이 계산량적 효율이 좋다.
   1.8 latency값을 penalty로 주고 acc와 latency값의 panelty값을 곱해서 reward를 계산해서 reinforce learning을 시킬때 RNN을 통해 token을 찾고 그값으로 model에 추가할 block을 선택하고 모델의 성능을 향상하고 계산량을 줄일 수 있고 높은 latency를 가벼운 모델을 만들 수 있다.
   1.9 https://arxiv.org/abs/1807.11626
+
+2. IGC block을 통한 모델의 계산량을 줄이면서 모델의 성능을 증가 시켜보자.
+  2.1 module의 구성을 2개의 group convolution을 진행해서 계산량을 줄이면서 표현력은 손상시키지 않게 모델을 학습 시킬 수 있다.
+  2.2 이때 primary group convolution은 데이터를 L개의 partition으로 나누어서 각 partition별로 convolution 곱을 진행해서 따로따로 regular conv를 진행해서 계산량을 줄인다.
+  2.3 결과 값을 concat하고 chnnel data를 permutaion을 진행한뒤 다시 partition으로 나누고 partition별로 1x1 convolution을 진행해서 partition에서 그룹별로 나뉘 데이터로 얻은 데이터를 blending을 진행하는 것과 같은 효과를 얻을 수 있다.
+  2.4 이게 Xeption과 같은 모듈의 표현식의 보다 일반적인 표현으로 나타난다.
+  2.5 https://arxiv.org/abs/1707.02725
+
+3. PVANet
+  3.1 module의 입력에 computational cost를 줄이기 위해서 입력 데이터에 not 을 적용시킨 것과 concat을 시키고 그 데이터셋에 BN을 적용시켜서 ReLU를 통과시켜 쓸모 없는 neuran을 ignore시킴으로써 모델의 계산복잡도를 줄인다.
+  3.2 module은 Inception module에서 사용한 것과 같은 방식을 적용 시켰고 concat이 된결과물에 1x1 conv를 통과시켜서 계산복잡도는 키우지 않고 모델의 표현력을 키울 수 있다.
+  3.3 https://arxiv.org/abs/1608.08021
+  
+4. Mask R-CNN
+  4.1 Fast/Faster R-CNN처럼 Region proposal pooling을 통과시켜서 bounding box regression과 classification그리고 추가적으로 각 region별로 mask에 각 class별로 2진 출력을 통과시켜서 mask별로 추가적으로 분류 하는 loss를 통해서 모델의 성능을 향상 시 킬 수 있다
+  4.2 feature extractor에서 출력된 결과물에 단순히 mask별로 class를 분류하는 layer를 추가함으로써 모델의 성능을 증가 시킬 수 있다.
+  4.3 feature extractor의 출려을 이용해서 region값과 region에 따른 pooling을 진행해서 계산복잡도를 줄이면서 모델의 성능을 증가시키지만 계산복잡도나 계산속도를 증가 시킬 수 있다.
+  4.4 https://arxiv.org/abs/1703.06870
