@@ -1,0 +1,33 @@
+1. ShuffleNet V2
+  1.1 Group convolution을 진행할때 전체 입력을 여러개의 chunk로 나누어서 연산량을 줄이고, 줄여진 chunk간 데이터 교환 permutation을 진행해서 계산량을 줄이면서 표현력은 유지하고 performance를 좋게 얻을 수 있다.
+  1.2 이때 입력과 출력의 channel width이 차이가 커지면 channel의 숫자 차이가 커지면 연산에서 비효울이 커진다.
+  1.3 Group Convolution에서 Group의 수가 지나치게 커지면, 메모리 적인 부분에서 비효율 적으로 진행이 되면서 모델의 성능이 저하된다.
+  1.4 NIN 구조에서 pallel하게 넓게 되어 있다면, 모델의 performance적인 부분에서 좋지 않은 영향을 준다.
+  1.5 element wise연산역시 계산량 부분에서 많은 부분을  차지하고 있기 때문에, 지나치게 많은 element wise연산은 지양해야 한다.
+  1.6 위사항을 지키면서 모델을 develop해 나가야 모델을 최적화 하기가 쉽다.
+  1.7 https://arxiv.org/pdf/1807.11164.pdf
+  
+2. DSSD
+  2.1 SSD는 배경에 비해서 object가 작을때 분류를 잘 하지 못한다는 단점이 있다.
+  2.2 이 한계점을 SSD의 구조와 같은 구조 결과물에 symmetry하게 deconvolution을 진행해서 압축하는 과정의 데이터를 U-Net에서 처럼 같은 위상의 데이터를 element wise sum을 통해서 residual connection을 추가해서 upsampling을 진행한다.
+  2.3 이때 feaure map의 크기가 큰것에서 얻은 데이터는 object가 큰 경우의 class를 분류하는 모델로서 적용 할 수 있다.
+  2.4 각 prediction 모델마다 class와 bounding box를 YOLO와 같이 계산해서 error를 계산해서 모델을 학습한다.
+  2.5 본래 SSD는 VGG를 사용했지만 Residual-101을 사용해서 feature map을 extraction해서 DSSD라는 prediction + classificatio model을 학습한다.
+  2.6 SSD의 object에 따른 성능차이를 개선하는 모델을 만들 수 있다.
+  2.7 https://arxiv.org/abs/1701.06659
+
+3. 2개의 LSTM을 이용한 문장의 관계찾기
+  3.1 두개의 Bidirectional LSTM을 통해서 입력 문장을 압축하고 그리고 LSTM의 출력을 average pooling을 진행해서 inner attention을 진행하는 모델을 만들어서 sentence vector를 더 표현을 잘하게 하는 모델을 만든다.
+  3.2 이때 비교할 두문장의 sentence vector을 element wise 곱과 차이를 이용해서 sentence의 관계를 나타내주는 벡터를 얻고 그 벡터를 softmax를 통과시켜서 처음 문장이 주어졌을때 이후의 문장이 말이 되는지 안되는지 모르는지를 알 수 있다.
+  3.3 https://arxiv.org/abs/1605.09090
+  
+4. 학습데이터를 pair 시키지 않고 Image to Image를 진행하는 모델
+  4.1 입력이미지를 통해서 새로운 이미지를 만드는 GAN이 제안되었다.
+  4.2 GAN은 생성된 데이터의 분포와 원래 주어진 데이터의 분포의 차이를 이용해서 이 분포가 같아지게끔 모델을 학습하는 방식으로 임의의 데이터 입력을 generator에 입력으로 넣어주면 생성된 데이터와 y간의 차이를 구분하는 discriminator에 들어가서 discriminator가 구분을 잘 하지 못하게끔 generator가 학습되고, generator가 만든 출력을 잘 구분하게 discriminator가 학습된다.
+  4.3 x에서 y를 생성하고 다시 y에서 x를 생성하는 cycle GAN
+  4.4 위에서 x에서 y가 생성되는 것과, y에서 x가 생성되는 generator가 같으면 UNIT
+  4.5 이 논문에서는 2개의 데이터에서 각각 attribute와 content 를 나타내는 vector를 얻어내고 그 벡터를 generator에 넣어서 새로운 이미지를 만들어 낸다.
+  4.6 content vector를 구분하는 discriminator loss와 생성된 이미지를 잘 구분하는 discriminator의 loss 그리고 생성된 이미지로 다시 attribute와 content 벡터를 얻어내고 그 얻어낸 벡터로 원래의 이미지를 만들어서 cycle GAN에서와 유사한 방식으로 생성된 이미지와 입력 이미지의 차이를 loss로 주어져서 많은 loss가 주어져서 모델을 학습한다.
+  4.7 추가적으로 생성된 이미지와 real이미지로 잘표현 되어 있는지, 자기 자신의 attribut와 content로 generator를 통과시켰을때 얻는 이미지의 차이와 attribute가 Normal distribution에 잘 따르는지에 대한것을 추가적으로 loss에 입력해서 학습을 더 잘 시키게 된다.
+  4.8 결국 이 모델에서는 데이터가 서로 entangle되어 있을 필요도 없고, 다른 두개의 이미지로 학습을 진행해서 데이터가 부족하고, 특정상황에서만 사용 할 수 있는 한계점을 일부분 해소 할 수 있다.
+  4.9 https://arxiv.org/abs/1808.00948
