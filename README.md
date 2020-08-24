@@ -6,7 +6,4 @@ UNIST MANE Senior 김혜연
 
 180802 100편 돌파
 
-넘나 어려운 MCMC와 Optimization 
-
-
 shinel@unist.ac.kr
